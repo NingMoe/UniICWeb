@@ -33,7 +33,7 @@ public partial class LoginAll : UniPage
     protected string szVersion = ((uint)ADMINLOGINREQ.SZVERSION.INTVER_MAIN).ToString() + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_RELEASE).ToString("00") + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_INTERNAL).ToString();
 
 	
-	//abc
+	//abcef
     //汇文对接参数配置--沈航，
     /*
     string weixinApiKey = "90GDLKG41677636828F9BK8CGD8F685CDJD1A3JE128H30C";
