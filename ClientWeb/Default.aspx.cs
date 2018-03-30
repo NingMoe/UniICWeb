@@ -9,7 +9,7 @@ using UniWebLib;
 public partial class ClientWeb_Default : UniClientPage
 {
     protected bool isMobile = false;
-    //测试提交
+    //aaa
     protected void Page_Load(object sender, EventArgs e)
     {
         isMobile = IsMoblie();
