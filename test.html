@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+	  <script type="text/javascript" src="http://lib.sinaapp.com/js/jquery/1.7.2/jquery.min.js" id="load_jquery" onerror="Load(0)" ></script>
+	  <script>
+	  $(document).ready(function(){
+	  
+	  $("#btnlogin").click(function(){
+	  var GALURL="http://localhost:7091/";
+	 
+	  /* "logonName": $("#logonname").val(),
+            "password": $("#password").val()
+			*/
+	    var vloginparam = {
+           
+        };
+        //vloginparam = JSON.stringify(vloginparam);
+        $.ajax({
+            type: "POST",
+            async: false,
+            url: GALURL+"admin/adminLogin",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: vloginparam,
+            success: function (data, status) {
+                alert(data);
+            }
+        });
+	
+	  });
+	  
+	  });
+	  </script
+</head>
+<body>
+ <fieldset>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="用户名" id="logonname" type="email" autofocus>
+                                </div>
+                                <div class="form-group">
+                                    <input class="form-control" placeholder="密码" id="password" type="password" value="">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input name="remember" type="checkbox" value="Remember Me">记住
+                                    </label>
+                                </div>
+                                <!-- Change this to a button or input when using this as a form -->
+                                <a href="#" id="btnlogin" class="btn btn-lg btn-success btn-block">登录</a>
+                            </fieldset>
+</body>
+</html>
