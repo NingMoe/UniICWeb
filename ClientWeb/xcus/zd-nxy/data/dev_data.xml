@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<IC>
+  <acc>
+    <Info id="admin" memo="">123</Info>
+    <Info id="teacher" memo="">123</Info>
+  </acc>
+  <app>
+    <Info id="1234" memo="">rest1;wang;2013-09-30;2013-09-30;137;1</Info>
+  </app>
+</IC>

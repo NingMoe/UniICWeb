@@ -1,0 +1,133 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="Templates_Master" %>
+
+<%@ Register TagPrefix="Uni" TagName="dialog" Src="../Modules/dialog.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="nav" Src="../Modules/nav.ascx" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>联创仪器预约平台</title>
+    <link href="Theme/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Theme/css/ddsmoothmenu.css" />
+    <link href='Theme/js/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='Theme/js/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+
+    <%--<link rel="stylesheet" href="Theme/css/nivo-slider.css" type="text/css" media="screen" />--%>
+
+    <script type="text/javascript" src="Theme/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="Theme/js/jquery-ui-1.8.20.custom.min.js"></script>
+    <script type="text/javascript" src="Theme/js/site.js"></script>
+    <script type="text/javascript" src="Theme/js/ddsmoothmenu.js"></script>
+    <script type="text/javascript" src="Theme/js/datepicker/WdatePicker.js"></script>
+    <script type="text/javascript" src='Theme/js/fullcalendar/fullcalendar.js'></script>
+
+    <script type="text/javascript" src="Theme/js/PageCtrl/PageCtrl.js"></script>
+    <link href='Theme/js/PageCtrl/PageCtrl.css' rel='stylesheet' />
+
+    <script type="text/javascript">
+
+        ddsmoothmenu.init({
+            mainmenuid: "top_nav", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            //customtheme: ["#1c5a80", "#18374a"],
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        var message = "";
+        function mymsg(msg) {
+            message = msg;
+        }
+        function showMsg() {
+            if (message != "") {
+                alert(message);
+            }
+        }
+        function search() {
+            debugger;
+            var url = window.location.href;
+            if (url.indexOf("Default.aspx") < 0) {
+                var key = $("#keyword").val() == "仪器名关键字搜索..." ? '' : $("#keyword").val();
+                window.location.href = "<%=ResolveUrl("~/DevWeb/Default.aspx")%>" + "?key=" + key;
+            }
+            else {
+                SubmitRet(RetSelecteds());
+            }
+        };
+    </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+
+<body>
+    <span id="wait_icon"></span>
+    <div id="templatemo_body_wrapper">
+        <div id="templatemo_wrapper">
+
+            <div id="templatemo_header">
+                <div id="site_title">
+                    <h1><a href="#">联创仪器预约平台</a></h1>
+                </div>
+                <div id="header_right">
+                    <Uni:nav ID="loginNav" runat="server" />
+                    <p>
+                        <a href="#">实验室网站</a> | <a href="#">实验数据下载</a> | <a href="#">帮助说明</a>
+                    </p>
+                </div>
+                <div class="cleaner"></div>
+            </div>
+            <!-- END of templatemo_header -->
+
+            <div id="templatemo_menubar">
+                <div id="top_nav" class="ddsmoothmenu">
+                    <ul>
+                        <li><a href="Default.aspx" class="selected">首页</a></li>
+                        <%-- <li><a href="#">分子生物学设备</a>
+                                              <ul>
+                        <li><a href="http://www.cssmoban.com/">Sub menu 1</a></li>
+                        <li><a href="#">Sub menu 2</a></li>
+                        <li><a href="#">Sub menu 3</a></li>
+                        <li><a href="#">Sub menu 4</a></li>
+                        <li><a href="#">Sub menu 5</a></li>
+                  </ul>--%>
+                        <%--  </li>
+                        <li><a href="#">细胞生物学设备</a>
+                                               <ul>
+                        <li><a href="http://www.cssmoban.com/">Sub menu 1</a></li>
+                        <li><a href="#">Sub menu 2</a></li>
+                        <li><a href="#">Sub menu 3</a></li>
+                  </ul>
+                        </li>
+                        <li><a href="#">生物与化学成分分析设备</a></li>
+                        <li><a href="#">分方向专业用设备</a></li>--%>
+                        <%--       <li><a href="contact.html">Contact Us</a></li>--%>
+                    </ul>
+                    <br style="clear: left" />
+                </div>
+                <!-- end of ddsmoothmenu -->
+                <div id="templatemo_search">
+                    <input type="text" value="仪器名关键字搜索..." name="keyword" id="keyword" title="仪器名关键字搜索..." onfocus="if(this.value=='仪器名关键字搜索...')this.value='';" onblur="if(this.value=='')this.value='仪器名关键字搜索...';" class="txt_field" />
+                    <input type="submit" name="Search" value=" " id="searchbutton" title="Search" class="sub_btn" onclick="search();" />
+                </div>
+            </div>
+            <!-- END of templatemo_menubar -->
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+            <div id="templatemo_footer">
+                <p>
+                    <a href="#">首页</a> | <a href="#">技术支持</a> | <a href="#">关于</a> | <a href="#">使用说明</a> | <a href="#">联系我们</a>
+                </p>
+
+                Copyright © 2013 <a href="#">杭州联创信息技术有限公司</a>
+            </div>
+            <!-- END of templatemo_footer -->
+
+        </div>
+        <!-- END of templatemo_wrapper -->
+    </div>
+    <!-- END of templatemo_body_wrapper -->
+    <Uni:dialog ID="Dialog1" runat="server" />
+    <!-- 登陆激活弹窗，全站模块 -->
+</body>
+</html>

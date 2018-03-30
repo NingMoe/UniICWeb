@@ -1,0 +1,102 @@
+﻿@-ms-viewport { width: device-width; }
+@-webkit-viewport { width: device-width; }
+@-moz-viewport { width: device-width; }
+@-ms-viewport { width: device-width; }
+@-o-viewport { width: device-width; }
+@viewport { width: device-width; }
+body { position: relative; }
+/*-------------------------框架内 ------------------------*/
+.wait_icon { position: absolute; *position: absolute; left: 49%; top: 49%; z-index: 999999; }
+#uni_wait_icon { height: 32px; width: 32px; background: url(img/wait.gif) no-repeat; display: none; }
+.uni_dlg_loading_icon { height: 32px; width: 32px; background: url(img/wait.gif) no-repeat; }
+/*-------------------------功能 ------------------------*/
+.f-fr { float: right; }
+.f-fl { float: left; }
+.pull-right { float: right !important; }
+.pull-left { float: left !important; }
+.f-tc { text-align: center; }
+.f-tr { text-align: right; }
+.f-tl { text-align: left; }
+.f-ofh { overflow: hidden; }
+
+.red { color: #c7254e; }
+.green { color: green; }
+.orange { color: orange; }
+.grey { color: grey; }
+.white { color: white; }
+.forbid { color: #ddd; }
+.yahei { font-family: 'Microsoft YaHei'; }
+.songti { font-size: 12px; font-family: '宋体'; }
+.bold { font-weight: bold; }
+.clear { clear: both; }
+.hidden, .hide { display: none; }
+.click { cursor: pointer !important; }
+.ellipsis { white-space: nowrap; text-overflow: ellipsis; overflow: hidden; }
+.line { height: 1px; margin: 9px 0; overflow: hidden; background-color: #e5e5e5; }
+/*模块*/
+/*-------------------------Dialog ------------------------*/
+.dialog { position: relative; display: none; text-align: left; font-size: 12px; color: #333; line-height: 1.4em; }
+.dialog .title { height: 25px; line-height: 25px; font-family: 微软雅黑 !important; color: #666; font-size: 16px; font-weight: bold; text-align: center; margin: 5px 0 10px 0; overflow: hidden; }
+.dialog .title2 { height: 22px; line-height: 22px; font-family: 微软雅黑 !important; color: #666; font-size: 14px; text-align: center; margin: 3px 0 5px 0; overflow: hidden; }
+.dialog .tag { min-height: 18px; line-height: 18px; color: #999; font-size: 12px; padding-left: 10px; margin: 5px 0; }
+.dialog .tooltip { z-index: 1; position: relative; margin: 3px 2px; max-width: none; }
+.dialog .remark { padding: 6px; line-height: 1.5em; text-align: left; color: #8a6d3b; background-color: #fcf8e3; border: 1px dotted #faebcc; }
+.dialog .operate { text-align: center; margin: 15px 0; }
+.dialog .list table { border-collapse: collapse; border-spacing: 0; margin: 0 auto; padding: 5px 0; width: 100%; }
+.dialog .list td { border: none; padding: 3px 2px; height: 48px; vertical-align: middle; text-align: left; }
+.dialog .list td:first-child { padding-right: 10px; font-weight: bold; color: #666; font-family: "微软雅黑"; font-size: 14px; text-align: right; min-width: 80px; }
+.dialog .list input[type=text], .dialog .list input[type=password], .dialog .list input[type=file] { width: 200px; min-height: 22px; line-height: 22px; display: inline; }
+.dialog .list select { width: 200px; min-height: 28px; line-height: 28px; display: inline; }
+.dialog .tbl { color: #333; margin: 20px 10px; overflow: hidden; line-height: 16px; font-size: 12px; text-align: center; }
+.dialog .tbl table { text-align: left; }
+.dialog .tbl table td { border: 1px solid #ccc; vertical-align: middle; padding: 5px; }
+.dialog table td.th { font-size: 14px; font-family: "微软雅黑"; background-color: #fafafa; text-align: right; }
+.dialog table.detail td { padding: 3px; height: 30px; }
+.dialog table.detail td.th { font-size: 12px; }
+.dialog .tbl input[type=text], .dialog .tbl input[type=password], .dialog .list input[type=file] { width: 200px; min-height: 22px; line-height: 22px; display: inline; }
+.dialog .tbl select { width: 200px; min-height: 28px; line-height: 28px; display: inline; }
+.dialog .submitarea { padding-top: 10px; text-align: center; }
+.dialog .error { color: red; }
+/*-------------------------uniTabs ------------------------*/
+.unitab { display: block; overflow: hidden; }
+.unitab .tab_head { display: block; overflow: hidden; }
+.unitab .tab_head li { list-style-type: none; cursor: pointer; display: inline; }
+.unitab .tab_con .item { display: none; }
+/*.unitab .tab_con div.c_sel { display: block !important; }
+.unitab .tab_con tbody.c_sel { display: table-row-group !important; }*/
+
+/*-------------------------uniPCtrl ------------------------*/
+.uni_list { }
+.uni_ctrl .uni_pc_panel { line-height: 18px; border-top: dotted #ddd 1px; margin: 2px; }
+.uni_ctrl .uni_pc_info .uni_pc_num { color: #428bca; }
+.uni_ctrl .uni_pc_ctrl { float: right; }
+.uni_ctrl .uni_pc_flip { color: #428bca; cursor: pointer; }
+.uni_ctrl .uni_pc_flip.grey { color: #ddd; cursor: default; }
+.uni_ctrl .uni_more_panel { background: #f3f3f3; padding: 5px 3px; text-align: center; color: #777; margin: 2px 0; }
+
+/*-------------------------jquery ui reset ------------------------*/
+.ui-autocomplete.ui-front { z-index: 1062; }
+body .ui-button-icon-only .ui-button-text {display:none !important;}
+body .ui-dialog { z-index: 1060;overflow:visible; }
+body .ui-dialog-title { font-family: 'Microsoft YaHei'; }
+body .ui-autocomplete .ui-menu-item .ui-state-focus { white-space: normal !important; font-weight: normal; }
+body .ui-autocomplete-loading { background: white url('img/loading.gif') 99% center no-repeat; }
+/*-------------------------rootstrap reset ------------------------*/
+.popover.uni_popover { z-index: 1061; }
+.popover button.close { margin-right: 5px; margin-top: 3px; }
+.popover > .arrow:after { top: auto; left: auto; }
+.popover > .arrow { overflow: visible; }
+
+/*提示框*/
+.uni_messager { display: none; position: absolute; z-index: 1063; width: 300px; padding: 15px 10px 10px 10px; border: 1px solid #ccc; background-color: #fff; text-align: center; box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3); }
+.uni_messager > .msg-icon { width: 100%; height: 50px; background: top no-repeat; }
+.uni_messager > .close { float: right; margin-top: -10px; margin-right: -5px; font-size: 18px; font-weight: bold; color: #ddd; cursor: pointer; display: none; }
+.uni_messager.success > .msg-icon { background-image: url(img/success.png); }
+.uni_messager.error > .msg-icon { background-image: url(img/error.png); }
+.uni_messager.warning > .msg-icon { background-image: url(img/warning.png); }
+.uni_messager.info > .msg-icon { background-image: url(img/info.png); }
+.uni_messager.success > .text { color: #00a400; }
+.uni_messager.error > .text { color: #dd4a38; }
+.uni_messager.warning > .text { color: #ff9900; }
+.uni_messager.info > .text { color: #31b0d5; }
+.uni_messager > .text { position: relative; font-family: 'Microsoft YaHei'; font-size: 18px; word-wrap: break-word; }

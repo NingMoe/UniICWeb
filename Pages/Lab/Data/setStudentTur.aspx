@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="setStudentTur.aspx.cs" Inherits="searchCourse" %>

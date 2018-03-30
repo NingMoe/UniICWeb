@@ -1,0 +1,118 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="ClientWeb_cg_Templates_Master" %>
+
+<%@ Register TagPrefix="Uni" TagName="acc" Src="~/ClientWeb/pro/net/acc.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="lg" Src="~/ClientWeb/pro/net/dlg_lg.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="term" Src="~/ClientWeb/pro/net/term.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="include" Src="include.ascx" %>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="renderer" content="webkit">
+    <title><%=GetConfig("SysName") %></title>
+    <Uni:include runat="server" />
+    <script src="<%=ResolveClientUrl("~/ClientWeb/")  %>md/Timepickeraddon/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <!--[if lt IE 9]>
+      <script src="../../fm/add/html5shiv.js"></script>
+      <script src="../../fm/add/respond.js"></script>
+    <![endif]-->
+    <script>
+        function selTermYear(term) {
+            var para = uni.url2Obj(location.href);
+            para.term = term;
+            location.href = location.pathname + "?" + uni.obj2Url(para);
+        }
+    </script>
+    <style>
+        .jumbotron { background: url(theme/images/info_bg.jpg); padding: 20px 30px; color: #fff; height: 200px; margin-top: -70px; border-bottom: none; }
+        .jumbotron .container { margin-top: 60px; }
+        #top_nav li.active a { background-color: #46b8da; color: #fff; }
+        #top_nav li a { color: #ddd; }
+        .table-hover > tbody > tr:hover > td,
+        .table-hover > tbody > tr:hover > th { background-color: #B5E2F0; }
+        .btn-lg { font-family: 'Microsoft YaHei'; }
+        .bs-docs-footer { margin-top: 100px; }
+
+        .btn_info { color: #fff; background-color: #5bc0de; border-color: #46b8da; cursor: default !important; }
+        .btn_info:hover { color: #fff !important; }
+        .btn_info:focus { color: #fff !important; }
+        h3, h2, h1 { font-family: "Helvetica Neue", Helvetica, Microsoft Yahei, Hiragino Sans GB, WenQuanYi Micro Hei, sans-serif; }
+    </style>
+</head>
+<body style="padding-top: 51px; background: #fbfbfb;" data-spy="scroll" data-target=".scroll_navbar">
+    <div id="pub_resource">
+        <div id="acc_info">
+            <Uni:acc runat="server" ID="MyAcc" />
+            <Uni:term runat="server" ID="MyTerm" />
+        </div>
+        <Uni:lg runat="server" />
+    </div>
+    <header class="navbar navbar-inverse navbar-fixed-top bs-docs-nav" role="banner">
+        <div class="container" id="top_nav">
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <li style="display: <%=GetConfig("visitMode")=="login"?"none":""%>">
+                        <a href="Default.aspx?login=relogin" style="font-size: 16px; color: #fff;"><span class="glyphicon glyphicon-home"></span>&nbsp;首页</a>
+                    </li>
+                    <li class="active" style="display: <%=isTeacher?"none":""%>">
+                        <a href="TestItem.aspx">我的实验</a>
+                    </li>
+                    <li class="active" style="display: <%=isTeacher?"":"none"%>">
+                        <a href="TestPlan.aspx">我的实验计划</a>
+                    </li>
+                    <li>
+                        <a href="Status.aspx">实验安排状态</a>
+                    </li>
+                    <li>
+                        <a href="User.aspx">用户信息</a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="Art.aspx?type=other&id=help">使用帮助</a>
+                    </li>
+                    <li style="cursor: pointer;" class="logout lg_act" url="Login.aspx">
+                        <a><span style="color: #fff;">退出<span class="glyphicon glyphicon-log-out"></span></span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <script>
+            var url = location.href.toLowerCase();
+            var list = $("#top_nav").find("a");
+            list.each(function (i) {
+                var pthis = $(this);
+                var href = pthis.attr("href");
+                if (href)
+                    href = href.toLowerCase();
+                if (!uni.isNull(href)) {
+                    if (url.indexOf(href) > 0) {
+                        pthis.parent("li").addClass("active");
+                    }
+                    else {
+                        pthis.parent("li").removeClass("active");
+                    }
+                }
+            });
+        </script>
+    </header>
+    <div class="jumbotron">
+        <div class="container">
+            <h3><span class="glyphicon glyphicon-user"></span>您好,<%=trueName %>  <span style="font-size: 14px;">欢迎使用<%=GetConfig("SysName") %>！</span></h3>
+            <p style="border-top: 1px solid #fff; font-size: 14px; padding: 3px 5px;"><code><%=trueName==""?"匿名身份":(isTeacher?"教师身份":"学生身份") %></code> 登录名：<%=logonName %> |  部门：<%=userDept %></p>
+        </div>
+    </div>
+    <div class="container" style="padding-bottom: 10px;">
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div>
+            版权所有：<%=GetConfig("SysAutoSchoolName")%>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,56 @@
+﻿ /*-------------------------Tags ------------------------*/
+.tabs   
+  {
+  margin:0 auto;
+  overflow:hidden;
+  }
+ .tab_con .item {
+        display:none;
+    }
+ .tab_con .c_sel{ display:block !important}
+
+
+  .dft .tab_head { margin:0; padding-left:0px !important;}
+   .dft .tab_head li  
+  {
+  	float:left;width:auto;
+  	 list-style-type:none;
+  	 text-align:center; 
+       cursor:pointer;
+       padding:0 10px;
+  }
+   .dft .tab_head li a 
+  {
+	text-decoration:none;
+	display:block;
+    color:#fff;
+  	 }
+   .dft .tab_head li.h_sel { background-position: left top; position:relative;background-color:#fff;}
+     .dft .tab_head li.h_sel a {
+        color: #D90000;
+    }
+   .dft .tab_con {background-color:#fff;}
+
+     /*-------------------------2级Tags ------------------------*/
+ .ist .tab_head { overflow:hidden;margin:2px 0;}
+  .ist .tab_head li  
+  {
+  	float:left;
+      width:20px;
+      height:20px;
+  	 list-style-type:none;
+  	 text-align:center; 
+       line-height:20px;
+       cursor:pointer;
+  }
+  .ist .tab_head li a 
+  {
+	text-decoration:none;
+	display:block;
+    color:#666;
+  	 }
+    .ist .tab_head li.h_sel a {
+        color: red;
+        font-weight:bold;
+    }
+  .ist .tab_con ul{margin:2px 0;}

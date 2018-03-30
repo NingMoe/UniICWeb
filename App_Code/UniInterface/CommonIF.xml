@@ -1,0 +1,830 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<?xml-stylesheet type="text/xsl" href="CommonIF_vc.xsl"?>
+<CommonIF Name="PRMSCommon">
+  <Description>
+    <![CDATA[------------------------------------------------------
+  版权信息： 杭州联创信息技术有限公司，2013-2013
+  文 件 名： CommonIF.h
+  创建时间： 2013.06.7
+  功能描述： 定义联创各系统通用接口
+  作    者： 何厚武
+  ---------------------------------------------------------------]]>
+  </Description>
+  <Const Name="CONSTAT_UNOPEN" Type="DWORD">
+    <Value>1</Value>
+    <Description>数据库或连接未开启</Description>
+  </Const>
+  <Const Name="CONSTAT_CONNECTED" Type="DWORD">
+    <Value>2</Value>
+    <Description>已连接</Description>
+  </Const>
+  <Const Name="CONSTAT_DISCONNECTED" Type="DWORD">
+    <Value>4</Value>
+    <Description>连接已断开</Description>
+  </Const>
+  <Const Name="CONSTAT_NONE" Type="DWORD">
+    <Value>8</Value>
+    <Description>不启用</Description>
+  </Const>
+  <Const Name="CONSTAT_INUSE" Type="DWORD">
+    <Value>(CONSTAT_CONNECTED|CONSTAT_DISCONNECTED)</Value>
+    <Description>不启用</Description>
+  </Const>
+
+  <UniStructes>
+    <UniStruct Name="UNISTAPARAM">
+      <Description>联创服务与节点通信参数</Description>
+      <Field Name="dwReqUID" Type="UniDW">
+        <Description>请求UID</Description>
+      </Field>
+      <Field Name="szReqData" Type="UniSZ">
+        <Description>请求内容</Description>
+      </Field>
+      <Field Name="dwResCode" Type="UniDW">
+        <Description>返回码，0表示成功</Description>
+      </Field>
+      <Field Name="szResData" Type="UniSZ">
+        <Description>返回数据</Description>
+      </Field>
+    </UniStruct>
+    <UniStruct Name="LICMOD">
+      <Description>许可功能模块信息</Description>
+      <Field Name="dwFuncSN" Type="UniDW">
+        <Description>功能模块编号</Description>
+        <Const Name="LICMOD_DOORCTRL">
+          <Value>1</Value>
+          <Description>门禁管理</Description>
+        </Const>
+        <Const Name="LICMOD_PC">
+          <Value>2</Value>
+          <Description>PC机</Description>
+        </Const>
+        <Const Name="LICMOD_VIDEOCTRL">
+          <Value>3</Value>
+          <Description>视频监控</Description>
+        </Const>
+        <Const Name="LICMOD_SOUNDCTRL">
+          <Value>4</Value>
+          <Description>语音系统</Description>
+        </Const>
+        <Const Name="LICMOD_POWERCTRL">
+          <Value>5</Value>
+          <Description>电源控制</Description>
+        </Const>
+        <Const Name="LICMOD_COMMONS">
+          <Value>6</Value>
+          <Description>空间管理</Description>
+        </Const>
+        <Const Name="LICMOD_MAC">
+          <Value>7</Value>
+          <Description>苹果机</Description>
+        </Const>
+        <Const Name="LICMOD_SEAT">
+          <Value>8</Value>
+          <Description>座位管理</Description>
+        </Const>
+        <Const Name="LICMOD_ACTIVITY">
+          <Value>9</Value>
+          <Description>活动安排</Description>
+        </Const>
+        <Const Name="LICMOD_OPENTEST">
+          <Value>10</Value>
+          <Description>开放实验</Description>
+        </Const>        
+        <Const Name="LICMOD_LOAN">
+          <Value>11</Value>
+          <Description>设备外借</Description>
+        </Const>
+        <Const Name="LICMOD_TEACHING">
+          <Value>12</Value>
+          <Description>教学管理</Description>
+        </Const>
+        <Const Name="LICMOD_TELECAST">
+          <Value>13</Value>
+          <Description>教师助手</Description>
+        </Const>
+        <Const Name="LICMOD_REPORT">
+          <Value>14</Value>
+          <Description>实验报告</Description>
+        </Const>
+        <Const Name="LICMOD_ASSET">
+          <Value>15</Value>
+          <Description>资产管理</Description>
+        </Const>
+        <Const Name="LICMOD_TESTDATA">
+          <Value>16</Value>
+          <Description>实验数据管理</Description>
+        </Const>
+      </Field>
+      <Field Name="dwLicNum" Type="UniDW">
+        <Description>对应功能模块节点数</Description>
+      </Field>
+      <Field Name="szModName" Type="UniSZ">
+        <Description>授权模块名称</Description>
+      </Field>
+    </UniStruct>
+    <UniStruct Name="UNILICENSE">
+      <Description>许可信息</Description>
+      <Field Name="szLicSN" Type="UniSZ">
+        <Description>许可编号</Description>
+      </Field>
+      <Field Name="dwInstDate" Type="UniDW">
+        <Description>安装日期</Description>
+      </Field>
+      <Field Name="dwLicExpDate" Type="UniDW">
+        <Description>许可到期日</Description>
+      </Field>
+      <Field Name="dwServiceExpDate" Type="UniDW">
+        <Description>服务到期日</Description>
+      </Field>
+      <Field Name="szLicTo" Type="UniSZ">
+        <Description>授权客户名称</Description>
+      </Field>
+      <Field Name="szLicProName" Type="UniSZ">
+        <Description>授权产品名称</Description>
+      </Field>
+      <Field Name="szCompanyName" Type="UniSZ">
+        <Description>公司名称</Description>
+      </Field>
+      <Field Name="dwWarrant" Type="UniDW">
+        <Description>与一卡通对接模式</Description>
+        <Const Name="WARRANT_NO_THIRD" Type="DWORD">
+          <Value>0x1</Value>
+          <Description>不对接</Description>
+        </Const>
+        <Const Name="WARRANT_SYNC_ACC" Type="DWORD">
+          <Value>0x2</Value>
+          <Description>同步帐户</Description>
+        </Const>
+        <Const Name="WARRANT_SYNC_BALANCE" Type="DWORD">
+          <Value>0x4</Value>
+          <Description>同步余额</Description>
+        </Const>
+        <Const Name="WARRANT_SYNC_PASSWD" Type="DWORD">
+          <Value>0x8</Value>
+          <Description>同步密码</Description>
+        </Const>
+        <Const Name="WARRANT_CARD_MONEY" Type="DWORD">
+          <Value>0x10</Value>
+          <Description>卡上有钱包</Description>
+        </Const>
+        <Const Name="WARRANT_WITH_CAC" Type="DWORD">
+          <Value>0x20</Value>
+          <Description>有账务中心</Description>
+        </Const>
+        <Const Name="WARRANT_SYNC_CARDONLY" Type="DWORD">
+          <Value>0x40</Value>
+          <Description>只同步卡号，不同步班级</Description>
+        </Const>
+        <Const Name="WARRANT_CARD_REAL" Type="DWORD">
+          <Value>0x80</Value>
+          <Description>卡直接扣费模式</Description>
+        </Const>
+      </Field>
+      <Field Name="dwLicStaNum" Type="UniDW">
+        <Description>许可站点数</Description>
+      </Field>
+      <Field Name="LicMod" Type="UniSZ" ExtType="LICMOD[]">
+        <Description>LICMOD结构表</Description>
+      </Field>
+      <Field Name="szCtrlCode" Type="UniSZ">
+        <Description>控制码</Description>
+      </Field>
+    </UniStruct>
+    <UniStruct Name="REQEXTINFO">
+      <Description>获取请求扩张信息</Description>
+      <Field Name="dwStartLine" Type="UniDW">
+        <Description>开始行</Description>
+      </Field>
+      <Field Name="dwNeedLines" Type="UniDW">
+        <Description>需获取行数</Description>
+      </Field>
+      <Field Name="dwTotolLines" Type="UniDW">
+        <Description>服务端返回总行数</Description>
+      </Field>
+      <Field Name="szOrderKey" Type="UniSZ">
+        <Description>排序字段</Description>
+      </Field>
+      <Field Name="szOrderMode" Type="UniSZ">
+        <Description>排序方式(ASC或DESC)</Description>
+      </Field>
+      <Field Name="ExtInfo" Type="UniSZ" ExtType="byte[]">
+        <Description>根据不同的请求相关扩展信息</Description>
+      </Field>
+    </UniStruct>
+
+  </UniStructes>
+  <Module Name="UniSta">
+    <Description>节点管理</Description>
+    <Commands Name="UniSta" UID="0x1000000">
+      <Command Name="MSREQ_UNISTA_LOGIN" Alias="StaLogin" UID="0x10">
+        <Description>节点登录</Description>
+        <Parameter>STALOGINREQ</Parameter>
+        <Result>STALOGINRES</Result>
+      </Command>
+      <Command Name="MSREQ_UNISTA_LOGOUT" Alias="StaLogout" UID="0x20">
+        <Description>节点退出</Description>
+        <Parameter>STALOGOUTREQ</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_UNISTA_HANDSHAKE" Alias="StaHandShake" UID="0x30">
+        <Description>节点与认证服务器定时通信</Description>
+        <Parameter>HANDSHAKEREQ</Parameter>
+        <Result>HANDSHAKERES</Result>
+      </Command>
+      <Command Name="MSREQ_MODMONI_UPLOAD" Alias="UploadModMoni" UID="0x200">
+        <Description>上传模块监控信息</Description>
+        <Parameter Array="true">MODMONIUP</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_MONIINDEX_UPLOAD" Alias="UploadMoniIndex" UID="0x201">
+        <Description>上传监控指标信息</Description>
+        <Parameter Array="true">MONINDEXUP</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_MONIREC_UPLOAD" Alias="UploadMoniRec" UID="0x202">
+        <Description>上传监控指标记录</Description>
+        <Parameter Array="true">MONIRECUP</Parameter>
+        <Result></Result>
+      </Command>
+    </Commands>
+    <UniStructes>
+      <UniStruct Name="STALOGINREQ">
+        <Description></Description>
+        <Field Name="szLicSN" Type="UniSZ">
+          <Description>许可系列号</Description>
+        </Field>
+        <Field Name="szVersion" Type="UniSZ">
+          <Description>版本</Description>
+        </Field>
+        <Field Name="szIP" Type="UniSZ">
+          <Description><![CDATA[IP地址]]></Description>
+        </Field>
+        <Field Name="szMAC" Type="UniSZ">
+          <Description>网卡地址</Description>
+        </Field>
+        <Field Name="szKey" Type="UniSZ">
+          <Description>密钥(扩展)</Description>
+        </Field>
+        <Field Name="dwOldSessionID" Type="UniDW">
+          <Description>上次分配的session值</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="STALOGINRES">
+        <Description></Description>
+        <Field Name="dwStaID" Type="UniDW">
+          <Description>节点ID</Description>
+        </Field>
+        <Field Name="dwSessionID" Type="UniDW">
+          <Description></Description>
+        </Field>
+        <Field Name="LicInfo" Type="UniSZ" ExtType="UNILICENSE">
+          <Description>服务器授权信息UNILICENSE</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="STALOGOUTREQ">
+        <Description></Description>
+        <Field Name="dwSessionID" Type="UniDW">
+          <Description></Description>
+        </Field>
+        <Field Name="szLicSN" Type="UniSZ">
+          <Description>许可系列号</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="HANDSHAKEREQ">
+        <Description></Description>
+        <Field Name="dwChgFlag" Type="UniDW">
+          <Description>本地保存的修改更新标志</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="HANDSHAKERES">
+        <Description></Description>
+        <Field Name="dwChgFlag" Type="UniDW">
+          <Description>服务器返回的的修改更新标志</Description>
+        </Field>
+        <Field Name="szResChgStat" Type="UniSZ">
+          <Description>返回的对应信息有无标志，字符0表示无，字符1表示有</Description>
+          <Const Name="CHGINDEX_LICENSE">
+            <Value>1</Value>
+            <Description>最新许可信息(CUniStruct[UNILICENSE])</Description>
+          </Const>
+          <Const Name="CHGINDEX_NEWVER">
+            <Value>2</Value>
+            <Description>最新版本信息(CUniStruct[UNIPRODUCT])</Description>
+          </Const>
+          <Const Name="MAXCHG_TYPE">
+            <Value>10</Value>
+            <Description>需更新的最大类别</Description>
+          </Const>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="MODMONIUP">
+        <Description>模块监控信息上传</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，以下定义+StaSN*65536 + 监控端编号)</Description>
+        </Field>
+        <Field Name="szModName" Type="UniSZ">
+          <Description>监控端名称</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>总状态</Description>
+        </Field>
+        <Field Name="dwStartTime" Type="UniDW">
+          <Description>新状态开始时间</Description>
+        </Field>
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="MONINDEXUP">
+        <Description>监控指标上传</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，其余为定义的编号或ID号)</Description>
+        </Field>
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+        </Field>
+        <Field Name="szIndexName" Type="UniSZ">
+          <Description>监控指标名称</Description>
+        </Field>
+        <Field Name="dwNormalValue" Type="UniDW">
+          <Description>正常值</Description>
+        </Field>
+        <Field Name="dwCurValue" Type="UniDW">
+          <Description>当前值</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+        </Field>
+        <Field Name="dwNormalTime" Type="UniDW">
+          <Description>正常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTime" Type="UniDW">
+          <Description>异常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTimes" Type="UniDW">
+          <Description>异常次数</Description>
+        </Field>
+        <Field Name="dwStartTime" Type="UniDW">
+          <Description>新状态开始时间</Description>
+        </Field>
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="MONIRECUP">
+        <Description>监控记录上传</Description>
+        <Field Name="dwSID" Type="UniDW">
+          <Description>分配流水号</Description>
+        </Field>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，其余为定义的编号或ID号)</Description>
+        </Field>
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+        </Field>
+        <Field Name="szIndexName" Type="UniSZ">
+          <Description>监控指标名称</Description>
+        </Field>
+        <Field Name="dwCurValue" Type="UniDW">
+          <Description>当前值</Description>
+        </Field>
+        <Field Name="dwOccurDate" Type="UniDW">
+          <Description>开始日期</Description>
+        </Field>
+        <Field Name="dwOccurTime" Type="UniDW">
+          <Description>产生时间</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+        </Field>
+        <Field Name="dwNormalTime" Type="UniDW">
+          <Description>正常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTime" Type="UniDW">
+          <Description>异常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTimes" Type="UniDW">
+          <Description>异常次数</Description>
+        </Field>
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>
+      </UniStruct>
+
+    </UniStructes>
+  </Module>
+  <Module Name="UniMoni">
+    <Description>自动监控</Description>
+    <Commands Name="UniMoni" UID="0x2000000">
+      <Command Name="MSREQ_SUBMONI_FROMSRV" Alias="SubMoniFromSrv" UID="0x10">
+        <Description>子系统获取监控信息缺省值</Description>
+        <Parameter></Parameter>
+        <Result Array="true">MONINDEX</Result>
+      </Command>
+      <Command Name="MSREQ_SUBMONI_TOSRV" Alias="SubMoniToSrv" UID="0x11">
+        <Description>子系统保存监控信息缺省值到服务器</Description>
+        <Parameter Array="true">MONINDEX</Parameter>
+        <Result ></Result>
+      </Command>
+      <Command Name="MSREQ_SUBMONI_ONEINDEXCHG" Alias="OneMoniChg" UID="0x20">
+        <Description>监控信息状态改变</Description>
+        <Parameter >MONINDEX</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_SUBMONI_INDEXCHG" Alias="MoniChg" UID="0x21">
+        <Description>监控信息状态改变</Description>
+        <Parameter Array="true">MONINDEX</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_MONI_GET" Alias="MoniGet" UID="0x101">
+        <Description>管理员获取详细监控信息</Description>
+        <Parameter>MONIREQ</Parameter>
+        <Result Array="true">MODMONI</Result>
+      </Command>
+      <Command Name="MSREQ_MONIREC_GET" Alias="MoniRecGet" UID="0x111">
+        <Description>管理员获取详细监控信息日志</Description>
+        <Parameter>MONIRECREQ</Parameter>
+        <Result Array="true">MONIREC</Result>
+      </Command>
+      <Command Name="MSREQ_MONI_DEALERR" Alias="MoniDealErr" UID="0x211">
+        <Description>技术支持处理错误</Description>
+        <Parameter>MONIDEALERR</Parameter>
+        <Result ></Result>
+      </Command>
+    </Commands>
+    <UniStructes>
+      <UniStruct Name="MONIREQ">
+        <Description>获取监控信息缺省值</Description>
+        <Field Name="dwModKind" Type="UniDW">
+          <Description>子模块类别（MODKIND_XXX定义)</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>站点编号</Description>
+        </Field>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+        </Field>
+        <Field Name="dwReqProp" Type="UniDW">
+          <Description>请求附加属性</Description>
+          <Const Name="MONIREQ_NEEDINDEXTBL">
+            <Value>0x1</Value>
+            <Description>需要指标列表</Description>
+          </Const>
+        </Field>
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="MONINDEX">
+        <Description>监控指标编号</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，其余为定义的编号或ID号)</Description>
+        </Field>
+        <Field Name="szModName" Type="UniSZ">
+          <Description>监控端名称</Description>
+        </Field>        
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+          <Const Name="MONIINDEX_NET">
+            <Value>0x100</Value>
+            <Description>网络</Description>
+          </Const>
+          <Const Name="NET_ADAPTERSTAT">
+            <Value>(MONIINDEX_NET + 1)</Value>
+            <Description>网卡状态</Description>
+          </Const>
+          <Const Name="NET_IP">
+            <Value>(MONIINDEX_NET + 2)</Value>
+            <Description>IP地址</Description>
+          </Const>
+          <Const Name="NET_MASK">
+            <Value>(MONIINDEX_NET + 3)</Value>
+            <Description>子网掩码</Description>
+          </Const>
+          <Const Name="NET_GATE">
+            <Value>(MONIINDEX_NET + 4)</Value>
+            <Description>网关</Description>
+          </Const>
+          <Const Name="NET_INFLOW">
+            <Value>(MONIINDEX_NET + 5)</Value>
+            <Description>流入流量</Description>
+          </Const>
+          <Const Name="NET_OUTFLOW">
+            <Value>(MONIINDEX_NET + 6)</Value>
+            <Description>流出流量</Description>
+          </Const>
+          <Const Name="NET_CONNS">
+            <Value>(MONIINDEX_NET + 10)</Value>
+            <Description>连接数</Description>
+          </Const>
+          <Const Name="NET_MYCONNS">
+            <Value>(MONIINDEX_NET + 11)</Value>
+            <Description>监控进程连接数</Description>
+          </Const>
+          <Const Name="NET_OTHERCONNS">
+            <Value>(MONIINDEX_NET + 12)</Value>
+            <Description>其它连接数(状态为ESTABLISHED以外的连接)</Description>
+          </Const>
+          <Const Name="NET_DNS">
+            <Value>(MONIINDEX_NET + 13)</Value>
+            <Description>DNS</Description>
+          </Const>
+          <Const Name="MONIINDEX_CPU">
+            <Value>0x200</Value>
+            <Description>CPU</Description>
+          </Const>
+          <Const Name="CPU_SYSUSAGE">
+            <Value>(MONIINDEX_CPU + 1)</Value>
+            <Description>CPU总使用率</Description>
+          </Const>
+          <Const Name="CPU_MYUSAGE">
+            <Value>(MONIINDEX_CPU + 2)</Value>
+            <Description>我的使用率</Description>
+          </Const>
+          <Const Name="MONIINDEX_HD">
+            <Value>0x400</Value>
+            <Description>硬盘</Description>
+          </Const>
+          <Const Name="HD_FREESIZE">
+            <Value>(MONIINDEX_HD + 1)</Value>
+            <Description>可用磁盘空间(M)</Description>
+          </Const>
+          <Const Name="MONIINDEX_MEM">
+            <Value>0x800</Value>
+            <Description>内存</Description>
+          </Const>
+          <Const Name="MEM_SYSFREE">
+            <Value>(MONIINDEX_MEM + 1)</Value>
+            <Description>系统可用内存(M)</Description>
+          </Const>
+          <Const Name="MEM_MYUSE">
+            <Value>(MONIINDEX_MEM + 2)</Value>
+            <Description>我的使用量(M)</Description>
+          </Const>
+          <Const Name="MONIINDEX_MYSELF">
+            <Value>0x1000</Value>
+            <Description>本进程</Description>
+          </Const>
+          <Const Name="MY_HISTORY">
+            <Value>(MONIINDEX_MYSELF + 1)</Value>
+            <Description>历史状态</Description>
+          </Const>
+          <Const Name="MY_HANDLE">
+            <Value>(MONIINDEX_MYSELF + 2)</Value>
+            <Description>句柄数</Description>
+          </Const>
+          <Const Name="MY_GDI">
+            <Value>(MONIINDEX_MYSELF + 3)</Value>
+            <Description>GDI计数</Description>
+          </Const>
+          <Const Name="MY_SIGNATURE">
+            <Value>(MONIINDEX_MYSELF + 4)</Value>
+            <Description>数字签名</Description>
+          </Const>
+          <Const Name="DB_STAT">
+            <Value>(MONIINDEX_MYSELF + 5)</Value>
+            <Description>数据库状态</Description>
+          </Const>
+          <Const Name="DB_OP">
+            <Value>(MONIINDEX_MYSELF + 6)</Value>
+            <Description>数据库操作</Description>
+          </Const>
+          <Const Name="REQ_AUTH">
+            <Value>(MONIINDEX_MYSELF + 7)</Value>
+            <Description>认证请求</Description>
+          </Const>
+          <Const Name="THIRD_STAT">
+            <Value>(MONIINDEX_MYSELF + 8)</Value>
+            <Description>第三方状态</Description>
+          </Const>
+          <Const Name="THIRD_OP">
+            <Value>(MONIINDEX_MYSELF + 9)</Value>
+            <Description>第三方操作</Description>
+          </Const>
+          <Const Name="SSC_STAT">
+            <Value>(MONIINDEX_MYSELF + 10)</Value>
+            <Description>服务中心状态</Description>
+          </Const>
+          <Const Name="SSC_OP">
+            <Value>(MONIINDEX_MYSELF + 11)</Value>
+            <Description>服务中心操作</Description>
+          </Const>
+          <Const Name="UNISRV_STAT">
+            <Value>(MONIINDEX_MYSELF + 12)</Value>
+            <Description>联创管理中心状态</Description>
+          </Const>
+          <Const Name="UNISRV_OP">
+            <Value>(MONIINDEX_MYSELF + 13)</Value>
+            <Description>联创管理中心操作</Description>
+          </Const>
+          <Const Name="LICENSE_STAT">
+            <Value>(MONIINDEX_MYSELF + 14)</Value>
+            <Description>许可状态</Description>
+          </Const>
+          <Const Name="SERVICE_STAT">
+            <Value>(MONIINDEX_MYSELF + 15)</Value>
+            <Description>服务状态</Description>
+          </Const>
+          <Const Name="SUBCON_STAT">
+            <Value>(MONIINDEX_MYSELF + 16)</Value>
+            <Description>子系统连接状态</Description>
+          </Const>
+          <Const Name="THREAD_STAT">
+            <Value>(MONIINDEX_MYSELF + 17)</Value>
+            <Description>线程状态</Description>
+          </Const>
+        </Field>
+        <Field Name="szIndexName" Type="UniSZ">
+          <Description>监控指标名称</Description>
+        </Field>
+        <Field Name="dwNormalValue" Type="UniDW">
+          <Description>正常值</Description>
+        </Field>
+        <Field Name="dwCurValue" Type="UniDW">
+          <Description>当前值</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+          <Const Name="MONISTAT_OK">
+            <Value>1</Value>
+            <Description>正常</Description>
+          </Const>
+          <Const Name="MONISTAT_INFO">
+            <Value>2</Value>
+            <Description>提醒</Description>
+          </Const>
+          <Const Name="MONISTAT_WARNNING">
+            <Value>4</Value>
+            <Description>警告</Description>
+          </Const>
+          <Const Name="MONISTAT_ERROR">
+            <Value>8</Value>
+            <Description>错误</Description>
+          </Const>
+        </Field>
+        <Field Name="dwNormalTime" Type="UniDW">
+          <Description>正常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTime" Type="UniDW">
+          <Description>异常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTimes" Type="UniDW">
+          <Description>异常次数</Description>
+        </Field>
+        <Field Name="dwStartTime" Type="UniDW">
+          <Description>新状态开始时间</Description>
+        </Field>
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="MODMONI">
+        <Description>模块监控信息</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，以下定义+StaSN*65536 + 监控端编号)</Description>
+          <Const Name="MODKIND_SERVER">
+            <Value>0x1000000</Value>
+            <Description>服务端</Description>
+          </Const>
+          <Const Name="MODKIND_DCS">
+            <Value>0x2000000</Value>
+            <Description>门禁集控器</Description>
+          </Const>
+          <Const Name="MODKIND_STT">
+            <Value>0x4000000</Value>
+            <Description>现场触控终端（刷卡端）</Description>
+          </Const>
+          <Const Name="MODKIND_CLT">
+            <Value>0x8000000</Value>
+            <Description>客户端</Description>
+          </Const>
+        </Field>
+        <Field Name="szModName" Type="UniSZ">
+          <Description>监控端名称</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>总状态</Description>
+        </Field>
+        <Field Name="dwStartTime" Type="UniDW">
+          <Description>新状态开始时间</Description>
+        </Field>        
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>        
+        <Field Name="MoniIndexTbl" Type="UniSZ" ExtType="MONINDEX[]">
+          <Description>指标列表</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="MONIRECREQ">
+        <Description>获取监控信息缺省值</Description>
+        <Field Name="dwStartDate" Type="UniDW">
+          <Description>开始日期</Description>
+        </Field>
+        <Field Name="dwEndDate" Type="UniDW">
+          <Description>结束日期</Description>
+        </Field>
+        <Field Name="dwModKind" Type="UniDW">
+          <Description>子模块类别（MODKIND_XXX定义)</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>站点编号</Description>
+        </Field>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>模块编号</Description>
+        </Field>
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+        </Field>
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="MONIREC">
+        <Description>监控记录</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，其余为定义的编号或ID号)</Description>
+        </Field>
+        <Field Name="szModName" Type="UniSZ">
+          <Description>监控端名称</Description>
+        </Field>
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+        </Field>
+        <Field Name="szIndexName" Type="UniSZ">
+          <Description>监控指标名称</Description>
+        </Field>
+        <Field Name="dwNormalValue" Type="UniDW">
+          <Description>正常值</Description>
+        </Field>
+        <Field Name="dwCurValue" Type="UniDW">
+          <Description>当前值</Description>
+        </Field>
+        <Field Name="dwOccurDate" Type="UniDW">
+          <Description>开始日期</Description>
+        </Field>
+        <Field Name="dwOccurTime" Type="UniDW">
+          <Description>产生时间</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+        </Field>
+        <Field Name="dwNormalTime" Type="UniDW">
+          <Description>正常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTime" Type="UniDW">
+          <Description>异常时间(分钟)</Description>
+        </Field>
+        <Field Name="dwAbnormalTimes" Type="UniDW">
+          <Description>异常次数</Description>
+        </Field>
+        <Field Name="szStatInfo" Type="UniSZ">
+          <Description>状态说明</Description>
+        </Field>
+      </UniStruct>
+      
+      <UniStruct Name="MONIDEALERR">
+        <Description>错误处理</Description>
+        <Field Name="dwModSN" Type="UniDW">
+          <Description>监控端编号（服务器为0，其余为定义的编号或ID号)</Description>
+        </Field>
+        <Field Name="dwMoniSN" Type="UniDW">
+          <Description>监控指标编号</Description>
+        </Field>
+        <Field Name="dwNormalValue" Type="UniDW">
+          <Description>正常值</Description>
+        </Field>
+        <Field Name="dwCurValue" Type="UniDW">
+          <Description>当前值</Description>
+        </Field>
+        <Field Name="szDealInfo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+    </UniStructes>
+  </Module>
+</CommonIF>

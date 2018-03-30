@@ -1,0 +1,12 @@
+﻿/*-------------------------Tags ------------------------*/
+.tags { overflow: hidden; }
+.tag_head {}
+.tag_head li { float: left;list-style-type: none;padding:0 20px; text-align: center; cursor: pointer;border-left:1px solid #999;}
+.tag_head li.f {padding-left:0; border-left:none;}
+.tag_head li.l { }
+.tag_head li a { display: block;color:#999; }
+.tag_head li.h_sel {}
+.tag_head li.h_sel a { color: #007dc1 !important; }
+.tag_con { }
+.tag_con .item { display: none; }
+.tag_con .c_sel { display: block !important; }

@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="CheckOk.aspx.cs" Inherits="Page_Search" %>

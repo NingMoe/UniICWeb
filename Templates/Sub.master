@@ -1,0 +1,8 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Sub.master.cs" Inherits="Templates_Default" %>
+<%@ Register Src="~/Modules/HeadInclude.ascx" TagPrefix="unifound" TagName="HeadInclude" %>
+
+<asp:contentplaceholder id="Content" runat="server">
+</asp:contentplaceholder>
+
+<asp:contentplaceholder id="ScriptContent" runat="server">
+</asp:contentplaceholder>

@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="file.aspx.cs" Inherits="ClientWeb_pro_ajax_file" %>

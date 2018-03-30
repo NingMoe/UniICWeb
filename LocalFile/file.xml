@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<const>
+ <field name="ResvTheme">
+    <option value="比赛（如挑战杯、双百工程等)">比赛（如挑战杯、双百工程等)</option>
+    <option value="社团/班级会议（或培训）">社团/班级会议（或培训）</option>
+    <option value="RP/企业沙盘/仿真实习">ERP/企业沙盘/仿真实习</option>
+<option value="小组学习讨论">小组学习讨论</option>
+<option value="论文撰写">论文撰写</option>
+<option value="模拟面试">模拟面试</option>
+<option value="其它">其它</option>
+  </field>
+  <field name="ResvAbsTime">
+    <option value="8001100">8点0分到11点0分</option>
+    <option value="11151415">11点15分到14点15分</option>
+    <option value="14301730">14点30分到17点30分</option>
+  </field>
+</const>

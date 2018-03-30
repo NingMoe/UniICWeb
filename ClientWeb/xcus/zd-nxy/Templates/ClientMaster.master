@@ -1,0 +1,86 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="ClientMaster.master.cs" Inherits="ClientWeb_Templates_ClientMaster"%>
+
+<%@ Register TagPrefix="Uni" TagName="dialog" Src="../Modules/dialog.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="nav" Src="../Modules/nav.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>大型仪器共享服务平台</title>
+    <link href='Theme/js/jquery-ui-1.10.3/jquery-ui-1.10.3.custom.min.css' rel='stylesheet' />
+    <link href="Theme/css/templatemo_style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="Theme/css/ddsmoothmenu.css" />
+    <link rel="stylesheet" href="Theme/css/nivo-slider.css" type="text/css" media="screen" />
+    <link href='Theme/js/fullcalendar/fullcalendar.css' rel='stylesheet' />
+    <link href='Theme/js/fullcalendar/fullcalendar.print.css' rel='stylesheet' media='print' />
+    <link href='Theme/js/PageCtrl/PageCtrl.css' rel='stylesheet' />
+
+    <script type="text/javascript" src="Theme/js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="Theme/js/site.js"></script>
+    <script type="text/javascript" src="Theme/js/ddsmoothmenu.js"></script>
+    <script type="text/javascript" src='Theme/js/fullcalendar/fullcalendar.js'></script>
+    <script type="text/javascript" src="Theme/js/PageCtrl/PageCtrl.js"></script>
+    <script type="text/javascript" src="Theme/js/tab/tags.js"></script>
+    <script type="text/javascript" src="Theme/js/jquery-ui-1.10.3/jquery-ui-1.10.3.custom.min.js"></script>
+
+    <link href='Theme/js/Timepickeraddon/jquery-ui-timepicker-addon.css' rel='stylesheet' />
+    <script type="text/javascript" src="Theme/js/Timepickeraddon/jquery-ui-timepicker-addon.js"></script>
+    <script type="text/javascript" src="Theme/js/Timepickeraddon/jquery-ui-timepicker-zh-CN.js"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "top_nav", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+    </script>
+</head>
+<body>
+    <span id="wait_icon"></span>
+    <Uni:dialog runat="server" ID="MyDialog" />
+    <div id="tp_body">
+
+        <div id="tp_header">
+            <div id="acc_info">
+                <Uni:nav runat="server" ID="MyNav" />
+            </div>
+            <div id="tp_menu">
+                <div id="top_nav" class="ddsmoothmenu">
+                    <ul>
+                        <li class="primary"><a href="Default.aspx">首页</a></li>
+                        <li style="border-left-width: 0;"><a href="ArticleList.aspx?g=1">平台介绍</a>
+                            <ul>
+                                <li><a href="ArticleList.aspx?g=1&c=1">平台简介</a></li>
+                                <li><a href="ArticleList.aspx?g=1&c=2">联系我们</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="DevList.aspx">仪器设备</a>
+                        </li>
+                       <li><a href="DevList.aspx?cls=58">百万仪器</a></li>
+                        <li><a href="ArticleList.aspx?g=2">新闻动态</a></li>
+                        <li><a href="ArticleList.aspx?g=3">规章制度</a></li>
+                        <li class="tail"><a href="ArticleList.aspx?g=5">下载中心</a></li>
+                    </ul>
+                    <br style="clear: left" />
+                </div>
+                <!-- end of ddsmoothmenu -->
+            </div>
+            <div class="cleaner"></div>
+        </div>
+        <!-- END of templatemo_header -->
+        <div id="tp_main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="tp_footer">
+            <p>
+                版权所有：  浙江中医药大学
+            </p>
+        </div>
+        <!-- END of templatemo_footer -->
+    </div>
+</body>
+</html>

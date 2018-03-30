@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Dlg.master.cs" Inherits="Templates_Dlg" %>
+<%@ Register Src="~/Modules/HeadInclude.ascx" TagPrefix="unifound" TagName="HeadInclude" %>
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta name="renderer" content="webkit">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title>联创实验室管理系统</title>
+    <style type="text/css">
+        body {
+            background-image:none !important;
+            background-color:white;
+        }
+    </style>
+    <unifound:HeadInclude runat="server" ID="HeadInclude" />
+    <asp:contentplaceholder id="HeadContent" runat="server">
+    </asp:contentplaceholder>
+</head>
+<body>
+    <asp:contentplaceholder id="Content" runat="server">
+    </asp:contentplaceholder>
+</body>
+<asp:contentplaceholder id="ScriptContent" runat="server">
+</asp:contentplaceholder>
+</html>

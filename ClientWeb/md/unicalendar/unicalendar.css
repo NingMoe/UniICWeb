@@ -1,0 +1,19 @@
+﻿/*通用*/
+.cld-zone .cld-top table td { border-width: 0; }
+.cld-zone .cld-top ul.cld-mode li { display: inline;cursor:pointer; }
+.cld-zone .cld-header {overflow:hidden; }
+.cld-header .cld-h-tbl {width:100%;border:none;}
+.cld-body td,
+.cld-body th { padding: 0; vertical-align: top; }
+div.cld-body table.cld-obj-tbl { list-style-type: none; }
+.cld-zone table { list-style-type: none; border-collapse: collapse;margin: 0; padding: 0; }
+
+.cld-plan-info {line-height:16px;font-size:12px;}
+span.dot-grey, span.dot-blue, span.dot-green { float: left; display: inline-block; width: 10px; height: 10px; margin: 3px 2px; }
+span.dot-grey { background: url(images/dot.png) no-repeat 0px 0px; }
+span.dot-blue { background: url(images/dot.png) no-repeat 0px -10px; }
+span.dot-green { background: url(images/dot.png) no-repeat 0px -20px; }
+
+.cld-bt-obj {cursor:pointer; }
+/*占用条*/
+.cld-zone .cld-plan-bar { background-color: rgb(13, 139, 213); color: #fff; }

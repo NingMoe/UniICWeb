@@ -1,0 +1,69 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+//using Newtonsoft.Json;
+using UniWebLib;
+public partial class searchAccount : UniPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        string m_szDev = "[";
+        Response.CacheControl = "no-cache";
+        string szStart = Request["start"];
+        szStart = szStart.Replace("-","");
+        string szEnd = Request["end"];
+        szEnd = szEnd.Replace("-", "");
+        YARDRESVREQ vrGet = new YARDRESVREQ();
+        vrGet.dwBeginDate = Parse(szStart);
+        vrGet.dwEndDate = Parse(szEnd);
+        vrGet.dwStatFlag = (uint)RESVREQ.DWSTATFLAG.STATFLAG_CHECKFAIL + (uint)RESVREQ.DWSTATFLAG.STATFLAG_OVER + (uint)RESVREQ.DWSTATFLAG.STATFLAG_INUSE;
+        YARDRESV[] vtRes;
+        if (m_Request.Reserve.GetYardResv(vrGet, out vtRes) == REQUESTCODE.EXECUTE_SUCCESS && vtRes != null && vtRes.Length > 0)
+        {
+            
+            for (int i = 0; i < vtRes.Length; i++)
+            {
+                string szTime = Get1970Date(vtRes[i].dwBeginTime, "HH:mm") + Get1970Date(vtRes[i].dwEndTime, "到HH:mm");
+                m_szDev += "{\"title\": \"" + szTime + "," + vtRes[i].szDevName +"," + vtRes[i].szApplicantName +","+ vtRes[i].szActivityName + "\",\"start\": \"" + GetDateStr(vtRes[i].dwPreDate) + "\"},";
+               
+            }
+        }
+
+        RESVREQ getResv = new RESVREQ();
+        getResv.dwBeginDate= Parse(szStart);
+        getResv.dwEndDate=Parse(szEnd);
+        getResv.dwStatFlag = (uint)RESVREQ.DWSTATFLAG.STATFLAG_CHECKFAIL + (uint)RESVREQ.DWSTATFLAG.STATFLAG_OVER + (uint)RESVREQ.DWSTATFLAG.STATFLAG_INUSE;
+        getResv.dwPurpose=(uint)UNIRESERVE.DWPURPOSE.USEFOR_RESERVED;
+        UNIRESERVE[] vtResv;
+        if (m_Request.Reserve.Get(getResv, out vtResv) == REQUESTCODE.EXECUTE_SUCCESS && vtResv != null && vtResv.Length > 0)
+        {
+            for (int i = 0; i < vtResv.Length; i++)
+            {
+                string szRoomName="";
+                if(vtResv[i].ResvDev!=null&&vtResv[i].ResvDev.Length>0)
+                {
+                    szRoomName=vtResv[i].ResvDev[0].szRoomName;
+                }
+                string szTime = Get1970Date(vtResv[i].dwPreDate, "HH:mm") + Get1970Date(vtResv[i].dwPreDate, "到HH:mm");
+                string szDate = GetDateStr(vtResv[i].dwPreDate);
+                szDate = szDate.Replace("-","/");
+                m_szDev += "{\"title\": \"" + szTime + "," + szRoomName + "," + vtResv[i].szOwnerName + "," + vtResv[i].szTestName + "\",\"start\": \"" + szDate + "\"},";
+              
+                //m_szDev += "{\"title\": \"" + vtResv[i].szTestName + "(" + szRoomName + ")" + "\",\"start\": \"" + GetDateStr(vtResv[i].dwPreDate) + "\"}";
+                if (i < (vtResv.Length - 1))
+                {
+                  //  m_szDev += ",";
+                }
+            }
+        }
+        if (m_szDev.EndsWith(","))
+        {
+            m_szDev = m_szDev.Substring(0,m_szDev.Length-1);
+        }
+
+        m_szDev+="]";
+        Response.Write(m_szDev);
+    }
+}

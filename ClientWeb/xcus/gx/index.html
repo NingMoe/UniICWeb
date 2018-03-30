@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="renderer" content="webkit">
+    <title>共享打印</title>
+    <script type="text/javascript" src="../../fm/jquery/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../../fm/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="../../fm/jquery-ui/bootstrap/js/bootstrap.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../fm/jquery-ui/bootstrap/jquery-ui-1.10.3.custom.css" />
+    <link rel="stylesheet" href="../../fm/jquery-ui/bootstrap/css/bootstrap.css" />
+    <script type="text/javascript" src="../../fm/uni.lib.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../fm/uni.css" />
+    <script type="text/javascript" src="../../pro/pro.lib.js"></script>
+    <link rel="stylesheet" type="text/css" href="../../pro/pro.css" />
+    <link rel="stylesheet" type="text/css" href="../a/theme/a.css" />
+    <link rel="stylesheet" href="theme/cus.css" />
+    <script type="text/javascript" src="app.js"></script>
+    <!--[if lt IE 9]>
+      <script src="../../fm/add/html5shiv.js"></script>
+      <script src="../../fm/add/respond.js"></script>
+    <![endif]-->
+    <script>
+        pro.j.app.initApp({}, function (rlt) {
+            if (pro.isLogin()) {
+                var jumb = $("#jumbotron");
+                $(".acc_info_name", jumb).html(pro.acc.name);
+                $(".acc_info_id", jumb).html(pro.acc.id);
+                $(".acc_info_dept", jumb).html(pro.acc.dept);
+                var config = rlt.data.config;
+                $("header .sys_info_name").html(config.sysName);
+                $("body").removeClass("login_state_out");
+                $("body").addClass("login_state_in");
+            }
+            else {
+                location.href = "login.html";
+            }
+        });
+        $(function () {
+            //backtop
+            $(".back_top").backtop();
+            //浏览器检查
+            if (uni.getIEVer() > 0) {
+                if (uni.getIEVer() < 8)
+                    uni.msg.error("您当前的浏览器版本太低，请升级浏览器至谷歌、火狐、IE9+等更高级的浏览器。");
+                if (uni.getIEVer() < 9)
+                    $("#warning_old_browser").show();
+                else
+                    $("#warning_old_browser").hide();
+            }
+        })
+        //自定义
+        var cus = {
+            showLogin: function () {
+                //pro.d.lg.login();
+                location.href = "login.html";
+            }
+        }
+    </script>
+    <style>
+    </style>
+</head>
+<body class="login_state_out">
+    <div style="height: 30px; background: #31B0D5; color: white; text-align: center; display: none;" id="warning_old_browser">
+        您当前的浏览器版本较低，为获得更好的显示效果，建议升级浏览器至谷歌、火狐、IE9+等更高级的浏览器。
+    </div>
+    <header class="navbar navbar-inverse navbar-static-top" role="banner" style="">
+        <div class="container" id="top_nav">
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <h4 class="pull-left sys_info_name" style="font-size: 24px;"></h4>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="user_info">
+                        <span class="login_show"><span class="glyphicon glyphicon-user"></span>&nbsp;您好,</span>
+                    </li>
+                    <li style="" class="logout lg_act login_show">
+                        <a><span>退出<span class="glyphicon glyphicon-log-out"></span></span></a>
+                    </li>
+                    <li style="" class="login lg_act login_hide" onclick="pro.d.lg.login();">
+                        <a><span>登录<span class="glyphicon glyphicon-log-in"></span></span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="jumbotron" class="">
+        <div class="container acc_info" style="height:160px;">
+            <h2 style="margin-top:40px;"><span class="glyphicon glyphicon-user"></span>&nbsp;您好,<span class="acc_info_name"></span>  <span style="font-size: 14px;">欢迎使用！</span></h2>
+            <p style="border-top: 1px solid #fff; font-size: 16px; padding: 3px 5px; text-align: right; margin: 0;"><span class="login_show" style="">登录名：<span class="acc_info_id"></span> |  部门：<span class="acc_info_dept"></span></span><span class="login_hide" style=""></span></p>
+        </div>
+    </div>
+
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer_other_info"></div>
+            版权所有：杭州联创信息技术有限公司
+        </div>
+    </footer>
+</body>
+
+</html>

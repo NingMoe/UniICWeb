@@ -1,0 +1,383 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Security.Cryptography;
+using System.Xml;
+using System.IO;
+using System.Text;
+using System.Net;
+using System.Web.Script.Serialization;
+using UniWebLib;
+/// <summary>
+/// PageBase 的摘要说明
+/// </summary>
+public class PageBase : UniPage
+{
+    public string AppID = "wx399a60eb3f4f1842";
+    public string AppSecret = "7060d3183b55efe3da4a08aca2d444fd";
+
+	public PageBase()
+	{
+		//
+		// TODO: 在此处添加构造函数逻辑
+		//
+	}
+
+    public string GetXmlValue(XmlDocument doc, string name)
+    {
+        XmlNode xnode = doc.SelectSingleNode("//" + name);
+        if (xnode != null)
+        {
+            return xnode.InnerText;
+        }
+        return "";
+    }
+
+    public long time()
+    {
+        DateTime timeStamp = new DateTime(1970, 1, 1);
+        return (DateTime.UtcNow.Ticks - timeStamp.Ticks) / 10000000;
+    }
+
+    public string GetWebRequest(string szUrl)
+    {
+        try
+        {
+            WebClient wc = new WebClient();
+            Stream st = wc.OpenRead(szUrl);
+            StreamReader sr = new StreamReader(st);
+            string res = sr.ReadToEnd();
+            sr.Close();
+            st.Close();
+            return res;
+        }
+        catch (Exception e)
+        {
+            Logger.Trace("GetWebRequest(" + szUrl + "):"+e.Message);
+        }
+        return "";
+    }
+
+    public string PostWebRequest(string szUrl , string szPost)
+    {
+        WebClient wc = new WebClient();
+        wc.Encoding = UTF8Encoding.UTF8;
+        return wc.UploadString(szUrl, szPost);
+    }
+
+    public AccessToken GetToken()
+    {
+        AccessToken accToken = null;
+        if (
+        (Session["WAccessToken"] == null) ||
+        (string.IsNullOrEmpty(((AccessToken)Session["WAccessToken"]).openid)) ||
+        (Session["WAccessToken_Time"] == null) ||
+        ((DateTime.Now - (DateTime)Session["WAccessToken_Time"]).TotalSeconds >= ((AccessToken)Session["WAccessToken"]).expires_in))
+        {
+            if (Session["WAccessToken"] != null)
+            {
+                accToken=(AccessToken)Session["WAccessToken"];
+                Session["WAccessToken"] = accToken;
+                Session["WAccessToken_Time"] = DateTime.Now;
+                Logger.trace("oauth2 get refresh_token:" + accToken.openid);
+                return accToken;
+                /*
+                string szAccToken2 = GetWebRequest("https://api.weixin.qq.com/sns/oauth2/refresh_token?appid=" + AppID + "&grant_type=refresh_token&refresh_token=" + ((AccessToken)Session["WAccessToken"]).refresh_token);
+                accToken = JSON.parse<AccessToken>(szAccToken2);
+                if (accToken != null && accToken.access_token != null)
+                {
+                   
+                }
+                 * */
+            }
+            
+            string szCode = Request["code"];
+             string szStudentCode="";
+             string szOpenID = Request["openid"];
+            /*
+             cn.edu.tongji.lib.Service tjser = new cn.edu.tongji.lib.Service();
+
+            if ((szCode != null && szCode != "") && (szOpenID==null||szOpenID==""))
+            {//根据code获取opendid
+                
+                if (szCode != null && szCode != "")
+                {
+                    szOpenID = tjser.getOpendid(szCode);
+                    if (szOpenID == "")
+                    {
+                        Logger.trace("根据code获取opendid失败,code：" + szCode);
+                        return accToken;
+                    }
+                }
+            }
+            szStudentCode = tjser.getStudentcode(szOpenID);
+            if (szStudentCode == "error")
+            {
+                Logger.trace("根据openid获取studentcode失败,openid：" + szOpenID);
+                return accToken;
+            }
+           */
+           // string szAccToken = GetWebRequest("https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + AppID + "&secret=" + AppSecret + "&code=" + szCode + "&grant_type=authorization_code");
+          //  accToken = JSON.parse<AccessToken>(szAccToken);
+            accToken = new AccessToken();
+            accToken.openid = szStudentCode;
+            Session["WAccessToken"] = accToken;
+            Session["WAccessToken_Time"] = DateTime.Now;
+            //Logger.trace("oauth2 get access_token:" + accToken.openid);
+        }
+        else
+        {
+            accToken = (AccessToken)Session["WAccessToken"];
+        }
+        return accToken;
+    }
+
+    public string GetOpenID()
+    {
+        AccessToken acc = GetToken();
+        if (acc != null && !string.IsNullOrEmpty(acc.openid))
+        {
+            //Logger.trace("GetOpenID="+acc.openid);
+            return acc.openid;
+        }
+        else
+        {
+            Logger.trace("GetOpenID Error");
+            return "";
+        }
+    }
+
+    public LOCALUSER GetUser()
+    {
+        string szPsswordGM = "uniFound808";
+        string szOpenID = GetOpenID();
+        if (HttpContext.Current.Session["LoginRes"] != null)
+        {
+              ADMINLOGINRES accInfo = (ADMINLOGINRES)HttpContext.Current.Session["LoginRes"];
+              if (accInfo.AccInfo.szLogonName != null)
+              {
+                  szOpenID = accInfo.AccInfo.szLogonName;
+              }
+           
+              
+        }
+        if (string.IsNullOrEmpty(szOpenID))
+        {
+            LOCALUSER userRes = new LOCALUSER();
+            return userRes;
+        }
+
+        LOCALUSER user = LocalSQL.GetUser(szOpenID);
+        if (user == null)
+        {
+            user = new LOCALUSER();
+        }
+        else if( (!string.IsNullOrEmpty(user.szLogonName)))
+        {
+            if (HttpContext.Current.Session["LoginUseInfo"] == null)
+            {
+                string szMsg;
+                if (!Logon(user, out szMsg))
+                {
+                    return null;
+                }
+            }
+            if (HttpContext.Current.Session["LoginRes"] != null)
+            {
+                ADMINLOGINRES accInfo = (ADMINLOGINRES)HttpContext.Current.Session["LoginRes"];
+                user.szTrueName = accInfo.AccInfo.szTrueName;
+                user.szLogonName = accInfo.AccInfo.szLogonName;
+                
+            }         
+        }
+        else if ((szOpenID != null && szOpenID != ""))
+        {
+            user.szOpenID = szOpenID;
+            user.szLogonName = szOpenID;
+            user.szPassword = szPsswordGM;
+            if (HttpContext.Current.Session["LoginUseInfo"] == null)
+            {
+                string szMsg;
+                if (!Logon(user, out szMsg))
+                {
+                    return null;
+                }
+            }
+            if (HttpContext.Current.Session["LoginUseInfo"] != null)
+            {
+                ADMINLOGINRES accInfo = (ADMINLOGINRES)HttpContext.Current.Session["LoginRes"];
+                user.szTrueName = accInfo.AccInfo.szTrueName;
+                user.szLogonName = accInfo.AccInfo.szLogonName;
+            }         
+        }
+        user.szOpenID = szOpenID;
+        user.szLogonName = szOpenID;
+        user.szPassword = szPsswordGM;//uniFound808
+        return user;
+    }
+
+    //-----------------
+
+    public bool Logon(LOCALUSER user,out string szMsg)
+    {
+        szMsg = "";
+        if (m_Request == null)
+        {
+            return false;
+        }
+        ADMINLOGINREQ vrLogin = new ADMINLOGINREQ();
+        ADMINLOGINRES vrLoginRes;
+        vrLogin.szLogonName = user.szLogonName;
+        vrLogin.szPassword = "P" + user.szPassword;
+        vrLogin.dwLoginRole = (uint)ADMINLOGINREQ.DWLOGINROLE.LOGIN_USER;
+        vrLogin.szVersion = ((uint)ADMINLOGINREQ.SZVERSION.INTVER_MAIN).ToString() + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_RELEASE).ToString("00") + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_INTERNAL).ToString();
+        vrLogin.szIP = GetRealIP();
+        vrLogin.dwStaSN = 1;
+        m_Request.m_UniDCom.StaSN = 1;
+        m_Request.m_UniDCom.SessionID = 0;
+        vrLogin.dwLoginRole = vrLogin.dwLoginRole + (uint)ADMINLOGINREQ.DWLOGINROLE.LOGINEXT_HP;
+        if (m_Request.Admin.StaLogin(vrLogin, out vrLoginRes) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            HttpContext.Current.Session["LoginRes"] = vrLoginRes;
+            HttpContext.Current.Session["ADMINLOGINREQ"] = vrLogin;
+            m_Request.m_UniDCom.SessionID = (uint)vrLoginRes.dwSessionID;
+            m_Request.m_UniDCom.StaSN = 1;
+
+            Session["SessionID"] = vrLoginRes.dwSessionID;
+            Session["StationSN"] = 1;
+
+            if (!StaLogin())
+            {
+                szMsg = m_Request.szErrMessage;
+                return false;
+            }
+
+            ACCREQ vrParameter = new ACCREQ();
+            UNIACCOUNT[] vrResult;
+            vrParameter.szLogonName = user.szLogonName;
+            if (m_Request.Account.Get(vrParameter, out vrResult) == REQUESTCODE.EXECUTE_SUCCESS && vrResult.Length > 0)
+            {
+                UNIACCOUNT vrAccInfo = vrResult[0];
+                HttpContext.Current.Session["LOGIN_ACCINFO"] = vrAccInfo;
+                if (user.szLogonName != "guest")
+                {
+                    LoginUseInfo info = new LoginUseInfo();
+                    info.szLogoName = user.szLogonName;
+                    info.szPassword = user.szPassword;
+                    HttpContext.Current.Session["LoginUseInfo"] = info;
+                    user.szTrueName = vrAccInfo.szTrueName;
+                    return true;
+                }
+            }
+            else
+            {
+                szMsg = m_Request.szErrMessage;
+            }
+        }
+        else
+        {
+            szMsg = m_Request.szErrMessage;
+        }
+
+        return false;
+    }
+    protected string GetRealIP()
+    {
+        try
+        {
+            Logger.trace("ip=开始获取");
+            string ip = "";
+            if (Context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"] != null)
+            {
+                ip = Context.Request.ServerVariables["HTTP_X_FORWARDED_FOR"];
+            }
+            else
+            {
+                ip = Context.Request.ServerVariables["REMOTE_ADDR"];
+            }
+            if (ip == "::1")
+            {
+                ip = "127.0.0.1";
+            }
+            return ip;
+        }
+        catch (Exception)//e)
+        {
+            //throw e;
+        }
+
+        return "";
+    }
+    public bool StaLogin()
+    {
+        if (HttpContext.Current.Session["ADMINLOGINREQ"] != null)
+        {
+            ADMINLOGINREQ vrLogin = (ADMINLOGINREQ)HttpContext.Current.Session["ADMINLOGINREQ"];
+            vrLogin.dwStaSN = m_Request.m_UniDCom.StaSN;
+            vrLogin.dwLoginRole = vrLogin.dwLoginRole + (uint)ADMINLOGINREQ.DWLOGINROLE.LOGINEXT_HP;
+            ADMINLOGINRES vrLoginRes = new ADMINLOGINRES();
+            if (m_Request.Admin.StaLogin(vrLogin, out vrLoginRes) == REQUESTCODE.EXECUTE_SUCCESS)
+            {
+                m_Request.m_UniDCom.StaSN = 1;
+                m_Request.m_UniDCom.SessionID = (uint)vrLoginRes.dwSessionID;
+                return true;
+            }
+            else
+            {
+                //Response.Write("{\"error\":\"" + m_Request.szErrMessage + "\"}");
+                return false;
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+}
+
+
+public class AccessToken
+{
+    public string access_token;
+    public int expires_in;
+    public string refresh_token;
+    public string openid;
+    public string scope;
+}
+
+public static class JSON
+{
+
+    public static T parse<T>(string jsonString) where T : new()
+    {
+        try
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Deserialize<T>(jsonString);
+        }
+        catch (Exception)
+        {
+            return new T();
+        }
+    }
+
+    public static string stringify(object jsonObject)
+    {
+        try
+        {
+            JavaScriptSerializer serializer = new JavaScriptSerializer();
+            return serializer.Serialize(jsonObject);
+        }
+        catch (Exception)
+        {
+            return "";
+        }
+    }
+}

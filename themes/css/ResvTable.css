@@ -1,0 +1,344 @@
+.ResvTblTextMode {
+	border-bottom:1px solid #cccccc;
+}
+.resvTable {
+	overflow:hidden;
+	height:18px;
+	line-height:18px;
+	font-size:12px;
+	word-break:break-all;
+	white-space:nowrap;
+}
+.itemHeader {
+	background-color:#eeeeee;
+	height:20px;
+}
+.itemHeader th{
+	text-align:center;
+	color:#888888;
+}
+.resvItem td{
+	border-bottom:1px solid #cccccc;
+}
+.RoomName {
+	width:128px;
+	text-align:left;
+}
+.timeSec {
+	width:98px;
+	border-left:solid 1px #cccccc;
+	border-right:solid 1px #cccccc;
+	text-align:center;
+}
+.resvName {
+	width:124px;
+	padding-left:2px;
+	text-align:left;
+}
+
+
+/*===============*/
+
+.devtbl
+{
+	position:relative;
+	width:100%;
+	z-index:0;
+}
+.devtbl td,th
+{
+	border: 1px solid white;
+	width:155px;
+	overflow:hidden;
+	text-align:center;
+	background: #eeeeee;
+	padding:0px;
+	margin:0px;
+    word-break:keep-all;
+    white-space:nowrap;
+}
+.DevName
+{
+    word-break:keep-all;
+    white-space:nowrap;
+	overflow:hidden;
+}
+.devtbl th
+{
+	background: #cccccc;
+	color:#333333;
+}
+
+.bgWeek
+{
+	width:812px;
+	vertical-align:middle;
+	float:none;
+	clear:none;
+    white-space:nowrap;
+    word-break: keep-all;
+    overflow:hidden;
+    position:relative;
+	z-index:1;
+}
+.bgWeek div
+{
+	border-left:1px solid white;
+	width:115px;
+	margin-left:0px;
+	float:left;
+    position:relative;
+    z-index: 2;
+}
+thead .week .bgWeek div
+{
+	background: #cccccc;
+	line-height:14px !important;
+	font-size:12px;
+	cursor:pointer;
+}
+.devtbl .week .curweek
+{
+	background:white;
+}
+.devtbl .hour .bgWeek
+{
+	height:16px;
+}
+thead .hour th
+{
+	height:16px;
+}
+thead .hour .bgWeek div
+{
+	background: #cccccc;
+	height:16px;
+	line-height:16px;
+	font-size:12px;
+}
+.Resv {
+    font-size:12px;
+	background: #aaaaff;
+    overflow:hidden;
+}
+.ResvDOING {
+	background: #aaffaa;
+}
+.ResvDONE {
+	background: #ffffaa;
+}
+.Stealth {
+    border:0px;
+    width:0px;
+    height:0px;
+    position:absolute;
+    left:0px;
+    top:0px;
+    filter:alpha(Opacity=0);-moz-opacity:0;opacity: 0;
+}
+.bgWeekImg
+{
+    position:absolute;
+    left:0px;
+    top:0px;
+    width: 100%;
+    height:100%;
+    z-index: 1;
+}
+.AreaTip
+{
+    position:absolute;
+    top:0px;
+    left:0px;
+    width:1px;
+    height:1px;
+    color: white;
+    font-weight:bold;
+    background:#ffaa99;
+    text-align:center;
+    vertical-align:middle;
+    cursor:pointer;
+    display:none;
+    overflow:hidden;
+}
+#m_dwStartDate
+{
+    width:80px;
+    border:0px;
+    background: none;
+}
+
+.devtbl .AreaSelectBlock
+{
+    background:#ffffaa !important;
+    border:1px solid #6699cc;
+    z-index:12;
+    font-size:14px;
+    font-family: SIMYOU !important;
+    color: #3366aa;
+    overflow:hidden;
+}
+
+.devtbl .RBhover
+{
+    background:#ffaaaa !important;
+    color: #ffffaa !important;
+    font-size:18px !important;
+    border:1px dashed #6699cc;
+}
+
+.devtbl tr.disabled .bgWeek
+{
+    background: #eeeeee;
+    filter:alpha(Opacity=50);-moz-opacity:0.5;opacity: 0.5;
+}
+.devtbl tr.disabled .DevName
+{
+    background: #eeeeee;
+    filter:alpha(Opacity=50);-moz-opacity:0.5;opacity: 0.5;
+}
+.SpTipT
+{
+    z-index:10;
+	background: #ffaaaa !important;
+}
+
+.resvBtn
+{
+	background: url('../img/resvBtn.png') top center no-repeat;
+	position:absolute;
+	z-index:12;
+	width:80px;
+	height:26px;
+    vertical-align:middle;
+    line-height:26px;
+    font-size:14px;
+	color: #4444aa;
+	cursor: pointer;
+	text-align: center;
+	padding:0px;
+	padding-top:13px;
+}
+.resvBtn span
+{
+	margin:0px;
+	display:block;
+	width:97%;
+	height:100%;
+	border:2px solid #222222;
+	border-top:0px;
+}
+
+/*==================blue===============*/
+.blue .devtbl td  /*-- 表内容 --*/
+{
+	background: white;
+    border:1px solid #eeeeff;
+}
+.blue .devtbl th  /*-- 表头 --*/
+{
+	background: #ccccff;
+	color:#333333;
+}
+.blue thead .week .bgWeek div /*-- 周期 --*/
+{
+	background: #ccccff;
+}
+.blue .devtbl .week .curweek /*-- 选中的日期 --*/
+{
+	background:white;
+}
+.blue thead .hour .bgWeek div  /*-- 节次 --*/
+{
+	background: #ccccff;
+}
+.blue .Resv  /*-- 预约 --*/
+{
+    font-size:12px;
+	background: #aaaaff;
+    overflow:hidden;
+}
+.blue .ResvDOING  /*-- 预约中 --*/
+{
+	background: #aaffaa;
+}
+.blue .ResvDONE  /*-- 预约结束 --*/
+{
+	background: #ffffaa;
+}
+.blue .AreaTip /*-- 点击预约提示 --*/
+{
+    background:#99aaff;
+    border:1px dashed #99aaff;
+}
+.blue .AreaSelectBlock
+{
+    background:#ffffaa !important;
+    border:1px solid #6699cc;
+    color: #3366aa;
+}
+.blue .RBhover
+{
+    background:#ffaaaa !important;
+    color: #ffffaa !important;
+    border:1px dashed #6699cc;
+}
+
+/*///////////////////////////*/
+
+/*==================dream===============*/
+.dream .devtbl td  /*-- 表内容 --*/
+{
+	background: white;
+    border:1px solid #eeeeff;
+}
+.dream .devtbl th  /*-- 表头 --*/
+{
+	background: #eeeeee;
+	color:#333333;
+}
+.dream thead .week .bgWeek div /*-- 周期 --*/
+{
+	background: #eeeeee;
+}
+.dream .devtbl .week .curweek /*-- 选中的日期 --*/
+{
+	background:white;
+}
+.dream thead .hour .bgWeek div  /*-- 节次 --*/
+{
+	background: #f0f0ff;
+}
+.dream .Resv  /*-- 预约 --*/
+{
+    font-size:12px;
+	background: #aabbff;
+    overflow:hidden;
+}
+.dream .ResvDOING  /*-- 预约中 --*/
+{
+	background: #aaffaa;
+}
+.dream .ResvDONE  /*-- 预约结束 --*/
+{
+	background: #ffffaa;
+}
+.dream .AreaTip /*-- 点击预约提示 --*/
+{
+    background:#99aaff;
+    border:1px dashed #99aaff;
+}
+.dream .AreaSelectBlock
+{
+    background:#ffffaa !important;
+    border:1px solid #222222;
+    color: #3366aa;
+}
+.dream .RBhover
+{
+    background:#ffaaaa !important;
+    color: #ffffaa !important;
+    border:1px dashed #6699cc;
+}
+
+/*///////////////////////////*/

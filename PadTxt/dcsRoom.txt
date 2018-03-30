@@ -1,0 +1,1 @@
+[{"szDcsNO":"1","szCtrlNo":"1","szRoomNo":"971"},{"szDcsNO":"1","szCtrlNo":"2","szRoomNo":"102"},{"szDcsNO":"1","szCtrlNo":"2","szRoomNo":"102"},{"szDcsNO":"1","szCtrlNo":"3","szRoomNo":"1"},{"szDcsNO":"1","szCtrlNo":"34","szRoomNo":"12121"},{"szDcsNO":"1","szCtrlNo":"2050","szRoomNo":"201-1"}]

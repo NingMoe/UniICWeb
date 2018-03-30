@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchTestPlan.aspx.cs" Inherits="searchCourse" %>

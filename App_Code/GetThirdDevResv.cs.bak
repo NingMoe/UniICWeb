@@ -1,0 +1,144 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using UniWebLib;
+using System.Data.OracleClient;
+/// <summary>
+/// GetThirdDevResv 的摘要说明
+/// </summary>
+public class GetThirdDevResv
+{
+    public GetThirdDevResv()
+    {
+        //
+        // TODO: 在此处添加构造函数逻辑
+        //
+    }
+    public string GetResvInfo(string szStart, string szEnd, string szCamp, string szBuildingID, string szRoomID, UNIDEVICE[] devInfo, ADMINLOGINRES loginRes, string GetResvID)
+    {
+        /*
+        string szStart = Request["start"];
+        szStart = szStart.Replace("-", "");
+        string szEnd = Request["end"];
+        szEnd = szEnd.Replace("-", "");
+
+        string szCamp = Request["campuid"];
+        string szBuildingID = Request["buildingid"];
+        string szRoomID = Request["roomid"];
+        */
+
+
+
+        string ConnectionString = "Data Source=IDC_U_DC;user=idc_u_cs;password=idc_u_cs;";//写连接串
+        OracleConnection conn = new OracleConnection(ConnectionString);//创建一个新连接
+        string szRes = "";
+        string szSql = "select a.*,b.devname from tbldevresv a,vwunidevice b where a.resvdate>=" + szStart + " and a.resvdate<=" + szEnd;
+        if (!string.IsNullOrEmpty(szCamp) && szCamp != "0")
+        {
+            szSql = szSql + " and b.CampusID=" + szCamp;
+        }
+        if (!string.IsNullOrEmpty(szBuildingID) && szBuildingID != "0")
+        {
+            szSql = szSql + " and b.BuildingID=" + szBuildingID;
+        }
+        if (!string.IsNullOrEmpty(szRoomID) && szRoomID != "0")
+        {
+            szSql = szSql + " and b.RoomID=" + szRoomID;
+        }
+        szSql = szSql + " and a.devid=b.devid";
+        if (GetResvID != "")
+        {
+            szSql = szSql + " and a.resvid not in(" + GetResvID + ")";
+        }
+        if (((uint)loginRes.AdminInfo.dwManRole & (uint)ADMINLOGINRES.DWMANROLE.MANROLE_OPERATOR) > 0)
+        {
+            string szDevID = "";
+            if (devInfo != null)
+            {
+                for (int i = 0; i < devInfo.Length; i++)
+                {
+                    if (i < (devInfo.Length - 1))
+                    {
+                        szDevID = szDevID + devInfo[i].dwDevID.ToString() + ",";
+                    }
+                    else
+                    {
+                        szDevID = szDevID + devInfo[i].dwDevID.ToString();
+                    }
+                }
+            }
+            if (szDevID == "")
+            {
+                szDevID = "''";
+            }
+            szSql = szSql + " and a.devid in(" + szDevID + ")";
+        }
+        szSql = szSql + " and resvid not in(select resvid from TBLRESERVE where predate >= " + szStart + " and predate<= " + szEnd + " and bitand(status,2)= 0 or STATFLAG = 4)";
+        Logger.trace("sql:" + szSql);
+        DataSet ds = new DataSet();
+        try
+        {
+            conn.Open();
+            OracleCommand cmd = conn.CreateCommand();
+            cmd.CommandText = szSql;
+            cmd.Connection = conn;
+            OracleDataAdapter adpt = new OracleDataAdapter(cmd);
+            adpt.Fill(ds);
+        }
+        catch (Exception exp)
+        {
+            Logger.trace(exp.ToString());
+            conn.Close();
+            return szRes;
+        }
+        conn.Close();
+        DataTable dt = new DataTable();
+        dt = ds.Tables[0];
+        int uAll = dt.Rows.Count;
+        Logger.trace("uAll:" + uAll);
+        for (int i = 0; i < uAll; i++)
+        {
+            string resvid = dt.Rows[i]["RESVID"].ToString();
+            uint uBegin = Parse(dt.Rows[i]["STARTHM"].ToString());
+            uint uEnd = Parse(dt.Rows[i]["ENDHM"].ToString());
+            string time = (uBegin / 100).ToString("00") + ":" + (uBegin % 100).ToString("00") + "到" + (uEnd / 100).ToString("00") + ":" + (uEnd % 100).ToString("00");
+            string szResvTitle = dt.Rows[i]["devname"].ToString() + "<br />," + time + "<br />," + dt.Rows[i]["TrueName"].ToString() +","+ dt.Rows[i]["ResvTitle"].ToString();
+            szResvTitle = szResvTitle.Replace("@＃", "<br />");
+
+            string szDate = GetDateStr(Parse(dt.Rows[i]["resvdate"].ToString()));
+            szDate = szDate.Replace("-", "/");
+            //szRes += "{\"title\": \"" + szResvTitle + "\",\"start\": \"" + szDate + "\",\"istody\": \"" + "false" + "\"}";
+            szRes += "{\"dwSecurityLevel\":" + "0" + ",\"id\":" + resvid + ",\"title\": \"" + szResvTitle + "," + "" + "\",\"start\": \"" + szDate + "\",\"istody\": \"" + "false" + "\"}";
+            if (i < (dt.Rows.Count - 1))
+            {
+                szRes += ",";
+            }
+        }
+
+
+
+        return szRes;
+    }
+    public uint Parse(string s)
+    {
+        uint ret = 0;
+        uint.TryParse(s, out ret);
+        return ret;
+    }
+    public string GetDateStr(uint? nDate)
+    {
+        if (nDate == null || nDate == 0)
+        {
+            return "";
+        }
+        string szDate = (nDate / 10000).ToString() + "-" + string.Format("{0:D2}", ((nDate / 100) % 100)) + "-" + string.Format("{0:D2}", (nDate % 100));
+        return szDate;
+    }
+}

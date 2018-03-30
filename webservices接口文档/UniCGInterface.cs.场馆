@@ -1,0 +1,414 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
+using UniStruct;
+using UniWebLib;
+using Util;
+
+/// <summary>
+/// UniThirdInterface 的摘要说明
+/// </summary>
+[WebService(Namespace = "http://tempuri.org/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+[ScriptService]
+public class UniThirdInterface : UniBaseService
+{
+
+    public UniThirdInterface()
+    {
+        //如果使用设计的组件，请取消注释以下行 
+        //InitializeComponent(); 
+    }
+    [WebMethod(EnableSession = true, Description = "第三方登录")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    public string
+    ThirdLogin()
+    {
+        string ret = null;
+        UniClientCommon common = new UniClientCommon();
+        common.Login("staadmin001", "unifound808");
+        if (common.m_Request.m_UniDCom.SessionID != 0)
+        {
+            ret = common.m_Request.m_UniDCom.SessionID.ToString();
+        }
+        return ret;
+    }
+    //上海财经大学 获取空闲列表
+    [WebMethod(EnableSession = true, Description = "获取空闲场所列表")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+    public RetFreeSites
+    GetFreeSites(ReqFreeSites para)
+    {
+        UniClientCommon common;
+        common = new UniClientCommon();
+        common.IsLogined();
+        soaphead.SessionID = common.m_Request.m_UniDCom.SessionID;
+        soaphead.StationSN = common.m_Request.m_UniDCom.StaSN;
+
+        RetFreeSites ret = new RetFreeSites();
+        ret.code = 0;
+        if (para.start_time == 0 || para.end_time == 0 || para.year == 0 || para.weekday > 6 || (para.end_time < para.start_time))
+        {
+            ret.msg = "参数有误";
+            return ret;
+        }
+        string dates = GetDates(para);
+        DEVRESVSTATREQ req = new DEVRESVSTATREQ();
+        //req.dwExtRelatedID = 100438025;//教室借用activitySN
+        req.szDates = dates;
+        req.dwResvPurpose = 319;
+        req.szReqExtInfo.dwStartLine = 0;
+        req.szReqExtInfo.dwNeedLines = 10000;
+        req.szReqExtInfo.szOrderKey = "szDevName";
+        req.szReqExtInfo.szOrderMode = "ASC";
+        DEVRESVSTAT[] rlt;
+        if (m_Request.Device.GetDevResvStat(req, out rlt) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            List<site> list = new List<site>();
+            for (int i = 0; i < rlt.Length; i++)
+            {
+                if ((rlt[i].dwOpenLimit & (uint)DEVRESVSTAT.DWOPENLIMIT.OPENLIMIT_NORESV) == 0 && getDevFreeStat(rlt[i], new int[] { para.start_time, para.end_time }) == 0)
+                {
+                    site st = new site();
+                    st.sn = rlt[i].dwDevSN.ToString();
+                    st.name = rlt[i].szDevName;
+                    list.Add(st);
+                }
+            }
+            ret.code = 1;
+            ret.list = list.ToArray();
+            return ret;
+        }
+        ret.msg = m_Request.szErrMsg;
+        return ret;
+    }
+
+    //上海财经大学 占用场地
+    [WebMethod(EnableSession = true, Description = "占用场地")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+    public RetResvSites
+    SetResvSites(SetFreeSites para)
+    {
+        RetResvSites ret = new RetResvSites();
+        ret.code = 0;
+        uint SessionID = 0;
+        if (string.IsNullOrEmpty(para.session_id))
+        {
+            UniClientCommon common = new UniClientCommon();
+            common.Login("staadmin001", "unifound808");
+            if (common.m_Request.m_UniDCom.SessionID != 0)
+            {
+                SessionID = common.m_Request.m_UniDCom.SessionID;
+            }
+        }
+        else
+        {
+            SessionID = uint.Parse(para.session_id);
+        }
+        soaphead.SessionID = SessionID;
+        soaphead.StationSN = 1;
+        //ret.id = para.id;
+        if (para.start_time == 0 || para.end_time == 0 || para.year == 0 || para.weekday > 6 || (para.end_time < para.start_time) || para.asset_sns.Length == 0)
+        {
+            ret.msg = "参数有误";
+            return ret;
+        }
+        THIRDRESVSHAREDEV set = new THIRDRESVSHAREDEV();
+        //set.dwThirdResvID = (uint)para.id;
+        set.szResvTitle = (para.usage_id == 1 ? "教务排考" : "教务排课") + "@#" + 
+            para.course_name + "@#" + para.teather + "@#" +
+            (para.use_multimedia == 1 ? "需要使用多媒体" : "不使用多媒体");
+        //时间
+        string[] dates = GetDates(para).Split(',');
+        List<TRESVTIME> tmList = new List<TRESVTIME>();
+        for (int i = 0; i < dates.Length; i++)
+        {
+            if (dates[i] != "")
+            {
+                TRESVTIME tm = new TRESVTIME();
+                tm.dwResvDate = ToUint(dates[i]);
+                tm.dwStartHM = (uint)para.start_time;
+                tm.dwEndHM = (uint)para.end_time;
+                tmList.Add(tm);
+            }
+        }
+        set.TimeTbl = tmList.ToArray();
+        //地点
+        List<TRESVDEV> devList = new List<TRESVDEV>();
+        for (int i = 0; i < para.asset_sns.Length; i++)
+        {
+            if (para.asset_sns[i] != "")
+            {
+                TRESVDEV dev = new TRESVDEV();
+                dev.szAssertSN = para.asset_sns[i];
+                devList.Add(dev);
+            }
+        }
+        set.DevTbl = devList.ToArray();
+        if (m_Request.Reserve.ThirdResvShareDev(set, out set) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            ret.code = 1;
+            ret.id = set.dwThirdResvID;
+        }
+        else
+        {
+            ret.msg = m_Request.szErrMsg;
+        }
+        return ret;
+    }
+
+    //上海财经大学 撤销占用场地
+    [WebMethod(EnableSession = true, Description = "撤销占用场地")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+    public string
+    DelResv(int id)
+    {
+        UniClientCommon common = new UniClientCommon();
+        common.Login("staadmin001", "unifound808");
+        soaphead.SessionID = common.m_Request.m_UniDCom.SessionID;
+        soaphead.StationSN = common.m_Request.m_UniDCom.StaSN;
+
+        string msg = "";
+        THIRDRESVDEL set = new THIRDRESVDEL();
+        set.dwThirdResvID = (uint)id;
+        if (m_Request.Reserve.ThirdResvDel(set) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            msg = "";
+        }
+        else
+        {
+            msg = "错误信息：" + m_Request.szErrMsg;
+        }
+        return msg;
+    }
+
+    //上海财经大学 获取活动
+    [WebMethod(EnableSession = true, Description = "获取活动")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+    public RetActivities
+    GetActivities(uint begin, uint end)
+    {
+        UniClientCommon common = new UniClientCommon();
+        common.IsLogined();
+        soaphead.SessionID = common.m_Request.m_UniDCom.SessionID;
+        soaphead.StationSN = common.m_Request.m_UniDCom.StaSN;
+
+        YARDRESVREQ req = new YARDRESVREQ();
+        req.dwBeginDate = begin;
+        req.dwEndDate = end;
+        req.dwStatFlag = (uint)RESVREQ.DWSTATFLAG.STATFLAG_INUSE;
+        req.dwCheckStat = (uint)ADMINCHECK.DWCHECKSTAT.CHECKSTAT_OK;
+        RetActivities ret = new RetActivities();
+        YARDRESV[] rlt;
+        if (m_Request.Reserve.GetYardResv(req, out rlt) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            ret.code = 1;
+            ret.list = rlt;
+        }
+        else
+        {
+            ret.code = 0;
+            ret.msg = m_Request.szErrMsg;
+        }
+        return ret;
+    }
+
+    private string GetDates(SetFreeSites para)
+    {
+        ReqFreeSites st=new ReqFreeSites();
+        st.start_time = para.start_time;
+        st.end_time = para.end_time;
+        st.week_state = para.week_state;
+        st.weekday = para.weekday;
+        st.year = para.year;
+        return GetDates(st);
+    }
+    private string GetDates(ReqFreeSites para)
+    {
+        string ret = "";
+        DateTime date = new DateTime(para.year, 1, 1);
+        int now = Int32.Parse(DateTime.Now.ToString("yyyyMMdd"));
+        int diff = para.weekday - Int32.Parse(date.DayOfWeek.ToString("d"));
+        for (int i = 0; i < para.week_state.Length; i++)
+        {
+            char v = para.week_state[i];
+            if (v == '1')
+            {
+                int dt = Int32.Parse(date.AddDays(i * 7 + diff).ToString("yyyyMMdd"));
+                if (dt >= now)
+                    ret += dt + ",";
+            }
+        }
+        if (ret.Length > 0) ret = ret.Substring(0, ret.Length - 1);
+        return ret;
+    }
+
+    private int getDevFreeStat(DEVRESVSTAT stat, int[] arr)
+    {
+        int ret = 0;//0=空闲 >0有预约的条数 其它返回 -2=已过期 -3 不在开放时间 -1=已审核/管理员预留 不可用
+
+        //开放时间
+        DAYOPENRULE[] open = stat.szOpenInfo;
+        for (int k = 0; k < arr.Length; k += 2)
+        {
+            bool outside = true;
+            for (int m = 0; m < open.Length; m++)
+            {
+                if (m == 0)//只检测第一个开放规则是因为过期的开放规则服务不会返回
+                {
+                    if (open[0].dwDate == UInt32.Parse(DateTime.Now.ToString("yyyyMMdd")) && arr[k] < UInt32.Parse(DateTime.Now.ToString("HHmm")))//如果是当天 则检查开始时间
+                    {
+                        return -3;
+                    }
+                }
+                if (m > 0 && open[m].dwDate != null && open[m].dwDate != open[m - 1].dwDate)//新的一天
+                {
+                    if (outside) return -3;//不在开放时间
+                    else outside = true;
+                }
+                if (arr[k] >= open[m].dwBegin && arr[k + 1] <= open[m].dwEnd)
+                    outside = false;
+            }
+            if (outside)
+                return -3;
+        }
+        //检查预约
+        DEVRESVTIME[] tms = stat.szResvInfo;
+        if (tms != null)
+        {
+            //test 临时 计算应许的审核通过的预约条数
+            uint num = 0;//占用型预约条数
+            uint? count = stat.dwMaxUsers / stat.dwMinUsers;
+            //////////////////
+            for (int i = 0; i < tms.Length; i++)
+            {
+                DEVRESVTIME tm = tms[i];
+                if (IsStat(tm.dwStatus, (uint)UNIRESERVE.DWSTATUS.RESVSTAT_DONE))
+                    return -2;//已过期
+                bool has = false;
+                for (int k = 0; k < arr.Length; k += 2)
+                {
+                    //预约
+                    if (arr[k + 1] > tms[i].dwBegin && arr[k] < tms[i].dwEnd)
+                    {
+                        if ((IsStat(tm.dwStatus, (uint)UNIRESERVE.DWSTATUS.RESVSTAT_DOING) || IsStat(tm.dwStatus, (uint)ADMINCHECK.DWCHECKSTAT.CHECKSTAT_OK)))
+                        {
+                            if (IsStat(stat.dwProperty, (uint)UNIDEVKIND.DWPROPERTY.DEVPROP_SHARE))
+                            {
+                                //test 临时 计算应许的审核通过的预约条数
+                                if (i == 0 || tm.dwPreDate == tms[i - 1].dwPreDate)
+                                {
+                                    num++;//test 临时 计算应许的审核通过的预约条数
+                                }
+                                else
+                                {
+                                    num = 1;
+                                }
+                                if (num >= count)//超出限制
+                                    return -1;
+                                ///////////////////
+
+                                has = true;
+                                break;
+                            }
+                            else
+                                return -1;// 预约已占用 不可用 直接返回
+                        }
+                        else
+                        {
+                            has = true;//有预约
+                            break;
+                        }
+                    }
+                }
+                if (has) { ret++; return 1; }//有预约 +1   当前不需要知道有几条预约 直接返回1
+            }
+        }
+        return ret;
+    }
+
+    private bool IsStat(uint? a, uint? b)
+    {
+        return (a & b) > 0;
+    }
+
+
+    public struct RetResvSites
+    {
+        public int code;//状态代码 0=失败  1=成功
+        public string msg;
+        public uint? id;
+    }
+
+    public struct ReqFreeSites
+    {
+        public int start_time;
+        public int end_time;
+        public string week_state;
+        public int weekday;
+        public int year;
+    }
+    public struct SetFreeSites
+    {
+        public int start_time;
+        public int end_time;
+        public string week_state;
+        public int weekday;
+        public int year;
+
+        public int usage_id;//类型
+        public string course_name;//课程名称
+        public string teather;//教师名称
+        public int use_multimedia;//使用多媒体=1
+        public string[] asset_sns;
+        public string session_id;
+    }
+
+    public struct RetFreeSites
+    {
+        public int code;//状态代码 0=失败  1=成功
+        public string msg;
+        public site[] list;
+    }
+
+    public struct site
+    {
+        public string sn;
+        public string name;
+    }
+
+    public struct RetActivities
+    {
+        public int code;//状态代码 0=失败  1=成功
+        public string msg;
+        public YARDRESV[] list;
+    }
+    [WebMethod(EnableSession = true, Description = "第三方登录")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    public uint
+    SysThirdLogin(SUBSYSLOGINREQ loingres)
+    {
+        SUBSYSLOGINREQ login = new SUBSYSLOGINREQ();
+        login.dwStaSN = 1;
+        login.szMAC = loingres.szMAC;
+        login.szIP = loingres.szIP;
+        login.szVersion = ((uint)ADMINLOGINREQ.SZVERSION.INTVER_MAIN).ToString() + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_RELEASE).ToString("00") + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_INTERNAL).ToString();
+        login.dwOldSessionID = null;
+        SUBSYSLOGINRES loginres = new SUBSYSLOGINRES();
+        if (m_Request.SubSys.SubSysLogin(login, out loginres) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            return (uint)loginres.dwSessionID;
+        }
+        else
+        {
+            Logger.trace("get session error:" + m_Request.szErrMsg);
+            return 0;
+        }
+    }
+}

@@ -1,0 +1,207 @@
+//==========================================================================;
+//
+//
+//  Copyright (c) 2009 - 2009  Lianchuang Corporation.  All Rights Reserved.
+//
+//--------------------------------------------------------------------------;
+
+/******************************Module*Header*******************************\
+* Module Name: UniCommon.h
+*
+* 功能描述：定义个系统通用的身份，性别等常量
+*
+*依赖关系：无
+\**************************************************************************/
+
+
+#ifndef _UNICOMMON_H_
+#define _UNICOMMON_H_
+
+//修改时未使用的字段
+#define UNSET_NUM				DWORD(-1)
+#define UNSET_STR				9
+#define UNSET_MONEY				0x7FFFFFFF
+
+//用户身份定义(学校)//////////START/////////////////////////////////////////////////////////////////////
+#define IDENTSTUDENT			0x100		//学生
+#define IDENTSTUDENT_ZK		IDENTSTUDENT+0x1		//专科生
+#define IDENTSTUDENT_BK		IDENTSTUDENT+0x2		//本科生
+#define IDENTSTUDENT_SS		IDENTSTUDENT+0x4		//硕士生
+#define IDENTSTUDENT_BS		IDENTSTUDENT+0x8		//博士生
+#define IDENTSTUDENT_JXJY		IDENTSTUDENT+0x10	//继续教育学生（博士后）
+#define IDENTSTUDENT_LXS	    IDENTSTUDENT+0x20	//留学生
+#define IDENTSTUDENT_LS		    IDENTSTUDENT+0x40	//临时学生
+#define IDENTSTUDENT_ZKS	    IDENTSTUDENT+0x80	//自考生（专业学位生）
+
+#define IDENTTEACHER			0x200		//教师
+#define IDENTTEACHER_JY		IDENTTEACHER+0x1		//教员
+#define IDENTTEACHER_YJY	IDENTTEACHER+0x2		//研究人员
+#define IDENTTEACHER_JF		IDENTTEACHER+0x4		//教辅人员
+#define IDENTTEACHER_XZ		IDENTTEACHER+0x8		//行政人员
+#define IDENTTEACHER_GQ		IDENTTEACHER+0x10		//工勤人员
+#define IDENTTEACHER_RF		IDENTTEACHER+0x20		//Research Fellow
+
+#define IDENTSCHOOL			(IDENTSTUDENT|IDENTTEACHER)		//校内人员
+
+#define IDENTJOBBER				0x400			//临时人员
+#define IDENTJOBBER_LS		    IDENTJOBBER+0x1	//长期临时人员
+#define IDENTJOBBER_XWLS	    IDENTJOBBER+0x2	//校外短期临时人员
+#define IDENTJOBBER_VIP			IDENTJOBBER+0x4	//和学生同等待遇校外人员
+#define IDENTJOBBER_BK			IDENTJOBBER+0x8	//访问/交换本科生
+#define IDENTJOBBER_YJS			IDENTJOBBER+0x10 //访问/交换研究生
+#define IDENTJOBBER_PX			IDENTJOBBER+0x20 //培训进修人员
+#define IDENTJOBBER_FX			IDENTJOBBER+0x40 //访问学者
+
+#define IDENTRETIRE					0x800		//退休
+#define IDENTRETIRE_COMMON			IDENTRETIRE+0x1		//退休(普通员工)
+#define IDENTRETIRE_WITHHONORS		IDENTRETIRE+0x2		//离休
+
+#define IDENTVISITOR					0x1000		//访客
+
+#define IDENTTEACHERBY			0x2000		//教师(员额外)
+#define IDENTTEACHERBY_JY		IDENTTEACHERBY+0x1		//教员(员额外)
+#define IDENTTEACHERBY_YJY	IDENTTEACHERBY+0x2		//研究人员(员额外)
+#define IDENTTEACHERBY_JF		IDENTTEACHERBY+0x4		//教辅人员(员额外)
+#define IDENTTEACHERBY_XZ		IDENTTEACHERBY+0x8		//行政人员(员额外)
+#define IDENTTEACHERBY_GQ		IDENTTEACHERBY+0x10		//工勤人员(员额外)
+
+#define IDENTOTHER				0x4000		//其它
+#define IDENTOTHER_FS			IDENTOTHER+0x1		//附设机构人员
+#define IDENTOTHER_BGK			IDENTOTHER+0x2		//办公卡
+
+#define IDENTMASK						0x000FFFFF		//身份掩码
+
+
+//用户身份定义(学校)//////////END/////////////////////////////////////////////////////////////////////
+
+//用户身份定义（运营）//////////START/////////////////////////////////////////////////////////////////////
+#define IDENTCOMMON					0x1000		//普通
+
+#define IDENTVIP					0x2000		 //VIP
+#define IDENTVIP_STAFF				IDENTVIP+0x1 //内部员工
+#define IDENTVIP_1STAR				IDENTVIP+0x2 //1星级VIP
+#define IDENTVIP_2STAR				IDENTVIP+0x4 //2星级VIP
+#define IDENTVIP_3STAR				IDENTVIP+0x8 //3星级VIP
+#define IDENTVIP_4STAR				IDENTVIP+0x10 //4星级VIP
+#define IDENTVIP_5STAR				IDENTVIP+0x20 //5星级VIP
+
+//用户身份定义(运营)//////////END/////////////////////////////////////////////////////////////////////
+
+
+
+//性别定义//////////START/////////////////////////////////////////////////////////////////////
+#define		SEX_SECRET			0		//保密
+#define		SEX_MAN				1		//男性
+#define	    SEX_WOMAN			2		//女性
+//性别定义//////////END/////////////////////////////////////////////////////////////////////
+
+//用户类别
+#define USERKIND_LOCAL      1				//本地用户
+#define USERKIND_SYNC		2				//同步用户
+#define USERKIND_TEMP		4				//临时用户
+#define USERKIND_CANCEL_AB	8				//销户自动退款（Auto Back)
+#define USERKIND_USEEND_AB	0x10			//使用结束自动退款（Auto Back)
+#define USERKIND_PAYAFTER	0x20			//先使用后付费用户
+#define USERKIND_DELETED	0x40			//删除标志(以前用过0x100000，但和本地定义冲突）
+#define USERKIND_GS			0x80			//毕业离校生(GRADUATE STUDENT)
+
+#define USER_KIND_LOCAL				0x10000		//本地用户
+#define USER_KIND_SYNC				0x20000		//一卡通用户
+
+#define USER_KIND_SUBONLY			0x100000			//只能使用补助
+#define USER_KIND_UNNEEDCHECK		0x200000			//打印任务不需审计
+#define USER_KIND_LOCALDEPT			0x400000			//不能同步部门
+
+//用户状态定义
+#define ISUSERSTATENABLED(X)			((X&USERSTAT_DISABLE)==0)
+
+#define USERSTAT_SYNCNORMAL				0x1				//一卡通状态正常
+#define USERSTAT_SYNCLOST				0x2				//已挂失
+#define USERSTAT_SYNCFREEZE				0x4				//已冻结
+#define USERSTAT_SYNCPREOPEN			0x8				//预开户
+#define USERSTAT_SYNCDESTROY			0x10			//已销户
+#define USERSTAT_SYNCOVERDUE			0x20			//已过期
+#define USERSTAT_PWERR					0x40			//密码认证失败
+#define USERSTAT_CHECKERR				0x80			//网络等原因认证失败
+#define USERSTAT_DEALMONEY				0x100			//结算挂账费用
+#define USERSTAT_NEEDBINDIDCARD			0x200			///需要绑定证件号
+#define USERSTAT_NEEDBINDPID			0x400			///需要绑定学工号
+#define USERSTAT_REFUNDFAILED			0x800			///微信退款失败
+
+//0x1000 到0x8000用于定义状态正常
+#define USERSTAT_PWOK					0x1000			//密码已认证通过
+
+
+#define USERSTAT_LOCALNORMAL			0x10000			//本地正常
+#define USERSTAT_LOCALFORBIDDEN			0x20000			//本地禁止
+#define USERSTAT_LOCALDESTROY			0x40000			//本地已销户
+#define USERSTAT_LOCALBLACKLIST			0x80000			//本地黑名单
+
+#define USERSTAT_GRADUATING				0x100000		//正在办理毕业离校
+#define USERSTAT_SELFGRADUATED			0x200000		//自助办理毕业离校
+#define USERSTAT_AUTOGRADUATED			0x400000		//自动办理毕业离校
+#define USERSTAT_MANGRADUATED			0x800000		//管理员办理毕业离校
+
+#define USERSTAT_GRADUATED				0x00F00000		//已办理或正在办理毕业离校
+
+#define USERSTAT_INUSE					0x1000000			//帐号使用中
+#define USERSTAT_ACTIVATE				0x2000000			//已激活
+#define USERSTAT_GRADUATEFAIL			0x4000000			//办理毕业离校失败
+
+#define USERSTAT_SYNCMASK			0xFFFF				//前两个字节供同步状态用
+#define USERSTAT_LOCALMASK			0xFFFF0000			//后两个字节供本地用
+
+#define USERSTAT_DISABLE			0xF0EE0FFE
+
+#define USERSTAT_SAVED				0x067F003F			//	需保存到数据库状态
+
+//如果设置了dwCostType为下面的常数，则表明必须先成功提交到第三方才在本地记录
+#define COSTTYPE_REALTIMETO_THIRD			0xFF000000
+
+//联创支持的消费类别定义
+#define COSTTYPE_USEPC					1			//上机收费
+#define COSTTYPE_SELFPRINT				2			//自助打印
+#define COSTTYPE_SELFCOPY				3			//自助复印
+#define COSTTYPE_SELFSCAN				4			//自助扫描
+#define COSTTYPE_SELFAMERCE				5			//超期罚款
+#define COSTTYPE_TRANSCRIPT				6			//成绩单打印
+
+#define COSTTYPE_CD						7			//刻盘费
+#define COSTTYPE_PACKAGE				8			//打包费
+#define COSTTYPE_LOCKER					9			//存包柜收费
+
+#define COSTTYPE_TRANSFER				100			//传递费
+#define COSTTYPE_POSTMAIL				101			//平信
+#define COSTTYPE_REGISTERED				102			//挂号信
+#define COSTTYPE_EMS					103			//EMS
+#define COSTTYPE_RAILWAY				104			//中铁
+#define COSTTYPE_AIR					105			//航空
+#define COSTTYPE_HIGHWAY				106			//公路
+
+#define COSTTYPE_JS						1000		//机时
+#define COSTTYPE_JSINCLASS				1001		//课内机时
+#define COSTTYPE_JSOUTCLASS				1002		//课外机时
+
+#define COSTTYPE_UNLOCKUSER				0x800000	//解锁用户
+
+//支付方式定义
+#define PAYTYPE_LOCAL					0x10			//本地支付
+#define PAYTYPE_THIRD					0x20			//第三方支付
+
+#define PAYTYPE_CASH					0x11			//本地现金支付
+#define PAYTYPE_SUBSIDY					0x12			//本地补助支付
+#define PAYTYPE_FRONT					0x21			//第三方前台支付
+#define PAYTYPE_BACK					0x22			//第三方后台支付
+
+//一卡通流水提交状态 含义
+#define COSTSTAT_DONE				0	//已提交
+#define COSTSTAT_UNDO				1	//未提交
+#define COSTSTAT_UNCARD				2	//未扣费或未结算(账务中心)
+#define COSTSTAT_WAIT				4	//等待前台扣费
+#define COSTSTAT_BADDEBT			16	//坏账
+#define COSTSTAT_DOFAIL				32  //提交失败
+#define COSTSTAT_UNICAC_UNCARD		0x400  //账务中心的未结算流水(异地结算)
+#define COSTSTAT_UNICAC_DONE		0x800  //账务中心的已结算流水(异地结算)
+
+
+#endif //_UNICOMMON_H_

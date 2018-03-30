@@ -1,0 +1,442 @@
+﻿using System;
+//using UNICOMLib;
+using UniStruct;
+using UniCom;
+using System.Threading;
+
+/// <summary>
+/// 管理连接后台服务器的COM组件
+/// </summary>
+
+//通用错误信息
+public struct UNICOMMERR
+{
+	public UniDW	dwErrorCode;			//错误码 联创编码
+	public UniSZ	szErrorInfo;			//错误描述
+	//以下仅系统错误有效
+	public UniDW	dwErrorSysCode;			//系统错误码
+	public UniDW	dwLine;					//出错源文件行数
+	public UniSZ	szFileName;				//源文件名
+	public UniSZ	szFuncName;				//出错函数
+	public UniSZ	szScene;				//错误现场
+};
+
+//通用错误信息
+public struct UNICOMMERR_UT
+{
+    public uint? dwErrorCode;			//错误码 联创编码
+    public string szErrorInfo;			//错误描述
+    //以下仅系统错误有效
+    public uint dwErrorSysCode;			//系统错误码
+    public uint dwLine;					//出错源文件行数
+    public string szFileName;				//源文件名
+    public string szFuncName;				//出错函数
+    public string szScene;				//错误现场
+};
+
+//通用包应答码
+public enum REQUESTCODE : uint
+{
+	EXECUTE_SUCCESS = 0,	//成功
+	EXECUTE_FAIL = 0xFFFFFFFF,	//失败
+	
+		SYSERR_BASE					=0x01000000,		//系统错误
+		USERERR_BASE				=0x02000000,		//使用错误
+
+///////系统错误定义///START////////START////////START////////START////////START////////
+//数据库操作
+		DBERR_BASE				=(0x1000+SYSERR_BASE),
+
+//数据库操作失败
+		DBERR_FAILED			=(DBERR_BASE+0x1),
+
+//数据库打开失败(连接数据库失败)
+		DBERR_OPENFAIL			=(DBERR_BASE+0x2),
+///////系统错误定义///END//////////END//////////END//////////END//////////END//////////
+
+		ERR_REQ_STRUCT		=(USERERR_BASE+0x1001),   //请求包错误
+		ERR_REQ_PARA		=(USERERR_BASE+0x1002),	//请求包参数错误
+		ERR_REQ_NONE		=(USERERR_BASE+0x1003),	//所请求的对象不存在
+		ERR_REQ_CONFLICT	=(USERERR_BASE+0x1004),	//所做的操作的其它冲突
+		ERR_REQ_VERNOMATCH	=(USERERR_BASE+0x1005),	//版本不匹配
+		ERR_REQ_PWERR		=(USERERR_BASE+0x1006),	//密码不正确
+
+		ERR_MSN_NOBIND		=(USERERR_BASE+0x3007),	//未绑定微信号
+
+
+        ERR_IMPORT = (SYSERR_BASE + 0x9999),	//导入错误
+
+}
+
+public class UniDCom
+{
+    public Mutex mutex = new Mutex(false);
+
+    GateWay m_gateWay = null;
+    bool m_bConnected
+    {
+        get{
+            if (m_gateWay != null && m_gateWay.IsConnect)
+            {
+                return true;
+            }else{
+                return false;
+            }
+        }
+    }
+	private uint m_dwErrCode = 0;
+    private string m_strErrMsg = "";
+	bool m_bTrace = false;
+
+    //private bool m_bBusy = false;
+
+	private uint m_dwFlag = 0xFFFFFFFF;//包标识
+	private uint m_dwSessionID = 0;
+	private const int m_RetryTime = 3; //失败时重试次数
+
+    public uint m_dwTimeout = 0;
+
+	public UniWebLib.UniConfig m_Config = new UniWebLib.UniConfig();
+
+    private string m_szLang = "";
+    public string Lang
+    {
+        get
+        {
+            return m_szLang;
+        }
+        set
+        {
+            m_szLang = value;
+        }
+    }
+
+    private uint m_dwStaSN = 0;
+
+    public uint StaSN
+    {
+        get
+        {
+            return m_dwStaSN;
+        }
+        set
+        {
+            m_dwStaSN = value;
+        }
+    }
+
+	public uint SessionID
+	{
+		get
+		{
+			return m_dwSessionID;
+		}
+		set
+		{
+			m_dwSessionID = value;
+		}
+	}
+		
+	public uint ErrCode
+	{
+		get
+		{
+			return m_dwErrCode;
+		}
+	}
+	public string ErrMsg
+	{
+		get
+		{
+			return m_strErrMsg;
+       	}
+	}
+	
+	public UniDCom()
+	{
+		m_Config.InitConfig();
+	}
+	
+	~UniDCom()
+	{
+		Close();
+	}
+
+    public uint GetLastErr(out string strErrMsg)
+    {
+        strErrMsg = m_strErrMsg;
+        return m_dwErrCode;
+    }
+
+    //传入二进制数据,返回二进制数据.
+    public uint RequestBin(uint nCommand, byte[] aData, out byte[] vData)
+    {
+        uint nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+        vData = null;
+        m_dwErrCode = (uint)REQUESTCODE.EXECUTE_SUCCESS;
+        m_strErrMsg = "";
+        if (aData == null)
+        {
+            aData = new byte[0];
+        }
+        if (m_bTrace)
+        {
+            Logger.Trace("Request CMD=" + nCommand.ToString("x") + ",Length=" + (aData != null ? aData.Length.ToString() : "0"));
+        }
+        CUseTime stattime = new CUseTime();
+        try
+        {
+            if (!m_bConnected)
+            {
+                if (m_gateWay == null) { m_gateWay = new GateWay(); }
+                if (!string.IsNullOrEmpty(m_Config.m_szServerIP))
+                {
+                    CUseTime stattime2 = new CUseTime();
+                    if (!m_gateWay.Connect(m_Config.m_szServerIP, m_Config.m_nServerPort))
+                    {
+                        stattime2.Add();
+                        m_strErrMsg = "网络连接失败";
+                        nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+                        SysConsole.Log(SessionID.ToString(), nResult, stattime2.GetTotalUseTime(), nCommand, aData, null, m_strErrMsg);
+                        return nResult;
+                    }
+                }
+                Logger.Trace("UniCOM IsEncode:" + m_gateWay.IsEncode.ToString());
+            }
+
+            byte[] sendData = new byte[12 + aData.Length];
+            sendData[0] = (byte)m_dwFlag;
+            sendData[1] = (byte)(m_dwFlag >> 8);
+            sendData[2] = (byte)(m_dwFlag >> 16);
+            sendData[3] = (byte)(m_dwFlag >> 24);
+            sendData[4] = (byte)m_dwSessionID;
+            sendData[5] = (byte)(m_dwSessionID >> 8);
+            sendData[6] = (byte)(m_dwSessionID >> 16);
+            sendData[7] = (byte)(m_dwSessionID >> 24);
+            sendData[8] = (byte)m_dwStaSN;
+            sendData[9] = (byte)(m_dwStaSN >> 8);
+            sendData[10] = (byte)(m_dwStaSN >> 16);
+            sendData[11] = (byte)(m_dwStaSN >> 24);
+
+            Array.Copy(aData, 0, sendData, 12, aData.Length);
+
+            if (mutex != null) mutex.WaitOne();
+            lock (m_gateWay)
+            {
+                for (int t = 0; t < m_RetryTime; t++)
+                {
+                    if (m_dwTimeout == 0)
+                    {
+                        vData = (byte[])(m_gateWay.Request(nCommand, sendData, out nResult));
+                    }
+                    else
+                    {
+                        vData = (byte[])(m_gateWay.RequestEx(nCommand, sendData, out nResult, 0, MSG_REQUEST, NeedEcho_True, m_dwTimeout, NeedACK_False));
+                    }
+                    if (nResult == (uint)REQUESTCODE.EXECUTE_SUCCESS || vData != null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        if (!m_gateWay.IsConnect)
+                        {
+                            Logger.Trace("m_gateWay.Request 失败重连");
+                            m_gateWay.Connect(m_Config.m_szServerIP, m_Config.m_nServerPort);
+                        }
+                        else
+                        {
+                            Logger.Trace("m_gateWay.Request 失败重试");
+                        }
+                    }
+                }
+            }
+            stattime.Add();
+
+            if (m_bTrace)
+            {
+                Logger.Trace("Return  CMD=" + nCommand.ToString("x") + ",Return=" + ((REQUESTCODE)nResult).ToString() + ", ResultLength=" + (vData != null ? vData.Length.ToString() : "0"));
+            }
+            if (nResult == (uint)REQUESTCODE.EXECUTE_SUCCESS)
+            {
+                if (mutex != null) mutex.ReleaseMutex();
+                SysConsole.Log(SessionID.ToString(), nResult, stattime.GetTotalUseTime(), nCommand, aData, vData, null);
+                return nResult;
+            }
+
+            UNICOMMERR_UT vrErr;
+            UniStructCS.CUniStructCS uccs = new UniStructCS.CUniStructCS();
+
+            if (uccs.Import(out vrErr, vData) > 0)
+            {
+                Logger.Trace("Error>>");
+                Logger.Trace(vrErr);
+                m_dwErrCode = (uint)vrErr.dwErrorCode;
+                m_strErrMsg = vrErr.szErrorInfo;
+                if (m_dwErrCode == 0x2002001)
+                {
+                    SessionID = 0;
+                }
+            }
+            vData = null;
+        }
+        catch (System.Runtime.InteropServices.COMException exception)
+        {
+            Close();
+            nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+            m_strErrMsg = exception.Message;
+            Logger.Trace("m_strErrMsg=" + m_strErrMsg);
+        }
+        catch (Exception exception)
+        {
+            Close();
+            nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+            m_strErrMsg = exception.Message;
+            Logger.Trace("m_strErrMsg=" + m_strErrMsg);
+        }
+        try
+        {
+            if (mutex != null) mutex.ReleaseMutex();
+        }
+        catch (Exception exception)
+        {
+            Logger.Trace("Exception exception)" + exception.Message);
+        }
+        
+        SysConsole.Log(SessionID.ToString(), nResult, stattime.GetTotalUseTime(), nCommand, aData, vData, m_strErrMsg);
+        return nResult;
+    }
+
+    public uint LogonOn(uint nCommand, byte[] aData, out byte[] vData)
+    {
+        uint nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+        vData = null;
+        m_dwErrCode = (uint)REQUESTCODE.EXECUTE_SUCCESS;
+        m_strErrMsg = "";
+
+		Logger.Trace("Request CMD="+nCommand.ToString("x")+",Length="+(aData!=null?aData.Length.ToString():"0"));
+        try
+        {
+			if(!m_bConnected)
+			{
+                if (m_gateWay == null) { m_gateWay = new GateWay(); }
+				if(!string.IsNullOrEmpty(m_Config.m_szServerIP))
+				{
+                    if(!m_gateWay.Connect(m_Config.m_szServerIP, m_Config.m_nServerPort))
+                    {
+                        m_strErrMsg = "网络连接失败";
+                        return (uint)REQUESTCODE.EXECUTE_FAIL;
+                    }
+				}
+				Logger.Trace("UniCOM IsEncode:"+m_gateWay.IsEncode.ToString());
+            }
+			
+			byte[] sendData = new byte[12 + aData.Length];
+			sendData[0] = (byte)m_dwFlag;
+			sendData[1] = (byte)(m_dwFlag >> 8);
+			sendData[2] = (byte)(m_dwFlag >> 16);
+			sendData[3] = (byte)(m_dwFlag >> 24);
+			sendData[4] = (byte)m_dwSessionID;
+			sendData[5] = (byte)(m_dwSessionID >> 8);
+			sendData[6] = (byte)(m_dwSessionID >> 16);
+			sendData[7] = (byte)(m_dwSessionID >> 24);
+            sendData[8] = (byte)m_dwStaSN;
+            sendData[9] = (byte)(m_dwStaSN >> 8);
+            sendData[10] = (byte)(m_dwStaSN >> 16);
+            sendData[11] = (byte)(m_dwStaSN >> 24);
+
+			Array.Copy(aData,0,sendData,12,aData.Length);
+
+            if (mutex != null) mutex.WaitOne();
+            lock (m_gateWay)
+            {
+                for (int t = 0; t < m_RetryTime; t++)
+                {
+                    vData = (byte[])(m_gateWay.Logon(nCommand, sendData, out nResult));
+                    if (nResult == (uint)REQUESTCODE.EXECUTE_SUCCESS || vData != null)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Logger.Trace("m_gateWay.Logon 失败重试");
+                        if (!m_gateWay.IsConnect)
+                        {
+                            m_gateWay.Connect(m_Config.m_szServerIP, m_Config.m_nServerPort);
+                        }
+                    }
+                }
+            }
+			
+			Logger.Trace("Return  CMD="+nCommand.ToString("x")+",Return="+((REQUESTCODE)nResult).ToString()+", ResultLength="+(vData!=null?vData.Length.ToString():"0"));
+
+            if (nResult == (uint)REQUESTCODE.EXECUTE_SUCCESS)
+            {
+                if (mutex != null) mutex.ReleaseMutex();
+                return nResult;
+            }
+
+            UNICOMMERR_UT vrErr;
+            UniStructCS.CUniStructCS uccs = new UniStructCS.CUniStructCS();
+
+            if (uccs.Import(out vrErr, vData) > 0)
+            {
+                Logger.Trace("Error>>");
+                Logger.Trace(vrErr);
+                m_dwErrCode = (uint)vrErr.dwErrorCode;
+                m_strErrMsg = vrErr.szErrorInfo;
+                if (m_dwErrCode == 0x2002001)
+                {
+                    SessionID = 0;
+                }
+            }
+
+            vData = null;
+        }
+        catch (System.Runtime.InteropServices.COMException exception)
+        {
+            Close();
+            nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+            m_strErrMsg = exception.Message;
+            Logger.Trace("m_strErrMsg=" + m_strErrMsg);
+        }
+        catch (Exception exception)
+        {
+            Close();
+            nResult = (uint)REQUESTCODE.EXECUTE_FAIL;
+            m_strErrMsg = exception.Message;
+            Logger.Trace("m_strErrMsg=" + m_strErrMsg);
+        }
+        if (mutex != null) mutex.ReleaseMutex();
+
+        return nResult;
+    }
+
+    const int MSG_REQUEST = 1;
+    const int NeedEcho_True = 1;
+    const int NeedACK_False = 0;
+    const int EchoWait_Default = 60000;
+
+    public void Close()
+    {
+		Logger.Trace("UniDCom::Close.");
+        m_dwErrCode = (uint)REQUESTCODE.EXECUTE_SUCCESS;
+        m_strErrMsg = null;
+
+        try
+        {
+            if (m_gateWay != null)
+            {
+                m_gateWay.Close();
+            }
+        }
+        catch (System.Runtime.InteropServices.COMException exception)
+        {
+            m_strErrMsg = exception.Message;
+        }
+        catch (Exception e)
+        {
+            System.Console.Write(e);
+        }
+    }
+}

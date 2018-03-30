@@ -1,0 +1,269 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Runtime.InteropServices;
+using System.Reflection;
+
+namespace UniCom_DLL
+{
+	public class SetDllpath
+	{
+		public SetDllpath(string dllPath)
+		{
+			string path = System.Environment.GetEnvironmentVariable("Path");
+			path += ";" + System.Web.HttpContext.Current.Server.MapPath(dllPath);
+			System.Environment.SetEnvironmentVariable("Path", path);
+		}
+		~SetDllpath()
+		{
+		}
+	}
+
+	public class GateWay
+	{
+		int m_hOPM = 0;
+
+        public bool IsConnect
+        {
+            get
+            {
+                return m_hOPM != 0;
+            }
+        }
+
+	    public bool IsEncode
+        {
+            get
+            {
+                return true;
+            }
+            set
+            {
+
+            }
+        }
+
+        public void Close()
+        {
+            if(m_hOPM != 0)
+			{
+				UP_GateWayRelease(m_hOPM);
+				m_hOPM = 0;
+			}
+        }
+        string m_strServerIP;
+        int m_nPort;
+        public bool Connect(string strServerIP, int nPort)
+        {
+			if(m_hOPM != 0)
+			{
+				Close();
+			}
+            m_strServerIP = strServerIP;
+            m_nPort = nPort;
+            m_hOPM = UP_GateWayCreate(strServerIP, nPort);
+			return m_hOPM != 0;
+        }
+
+        public byte[] Logon(uint command, byte[] pData, out uint pnRequest)
+        {
+			pnRequest = 0xffffffff;
+			if(m_hOPM == 0)
+			{
+                throw new Exception("网络连接失败");
+			}
+            if (!UP_IsValid(m_hOPM))
+            {
+                if (!Connect(m_strServerIP, m_nPort))
+                {
+                    throw new Exception("网络连接超时");
+                }
+            }
+
+			IntPtr pResponse;
+			uint npRequest = 0;
+			uint pOutSize = 0;
+			IntPtr _pData = Marshal.AllocHGlobal(pData.Length);
+			Marshal.Copy(pData, 0, _pData, pData.Length);
+
+            int ret = UP_GateWayLogon(m_hOPM,command, _pData,pData.Length, ref npRequest,out pResponse, ref pOutSize);
+
+			pnRequest = npRequest;
+			Marshal.FreeHGlobal(_pData);
+
+
+            if (ret == RET_SESSION_ERROR)
+            {
+                throw new Exception("网络连接超时");
+            }
+            else if (ret == RET_FALSE)
+            {
+                throw new Exception(UP_GetErrorMessage(m_hOPM));
+            }
+            else
+            {
+                byte[] arrayret = null;
+                if (pOutSize > 0 && pResponse != null)
+                {
+                    arrayret = new byte[pOutSize];
+                    Marshal.Copy(pResponse, arrayret, 0, (int)pOutSize);
+                    UP_GateWayClearRequest(pResponse);
+                }
+                return arrayret;
+            }
+        }
+
+
+        public byte[] Request(uint command, byte[] pData, out uint pnRequest)
+        {
+			pnRequest = 0xffffffff;
+			if(m_hOPM == 0)
+			{
+                throw new Exception("网络连接失败");
+			}
+            if (!UP_IsValid(m_hOPM))
+            {
+                if (!Connect(m_strServerIP, m_nPort))
+                {
+                    throw new Exception("网络连接超时");
+                }
+            }
+
+			IntPtr pResponse;
+			uint npRequest = 0;
+			uint pOutSize = 0;
+			IntPtr _pData = Marshal.AllocHGlobal(pData.Length);
+			Marshal.Copy(pData, 0, _pData, pData.Length);
+
+            //int ret = UP_GateWaySend(m_hOPM,command, _pData,pData.Length, ref npRequest,out pResponse, ref pOutSize);
+			int ret = UP_GateWaySendEx(m_hOPM,command, _pData,pData.Length, ref npRequest,out pResponse, ref pOutSize,
+            (uint)0, (uint)1, (uint)1, 90000, (uint)0);
+
+			pnRequest = npRequest;
+			Marshal.FreeHGlobal(_pData);
+			
+            if (ret == RET_SESSION_ERROR)
+            {
+                throw new Exception("网络连接超时");
+            }
+            else if (ret == RET_FALSE)
+            {
+                throw new Exception(UP_GetErrorMessage(m_hOPM));
+            }
+            else
+            {
+                byte[] arrayret = null;
+                if (pOutSize > 0 && pResponse != null)
+                {
+                    arrayret = new byte[pOutSize];
+                    Marshal.Copy(pResponse, arrayret, 0, (int)pOutSize);
+                    UP_GateWayClearRequest(pResponse);
+                }
+                return arrayret;
+            }
+        }
+
+        public byte[] RequestEx(uint command, byte[] pData, out uint pnRequest, int lSession, int nMsgType, int bNeedEcho, uint dwEchoWait, int bNeedACK)
+        {
+			pnRequest = 0xffffffff;
+            if (m_hOPM == 0)
+            {
+                throw new Exception("网络连接失败");
+            }
+            if (!UP_IsValid(m_hOPM))
+            {
+                if (!Connect(m_strServerIP, m_nPort))
+                {
+                    throw new Exception("网络连接超时");
+                }
+            }
+
+			IntPtr pResponse;
+			uint npRequest = 0;
+			uint pOutSize = 0;
+			IntPtr _pData = Marshal.AllocHGlobal(pData.Length);
+			Marshal.Copy(pData, 0, _pData, pData.Length);
+
+            int ret = UP_GateWaySendEx(m_hOPM,command, _pData,pData.Length, ref npRequest,out pResponse, ref pOutSize,
+            (uint)lSession, (uint)nMsgType, (uint)bNeedEcho, dwEchoWait, (uint)bNeedACK);
+			
+			pnRequest = npRequest;
+			Marshal.FreeHGlobal(_pData);
+			
+            if (ret == RET_SESSION_ERROR)
+            {
+                throw new Exception("网络连接超时");
+            }
+            else if (ret == RET_FALSE)
+            {
+                throw new Exception(UP_GetErrorMessage(m_hOPM));
+            }
+            else
+            {
+                byte[] arrayret = null;
+                if (pOutSize > 0 && pResponse != null)
+                {
+                    arrayret = new byte[pOutSize];
+                    Marshal.Copy(pResponse, arrayret, 0, (int)pOutSize);
+                    UP_GateWayClearRequest(pResponse);
+                }
+                return arrayret;
+            }
+        }
+
+		static SetDllpath setdllpath = new SetDllpath("~/Dll");
+		const string szDLLPath = @"UniLabProxy.dll";
+        //===============
+        const int RET_FALSE = 0;
+        const int RET_OK = 1;
+        const int RET_SESSION_ERROR = -1;
+
+        [DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWayCreate")]
+		static extern int UP_GateWayCreate(string szServerIP, int nServerPort);
+
+
+		[DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWayLogon")]
+        static extern int UP_GateWayLogon(int hUP,
+			uint nRequest,
+			IntPtr pDataPtr,int nDataLen,
+			ref uint npRequest,
+			 out IntPtr pResponse,//BYTE** pResponse, 
+			 ref uint pOutSize);
+			 
+		[DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWaySend")]
+        static extern int UP_GateWaySend(int hUP,
+			uint nRequest,
+			IntPtr pDataPtr,int nDataLen,
+			ref uint npRequest,
+			 out IntPtr pResponse,//BYTE** pResponse, 
+			 ref uint pOutSize);
+
+        [DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWaySendEx")]
+        static extern int UP_GateWaySendEx(int hUP,
+			uint nRequest,
+			IntPtr pDataPtr,int nDataLen,
+			ref uint npRequest,
+			 out IntPtr pResponse,//BYTE** pResponse, 
+			 ref uint pOutSize,
+			 uint	lSession,
+			uint nMsgType,
+			uint bNeedEcho,
+			uint dwEchoWait
+			,uint bNeedACK);
+
+		[DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWayClearRequest")]
+        static extern int UP_GateWayClearRequest(IntPtr pResponse);
+
+
+        [DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GateWayRelease")]
+        static extern int UP_GateWayRelease(int hUP);
+
+        [DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_GetErrorMessage")]
+        static extern string UP_GetErrorMessage(int hUP);
+
+        [DllImport(szDLLPath, CharSet = CharSet.Ansi, EntryPoint = @"UP_IsValid")]
+        static extern Boolean UP_IsValid(int hUP);
+
+    }
+
+}

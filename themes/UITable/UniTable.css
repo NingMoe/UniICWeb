@@ -1,0 +1,28 @@
+
+.UniTable th
+{
+	text-indent:13px;
+}
+
+.UniTable th.tblOPTH
+{
+	text-indent: 0px;
+	width: 25px;
+}
+
+.canOrder
+{
+	cursor:pointer;
+	text-indent:13px;
+	background:url("../img/order.gif") no-repeat left;
+}
+
+.orderAsc
+{
+	background:url("../img/orderAsc.gif") no-repeat left !important;
+}
+
+.orderDesc
+{
+	background:url("../img/orderDesc.gif") no-repeat left  !important;
+}

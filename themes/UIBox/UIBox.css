@@ -1,0 +1,49 @@
+.UIBox {
+    margin:auto;
+    width:auto;
+}
+
+.UIBOX_boxct {
+    position:relative;
+    float:left;
+    border: 0px;
+    margin:1px;
+    padding:0px;
+    overflow:hidden;
+}
+
+.UIBOX_img {
+    position:absolute;
+    width:100%;
+    height:100%;
+    left:0px;
+    top:0px;
+    border: 0px;
+    margin:0px;
+    padding:0px;
+}
+
+.UIBOX_title {
+    position:absolute;
+    border: 0px;
+    margin:0px;
+    padding:0px;
+    overflow:hidden;
+    height:20px;
+    color:#3388bb;
+}
+
+.UIBOX_more {
+    font-size:12px;
+    float:right;
+    width:40px;
+    height:18px;
+}
+
+.UIBOX_box {
+    position:absolute;
+    border: 0px;
+    margin:0px;
+    padding:0px;
+    overflow:hidden;
+}

@@ -1,0 +1,52 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="ClientWeb_m_a_net_MasterPage" %>
+
+<!DOCTYPE html>
+
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title><%=Translate("手机预约端") %></title>
+
+    <%--框架库--%>
+    <script type="text/javascript" src="<%=url %>fm/framework7/framework7.min.js?v=<%=GetConfig("afeVersion") %>"></script>
+    <%--手机通用库--%>
+    <script type="text/javascript" src="<%=url %>m/a/js/uni.m.js?v=<%=GetConfig("afeVersion") %>"></script>
+    <script type="text/javascript" src="<%=url %>m/a/js/pro.m.js?v=<%=GetConfig("afeVersion") %>"></script>
+
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="theme-blue">
+    <script>
+        //主题
+        (function () {
+            var prefix = "theme=";
+            var start = document.cookie.indexOf(prefix);
+            if (start > -1) {
+                var end = document.cookie.indexOf(";", start + prefix.length);
+                if (end == -1) { end = document.cookie.length; }
+                var color = document.cookie.substring(start + prefix.length, end);
+                if (color) {
+                    var body = document.getElementsByTagName("body")[0];
+                    body.className = "theme-" + color;
+                }
+            }
+        })();
+    </script>
+    <div class="popup tablet-fullscreen modal-in reload-overlay text-center fullscreen_preloader" style="display: block;">
+        <div style="margin-top: 50%;"><span style="width: 32px; height: 32px" class="preloader"></span></div>
+        <div>loading...</div>
+        <p style="text-align: center">
+            <button type="button" onclick="location.reload()"><%=Translate("点击重新加载，清理缓存")%></button></p>
+    </div>
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+    <asp:ContentPlaceHolder ID="MainContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <%--本地程序--%>
+    <script type="text/javascript" src="app.js?v=<%=GetConfig("afeVersion") %>"></script>
+</body>
+</html>

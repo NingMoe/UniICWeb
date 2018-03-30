@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<UNI>
+  <dft>
+    <Info id="rule" date="20140929160004834" alter="20150205155954224" title="规则参考模版"></Info>
+    <Info id="slide" date="20140929152752656" alter="20140929162326764" title="相册参考模版"></Info>
+    <Info id="intro" date="20140929133317036" alter="20150205160014713" title="简介参考模版"></Info>
+    <Info id="hard" date="20140929112258420" alter="20150205160031452" title="硬件配置参考内容"></Info>
+    <Info id="mIntro" date="20150526133316362" alter="20150526140301983" title="移动端介绍参考模版"></Info>
+  </dft>
+</UNI>

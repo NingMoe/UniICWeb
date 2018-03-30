@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- 前端全局配置-->
+<!--带pro的配置仅在全局生效，不能放入项目中-->
+<configuration>
+  <appSettings>
+    <!--pro 项目标志 旧IC/研修间=ic 新IC/研修间=ic2 实验教学=jx 北师大心理=bsd-xl 浙大农学院=zd-nxy 场馆=cg2 中医药=zyy-->
+    <add key="proTab" value="ic2" />
+    <!--pro 外借设备预约状态为详细列表=1 (暂时南政)-->
+    <add key="resvLoanDetail" value="0" />
+    <!--（新）开放的IC空间子系统/设备大类别（多个累加）不过滤（存在即开放）=0 空间=1 电子阅览室=2 外借=4 座位=8-->
+    <add key="openClsKind" value="11" />
+    <!--登录前需激活=1-->
+    <add key="mustAct" value="0" />
+    <!--登录必须验证码=1-->
+    <add key="mustVerif" value="0" />
+    <!--从重定向登录 完整地址(包含http://) 需前端必须登录-->
+    <add key="thirdLogin" value="" />
+    <!--预约时间粒度 （分钟）不允许配置大于60-->
+    <add key="resvTimeUnit" value="10" />
+    <!--访问模式 login=登录页 home=门户页 default=主页-->
+    <add key="visitMode" value="default" />
+    <!--前端必须登录=1-->
+    <add key="mustLogin" value="0" />
+    <!--启用用户信用功能=1-->
+    <add key="userCredit" value="1" />
+        <!--手机端属性 启用=1（累加） 自动跳转=2  使用独立的介绍=4 支持签到=8 签到无需检测位置(仅演示用)=16-->
+    <add key="availMobile" value="31" />
+    <!--显示上传附件=1   预约时IC空间总是(无论是否必须)-->
+    <add key="showResvAttach" value="0" />
+    <!--支持提前结束预约=1-->
+    <add key="showResvFinish" value="1" />
+    <!--长期预约为预约全天(只约日期)=1-->
+    <add key="resvAllDay" value="1" />
+    <!--检查教室容量=1-->
+    <add key="ckClsRoomCapacity" value="0" />
+    <!--教学端自动识别身份登录=1-->
+    <add key="autoJudgeRole" value="0" />
+    <!--（旧ic系统）ic空间需开放的类型（多个用逗号隔开）  座位=seat 空间=common 外借=loan 电子阅览室=computer-->
+    <add key="icClsKind" value="common,seat" />
+    
+    <!--普通预约的默认资源分类方式 类别=1 类型=2(未用) 房间=4 实验室+房间=36 学院+部门=8(用于部门开课介绍) 设备=16 实验室=32 (场馆)活动类型=64-->
+    <add key="resourceMode" value="36" />
+    
+    <!--启用开放活动功能 可选普通预约=1 活动独占=2-->
+    <add key="openActivity" value="2" />
+    <!--实验数据保存路径-->
+    <add key="dataFilePath" value="" />
+    <!--预约固定时段 格式：时段用英文逗号【,】隔开,开始结束时间用英文冒号【:】隔开，小时分钟不隔开 如 830: 1200, 1400: 1700 -->
+    <add key="fixTimeSpan" value="" />
+    <!--pro 显示不开放的对象（设备、设备类型、房间等）=1-->
+    <add key="showClose" value="1" />
+    <!--pro 支持多语言=1-->
+    <add key="supMultilanguage" value="0" />
+    <!--pro 系统默认语言(默认中文) 英语=en-gb 美语=en-us 需supMultilanguage=1-->
+    <add key="dftLanguage" value="" />
+    <!--pro 教学预约流程 自动创建项目=1 隐藏项目概念=2 个人预约=4  0=默认标准（严格实验计划、实验项目模式） -->
+    <add key="scheduleMode" value="0" />
+    <!--pro 教学预约上课类型的名称 1=实验 2=授课-->
+    <add key="courseKind" value="1" />
+    <!--pro 预约前需阅读预约须知 通用=1 按资源划分=2-->
+    <add key="needToKnow" value="0" />
+    <!--pro 教学支持实验计划类型 未设置/1=教学统一安排 2=开放实验-->
+    <add key="testPlanKind" value="1" />
+    <!--pro 前端显示演示内容=1-->
+    <add key="isDemo" value="1" />
+    <!--pro 实验申请报告叠加保存 =1-->
+    <add key="multiApplyFile" value="0" />
+    <!--pro 未使用 预约申请可多时段 =1-->
+    <add key="allowMultiTime" value="0" />
+    <!--pro 学生指定导师 自动转导师身份 =1-->
+    <add key="autoToTutor" value="1" />
+    <!--pro 登录时帐号描述-->
+    <add key="idIntro" value="学号/工号" />
+    <!--pro 登录时密码描述-->
+    <add key="pwdIntro" value="同一卡通密码" />
+    <!--pro 只允许登录的身份（多个可累加） 全部=0 教师=512 学生=256-->
+    <add key="allowIdent" value="0" />
+    <!--pro 记录文件上传日志 =1-->
+    <add key="upfileLog" value="0" />
+    <!--pro普通预约 显示主题=1 必须=2-->
+    <add key="resvTheme" value="0" />
+    <!--pro需要显示主题的大类(可累加) 全部=0 空间=1 电子阅览室/电脑=2 外借=4 座位=8 多人研讨间=2048-->
+    <add key="resvThemeClsKind" value="1" />
+    <!--pro 普通预约 预约主题只能选择固定选项=1-->
+    <add key="fixTheme" value="0"/>
+    <!--pro普通预约 显示备注=1 必须=2-->
+    <add key="resvMemo" value="1" />
+    <!--pro普通预约 备注提示内容-->
+    <add key="memoTip" value="其它备注信息，请填入此输入框 " />
+    <!--pro普通预约 支持教师排课=1-->
+    <add key="resvSchedule" value="0" />
+    <!--pro普通预约 收费，计算费用=1-->
+    <add key="resvBilling" value="0" />
+    <!--pro 支持修改密码=1-->
+    <add key="needChangePsw" value="0" />
+    <!--pro 允许用户配置短信提醒=1-->
+    <add key="optNoteAlert" value="1"/>
+    <!--pro 预约状态呈现平面图模式 列表=默认 平面图=1 -->
+    <add key="resvStateMode" value="1" />
+    <!--pro 支持平面图呈现模式的大类/子系统（累加） 空间=1 电子阅览室/电脑=2 外借=4 座位=8 -->
+    <add key="floorPlanClsKind" value="10" />
+    
+    <!--pro 显示预约状态条=1-->
+    <add key="supStateSlider" value="1" />
+    <!--pro 必须绑定微信=1 非必须绑定=2-->
+    <add key="bindWechat" value="0" />
+    <!--pro 绑定微信二维码地址（如http://【地址】?sysid=【客户号】）-->
+    <add key="wechatQrCode" value="" />
+    <!--display module-->
+    <!--显示文字 资源列表-->
+    <add key="mResourceList" value="资源列表" />
+    <!--最新通知=1 通知列表=2-->
+    <add key="mNotice" value="1" />
+    <!--最新预约动态=1-->
+    <add key="mResvDynamic" value="1" />
+    <!--头部背景=1 头部背景自编辑=2-->
+    <add key="mHeadBg" value="1" />
+    <!--logo=1-->
+    <add key="mLogo" value="0" />
+    <!--带logo 头部条幅=1-->
+    <add key="mHeadScroll" value="0" />
+    <!--普通预约index页显示模式 排列=1 幻灯片=2-->
+    <add key="mIndexMode" value="2" />
+    <!--显示跳转到管理端-->
+    <add key="mShowJumpManage" value="1" />
+    <!--pro theme 系统主题-->
+    <add key="sysTheme" value="dft" />
+
+    <!--pro new 项目个性化标志（可选，有需求才配置） 吉林财经ic2快速预约=jlcj  计量教学计划只选课程班=jl-->
+    <add key="clientTab" value="" />
+    <!--pro new 空间资源分类方式 类别=1 类型=2(未用) 房间=4 实验室+房间=36 设备=16-->
+    <add key="subRmResourceMode" value="1" />
+    <!--pro new 座位资源分类方式 类别=1 类型=2(未用) 房间=4 实验室+房间=36 设备=16-->
+    <add key="subSeatResourceMode" value="36" />
+    <!--pro new 电子阅览室资源分类方式 类别=1 类型=2(未用) 房间=4 实验室+房间=36 设备=16-->
+    <add key="subCptResourceMode" value="4" />
+    <!--pro new 外借设备资源分类方式 类别=1 类型=2 房间=4 实验室+房间=36 设备=16-->
+    <add key="subLoanResourceMode" value="2" />
+    <!--pro new手机端支持快速预约的大类/子系统（累加） 电子阅览室/电脑=2 座位=8 -->
+    <add key="quickResv" value="10" />
+    <!--pro new子系统合用统一的编辑内容（累加） 电子阅览室/电脑=2 座位=8 -->
+    <add key="editForSubsys" value="10" />
+    <!--pro new超越规则查看所有预约状态=1 -->
+    <add key="getAllResvStat" value="1" />
+    <!--pro new预约备选时长（分钟）多个可英文逗号分割，必须resvTimeUnit的倍数，从小到大排序-->
+    <add key="resvInterval" value="60,120" />
+    <!--pro new快速预约时段（全天时段将会被作为默认开放时间）  格式(请务必有一个全天,英文标点)：全天@08:00-22:00,上午@08:00-12:00,下午@13:00-18:00,晚上@19:00-22:00  -->
+    <add key="resvRange" value="全天@08:00-22:00,上午@08:00-12:00,下午@13:00-18:00,晚上@19:00-22:00" />
+    <!--pro new 定位精度与基准坐标(英文逗号隔开，支持多个) 格式：精确度(单位:米),经度1,纬度1,经度2,纬度2... 例：100,120.039918,30.283071-->
+    <add key="Coords" value="25,120.039918,30.283071,120.04981,30.283002" />
+  </appSettings>
+</configuration>

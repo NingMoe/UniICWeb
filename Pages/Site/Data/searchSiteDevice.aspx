@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchSiteDevice.aspx.cs" Inherits="searchAccount" %>

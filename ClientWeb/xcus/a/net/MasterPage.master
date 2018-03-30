@@ -1,0 +1,155 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="ClientWeb_xcus_jx_net_MasterPage" %>
+<%@ Register TagPrefix="Uni" TagName="basic" Src="~/ClientWeb/pro/net/dlg_basic.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="acc" Src="~/ClientWeb/pro/net/acc.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="lg" Src="~/ClientWeb/pro/net/dlg_lg.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="term" Src="~/ClientWeb/pro/net/term.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="include" Src="include.ascx" %>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <meta name="renderer" content="webkit">
+    <title><%=Translate(GetConfig("SysName")) %></title>
+    <Uni:include runat="server" />
+    <!--[if lt IE 9]>
+      <script src="../../fm/add/html5shiv.js"></script>
+      <script src="../../fm/add/respond.js"></script>
+    <![endif]-->
+    <script>
+        $(function () {
+            //初始化语言
+            <%if(GetConfig("supMultilanguage")=="1"){%>
+            pro.initLanguage(function () {
+                $(".lang_set").show();
+                uni.translate($("body"));
+            });
+            $(function () {
+                $(".lang_set img").click(function () {
+                    var pthis = $(this);
+                    var lang = pthis.data("lang");
+                    pro.setLanguage(lang);
+                });
+                $(".lang_set span").click(function () {
+                    var pthis = $(this);
+                    var lang = pthis.data("lang");
+                    pro.setLanguage(lang);
+                });
+            });
+            <%}%>
+            //backtop
+            $(".back_top").backtop();
+            //记录hr加载的网页地址
+            $("body").on("uni_hr_load_success", function () {
+                $(".by_hr_load").html(uni.hr.para.url || "无")
+            });
+            //浏览器检查
+            if (uni.getIEVer() > 0) {
+                if(uni.getIEVer() < 8)
+                    uni.msg.error("您当前的浏览器版本太低，请升级浏览器至谷歌、火狐、IE9+等更高级的浏览器。");
+                if (uni.getIEVer() < 9)
+                    $("#warning_old_browser").show();
+                else
+                    $("#warning_old_browser").hide();
+            }
+        })
+        //自定义
+        var cus = {
+            showLogin: function () {
+                pro.d.lg.login();
+            }
+        }
+    </script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body style="background-color:#f7f7f7;" class="<%=isLogin?"login_state_in":"login_state_out"%>">
+    <div style="height:30px;background:#31B0D5;color:white;text-align:center;display:none;" id="warning_old_browser">
+        您当前的浏览器版本较低，为获得更好的显示效果，建议升级浏览器至谷歌、火狐、IE9+等更高级的浏览器。
+    </div>
+    <div id="pub_resource">
+        <Uni:basic  runat="server" />
+        <Uni:acc runat="server" ID="MyAcc" />
+        <Uni:term runat="server" ID="MyTerm" />
+        <Uni:lg runat="server" />
+        <div class="back_top"></div>
+    </div>
+    <header class="navbar navbar-inverse navbar-static-top<%=mHeadBg==2?" tight":""%>" role="banner" style="<%=mHeadBg>0?"":"margin-bottom: 0;" %>">
+        <div class="container" id="top_nav">
+            <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+                <h4 class="pull-left" style="font-size: 24px;"><%=Translate(GetConfig("SysName")) %></h4>
+                <ul class="nav navbar-nav navbar-right">
+                    <li style="display:none;" class="lang_set">
+                        <span data-lang="zh-cn" style="margin:3px;cursor:pointer">中文</span>
+                        <span data-lang="en-gb"  style="cursor:pointer">English</span>
+
+<!--                        <img src="../a/theme/images/zh_version.gif" alt="中文" data-lang="zh-cn"/>
+                        <img src="../a/theme/images/en_version.gif" alt="English" data-lang="en-gb"/>
+                        -->
+                    </li>
+                    <li  style="display:<%=GetConfig("mShowJumpManage")=="1"?"":"none" %>"><a href="../../../pages/default.aspx">[<%=Translate("管理端")%>]</a></li>
+                    <li class="user_info">
+                        <span class="login_hide" style=""><%=Translate("预约请登录")%>！</span>
+                        <span class="login_show"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=Translate("您好")%>,<%=trueName %></span>
+                    </li>
+                    <li style="" class="logout lg_act login_show">
+                        <a><span><%=Translate("退出")%><span class="glyphicon glyphicon-log-out"></span></span></a>
+                    </li>
+                    <li style="" class="login lg_act login_hide" onclick="pro.d.lg.login();">
+                        <a><span><%=Translate("登录")%><span class="glyphicon glyphicon-log-in"></span></span></a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <script>
+            var url = location.href.toLowerCase();
+            var list = $("#top_nav").find("a");
+            list.each(function (i) {
+                var pthis = $(this);
+                var href = pthis.attr("href");
+                if (href)
+                    href = href.toLowerCase();
+                if (!uni.isNull(href)) {
+                    if (url.indexOf(href) > 0) {
+                        pthis.parent("li").addClass("active");
+                    }
+                    else {
+                        pthis.parent("li").removeClass("active");
+                    }
+                }
+            });
+        </script>
+    </header>
+    <div id="jumbotron" class="<%=mHeadBg>0?(mHeadBg==2?"tight":""):"hidden" %>">
+        <div class="container acc_info">
+            <h3 class="text-right"><span class="glyphicon glyphicon-user"></span>&nbsp;<%=Translate("您好")%>,<span class="acc_info_name"><%=trueName %></span>  <span style="font-size: 14px;"><%=Translate("欢迎使用")%><%=Translate(GetConfig("SysName")) %>！</span></h3>
+            <p style="border-top: 1px solid #fff; font-size: 14px; padding: 3px 5px;text-align:right;margin: 0;"><span class="login_show" style=""><%=Translate("登录名")%>：<span class="acc_info_id"><%=logonName %></span> |  <%=Translate("部门")%>：<span class="acc_info_dept"><%=userDept %></span></span><span class="login_hide" style=""><%=Translate("预约请登录")%>！</span></p>
+        </div>
+    </div>
+<%--    <div style="height:10px;" class="<%=GetConfig("mHeadBg")=="1"?"hidden":"" %>">
+    </div>--%>
+    <div class="container">
+        <%if (GetConfig("show2code") == "1")
+            {%>
+        <div style="position: relative;">
+    <div style="position: fixed;top:160px;left:5px">
+        <div style="text-align:left">
+            <img style="width:100px" src="~/ClientWeb/pro/dft/2code.jpg" alt="公众号图片" runat="server" />
+            <div style="width:100px;font-bolder;font-size:12px">用图书馆研读间微信通知服务，需关注并绑定学校的微信企业号“清华大学信息服务”。具体操作见<a href="~/ClientWeb/pro/dft/绑定微信企业号方法研读间专用.pdf" style="color:#2a6496" runat="server">说明文档</a>。</div>
+        </div>
+    </div>
+</div>
+        <%} %>
+
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    <footer class="bs-docs-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer_other_info"></div>
+            <%=Translate("版权所有")%>：<%=Translate(GetConfig("SysAutoSchoolName"))%>
+            <div class="hidden" name="当前异步加载的网页"><span class="by_hr_load"></span></div>
+        </div>
+    </footer>
+</body>
+</html>

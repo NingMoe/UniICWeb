@@ -1,0 +1,156 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using UniWebLib;
+
+public partial class _Default : UniPage
+{
+    protected bool bSet = false;
+    protected string m_Title = "";
+    protected string szFileName = "";
+    protected string sz = "";
+    protected string szPeople = "";
+    protected string szApplyName = "";
+    protected string szResvDevName = "";
+    protected string szResvTime = "";
+    protected string szResvTimeAll = "";
+    protected string szResvDevDept = "";
+    protected string szNeedCameor= "不需要";
+    protected string szLeveal = "";
+    protected string szSecurityLevel = "";
+    protected string szDirectors = "";
+    protected string szDevList = "";
+    protected string szMemo = "";
+    protected string szActivity = "";
+    protected string szOrganiger = "";
+    protected string szOrganization = "";
+    protected string szResvTimeInfo = "";
+    protected string szServiceType = "";
+    protected string szMemoExt = "";
+    protected string szPreCheckDetail = "";
+    protected string szPreDate = "";
+    protected string szResvBegin= "";
+    protected string szResvEnd = "";
+    protected string szYardKind = "";
+    protected string szCamp = "";
+    protected string szBuilding = "";
+    protected string szKinds = "";
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack)
+        {
+            REQUESTCODE uResponse = REQUESTCODE.EXECUTE_FAIL;
+            string szCheckIDs = Request["ID"];
+            string[] szCheckIDList = szCheckIDs.Split(',');
+            for (int i = 0; i < szCheckIDList.Length; i++)
+            {
+                uint uTempID = Parse(szCheckIDList[i]);
+                if (uTempID == 0)
+                {
+                    continue; ;
+                }
+                YARDRESVCHECKINFOREQ vrPar = new YARDRESVCHECKINFOREQ();
+                vrPar.dwCheckID = uTempID;
+                vrPar.dwNeedYardResv = 1;
+
+                YARDRESVCHECKINFO[] vtRes;
+
+                uResponse = m_Request.Reserve.GetYardResvCheckInfo(vrPar, out vtRes);
+                if (uResponse == REQUESTCODE.EXECUTE_SUCCESS == vtRes.Length > 0)
+                {
+                    YARDRESVCHECK setValue = new YARDRESVCHECK();
+                    setValue.dwCheckID = vtRes[0].dwCheckID;
+                    setValue.dwCheckKind = vtRes[0].dwCheckKind;
+                    setValue.dwResvID = vtRes[0].dwResvID;
+                    setValue.YardResv = vtRes[0].YardResv;
+                    setValue.YardResv.dwActivityLevel = Parse(Request["dwActivityLevel"]);
+                    setValue.YardResv.dwSecurityLevel = Parse(Request["dwSecurityLevel"]);
+                    setValue.YardResv.dwCheckKinds = Parse(Request["dwDirectors"]);
+                    setValue.szCheckDetail = Request["szCheckInfo"];
+                    string szDevID = Request["devID"];
+                    if (szDevID != null && szDevID != "")
+                    {
+                        UNIDEVICE dev;
+                        if (getDevByID(szDevID, out dev))
+                        {
+                            setValue.YardResv.dwDevID = dev.dwDevID;
+                            setValue.YardResv.dwDevKind = dev.dwKindID;
+                            setValue.YardResv.dwDevSN = dev.dwDevSN;
+                            setValue.YardResv.szDevName = dev.szDevName;
+                            setValue.YardResv.dwLabID = dev.dwLabID;
+                            setValue.YardResv.dwRoomID = dev.dwRoomID;
+                            setValue.YardResv.szRoomName = dev.szRoomName;
+
+                        }
+                        YARDRESVREQ vrYardGet = new YARDRESVREQ();
+                        vrYardGet.dwResvID = vtRes[0].dwResvID;
+                        YARDRESV[] vtYardResv;
+                        if (m_Request.Reserve.GetYardResv(vrYardGet, out vtYardResv) == REQUESTCODE.EXECUTE_SUCCESS && vtYardResv != null && vtYardResv.Length > 0)
+                        {
+                            YARDRESV setYardResv = new YARDRESV();
+                            setYardResv = vtYardResv[0];
+                            setYardResv.dwDevID = dev.dwDevID;
+                            m_Request.Reserve.SetYardResv(setYardResv, out setYardResv);
+                        }
+
+                    }
+                    string szCheckName = Request["checkstate"];
+                    if (szCheckName == "16")
+                    {
+                        setValue.dwCheckStat = (uint)ADMINCHECK.DWCHECKSTAT.CHECKSTAT_OK;
+
+                    }
+                    else
+                    {
+                        setValue.dwCheckStat = (uint)ADMINCHECK.DWCHECKSTAT.CHECKSTAT_OK + (uint)ADMINCHECK.DWCHECKSTAT.CHECKSTAT_REDO;
+
+                    }
+                    setValue.szCheckDetail = Request["szCheckDetail"];
+                    uResponse = m_Request.Reserve.YardResvCheck(setValue);
+                }
+            }
+            if (uResponse == REQUESTCODE.EXECUTE_SUCCESS)
+            {
+                MessageBox("审核通过", "", MSGBOX.SUCCESS, MSGBOX_ACTION.OK);
+            }
+            else
+            {
+                MessageBox(m_Request.szErrMessage, "审核失败", MSGBOX.ERROR, MSGBOX_ACTION.CANCEL);
+            }
+        }
+
+        m_Title = "批量审核";
+
+    }
+    private UNIRESERVE[] GetResvByGroupID(uint uGroupID)
+    {
+        RESVREQ vrGet = new RESVREQ();
+        vrGet.dwResvGroupID = uGroupID;
+        UNIRESERVE[] vtRes;
+        if (m_Request.Reserve.Get(vrGet, out vtRes) == REQUESTCODE.EXECUTE_SUCCESS && vtRes != null && vtRes.Length > 0)
+        {
+            return vtRes;
+        }
+        return null;
+        
+    }
+    private YARDRESV[] GetYardResvByGroupID(uint uGroupID)
+    {
+        YARDRESVREQ vrGet = new YARDRESVREQ();
+        vrGet.dwResvGroupID = uGroupID;
+        YARDRESV[] vtRes;
+        if (m_Request.Reserve.GetYardResv(vrGet, out vtRes) == REQUESTCODE.EXECUTE_SUCCESS && vtRes != null && vtRes.Length > 0)
+        {
+            return vtRes;
+        }
+        return null;
+
+    }
+}

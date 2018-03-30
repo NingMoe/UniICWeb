@@ -1,0 +1,258 @@
+/* CSS Document */
+body,div,ol,ul,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,p,form,fieldset,legend,input,button{ margin:0; padding:0; -webkit-tap-highlight-color:rgba(255,255,255,0); }
+html {  width: 100%; font-family: 'Heiti SC', 'Microsoft YaHei'; font-size: 100px; outline: 0; -webkit-text-size-adjust:none;color: #333333;padding: 0;}
+body {  width:100%; margin: 0; -webkit-user-select: none; position: relative; background-color:#fff;padding: 0;}
+a:hover,a:link,a:visited,a{ color:inherit; text-decoration:none;}
+ul,li{list-style:none}
+i{font-style:normal}
+
+
+.background{
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    z-index: -1;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+.back-login{
+    background-image: url(images/back-login.png);
+}
+.back-result{
+    background-image: url(images/back-result.png);
+}
+
+.wrap{
+    text-align: center;
+    margin-bottom: 0;
+    padding-top: 0;
+    overflow: hidden;
+}
+.wrap .login-header{
+    padding: 2.5rem 0 1rem 0;
+}
+.login-header img{
+    width: 25%;
+}
+.login-content .password{
+    position: relative;
+    width: 75%;
+    margin: 0 auto;
+}
+.login-content .account{
+    position: relative;
+    width: 75%;
+    margin: 0 auto;
+    margin-bottom: .5rem;
+}
+.login-content .bind{
+    font-size: 0.52rem;
+    color: #358A82;
+    font-weight: bold;
+    width: 75%;
+    margin: 0 auto;
+    text-align: right;
+    padding: .5rem 0;
+}
+.login-content .password input,.login-content .account input{
+    width: 100%;
+    padding: 8px 0;
+    background-color: #F2F2F2;
+    border-radius: 20px;
+    border: 2px solid #62ADA6;
+    font-size: .5rem;
+    text-indent: 1.5rem;
+}
+.icon{
+    background-repeat: no-repeat;
+    background-position: center;
+    border: 0 none;
+    color: #ffffff;
+    overflow: hidden;
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    z-index: 1;
+    /*top: 0.38rem;*/
+    top:.1rem;
+    left: 0.5rem;
+    background-size: .6rem;
+}
+.account-icon{
+    background-image: url("images/account-icon.png");
+}
+.triangle-icon{
+    top: 0.1rem;
+    left: 7.4rem;
+    background-image: url("images/triangle.png");
+}
+.password-icon{
+    background-image: url("images/password-icon.png");
+}
+.btn-wrap{
+    background-image: url(images/btn-back.png);
+    background-size: 3.5rem;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 3.5rem;
+    margin-top: 1.8rem;
+    line-height: 3.1rem;
+}
+.btn-wrap .btn{
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: .5rem;
+    margin-top: 1.4rem;
+}
+.none{
+    display: none;
+}
+.wrap .header{
+    margin-top: 1rem;
+}
+.header p{
+    font-size: 1.1rem;
+    color: #2F877D;
+}
+.header img{
+    width: 60%;
+    /*height: 7rem;*/
+}
+.wrap .text,.wrap .info{
+    color: #358A82;
+    font-size: .7rem;
+    text-align: center;
+    display: inline-block;
+}
+.text p{
+    text-align: left;
+    margin-bottom: .3rem;
+}
+.info p{
+    margin-bottom: .3rem;
+}
+.text select{
+    -webkit-appearance: none;
+    background: url("images/triangle.png") no-repeat right;
+    background-size: .6rem;
+    padding: 6px 25px 6px 10px;
+    border: 1px solid #358A82;
+    border-radius: 5px;
+}
+
+.wrap .btn-group{
+    margin-bottom: .8rem;
+    margin-top: 1rem;
+}
+.btn-group button{
+    border: none;
+    background: #74C1B9;
+    color: white;
+    padding: .2rem 1.3rem;
+    border-radius: 20px;
+    font-size: .7rem;
+}
+.ic-title{
+    color: #358A82;
+}
+.activity-title{
+    font-size: 16px;
+    color: #358A82;
+    margin-top: .5rem;
+}
+.table-content{
+    width: 80%;
+    margin: 0 auto;
+}
+.table-content table{
+    width: 100%;
+}
+.table-content table tr th{
+    font-size: .65rem;
+    color: white;
+    padding: 4px 0;
+    background: #358A82;
+}
+.table-content table tr th:last-child{
+    border-left: 1px solid #fff;
+}
+.table-content table tr td{
+    font-size: .5rem;
+    padding: 5px 0;
+    color: #444;
+    border: 1px solid #bbb;
+    border-top: none;
+    text-align: center;
+}
+.table-content table tr td:last-child{
+    border-left:none;
+}
+
+
+
+
+
+@media screen and (max-width: 480px) and (min-width: 440px){
+    .wrap .login-header{
+        padding: 1.8rem 0 .5rem 0;
+    }
+    .btn-wrap{
+        margin-top: .8rem;
+    }
+}
+@media screen and (max-width: 440px) and (min-width: 400px){
+    .wrap .login-header{
+        padding: 1.5rem 0 1.3rem 0;
+    }
+    .btn-wrap{
+        margin-top: 1rem;
+    }
+}
+@media screen and (max-width: 400px) and (min-width: 380px){
+    .wrap .login-header{
+        padding: 1.8rem 0 1.5rem 0;
+    }
+    .btn-wrap{
+        margin-top: 1.2rem;
+    }
+}
+@media screen and (max-width: 380px) and (min-width: 340px){
+    .wrap .login-header{
+        padding: 2rem 0 1.5rem 0;
+    }
+    .header img{
+        width: 50%;
+    }
+
+}
+@media screen and (max-width: 340px){
+    .wrap .login-header{
+        padding: 2.5rem 0 1.5rem 0;
+    }
+    .btn-wrap{
+        margin-top: 2.5rem;
+    }
+}
+@media screen and (max-width: 460px) and (min-width: 380px){
+    .wrap .text, .wrap .info{
+        font-size: .62rem;
+    }
+    .header p{
+        font-size: 1rem;
+    }
+    .header img{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 500px) and (min-width: 460px){
+    .header p{
+        font-size: 0.9rem;
+    }
+    .header img{
+        width: 45%;
+    }
+}

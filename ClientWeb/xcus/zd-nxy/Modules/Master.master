@@ -1,0 +1,90 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="ClientWeb_Modules_Master" %>
+
+<%@ Register TagPrefix="Uni" TagName="dialog" Src="dialog.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="nav" Src="nav.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>仪器共享使用平台</title>
+    <script type="text/javascript" src="Scripts/jquery/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="<%=ResolveClientUrl("~/ClientWeb/") %>fm/uni.lib.js"></script>
+    <script type="text/javascript" src="<%=ResolveClientUrl("~/ClientWeb/") %>pro/pro.lib.js"></script>
+    <link href="Styles/templatemo_style.css" rel='stylesheet' />
+    <link href="Styles/Style.css" rel='stylesheet' />
+    <script src="Scripts/custom.js" type="text/javascript"></script>
+
+    <link href='Scripts/PageCtrl/PageCtrl.css' rel='stylesheet' />
+    <script src="Scripts/PageCtrl/PageCtrl.js" type="text/javascript"></script>
+
+    <script src="Scripts/UniTag/tags.js" type="text/javascript"></script>
+
+    <link href='Scripts/UniMenu/menu.css' rel='stylesheet' />
+    <script src='Scripts/UniMenu/menu.js' type="text/javascript"></script>
+
+    <link href='Scripts/jquery-ui/jquery-ui-1.10.3.custom.min.css' rel='stylesheet' />
+    <script src="Scripts/jquery-ui/jquery-ui-1.10.3.custom.min.js" type="text/javascript"></script>
+
+    <link href='Scripts/Timepickeraddon/jquery-ui-timepicker-addon.css' rel='stylesheet' />
+    <script src="Scripts/Timepickeraddon/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="Scripts/Timepickeraddon/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+        <link href="<%=ResolveClientUrl("~/ClientWeb/") %>md/validationEngine/validationEngine.jquery.css" rel="stylesheet" />
+    <script src="<%=ResolveClientUrl("~/ClientWeb/") %>md/validationEngine/jquery.validationEngine.min.js" type="text/javascript"></script>
+    <script src="<%=ResolveClientUrl("~/ClientWeb/") %>md/validationEngine/jquery.validationEngine-zh_CN.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        <script type="text/javascript">
+        </script>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="pub_resource">
+        <span id="wait_icon"></span>
+        <Uni:dialog runat="server" ID="MyDialog" />
+        <div id="acc_info">
+            <Uni:nav runat="server" ID="MyNav" />
+        </div>
+    </div>
+    <div>
+        <div class="g-top">
+            <div class="head">
+                <div class="m-logo"></div>
+            </div>
+            <div runat="server" id="BannerContent" class='g-banner'></div>
+            <div class="g-nav">
+            <div class="m-nav f-ff1">
+                <ul id="menu" class="uni_menu">
+                    <%--<li><a>首页</a></li>--%>
+                    <li class="f"><a href="Default.aspx">首页</a></li>
+                    <li><a href="DevList.aspx">测试中心仪器</a></li>
+                    <%=ClassNav %>
+                </ul>
+            </div>
+        </div>
+        </div>
+        <div class="g-body">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="g-footer">
+            <div class="fri-link">
+                友情链接：
+                <span>
+                    <a href="http://sbb.zju.edu.cn/">
+                        <img alt="" src="Upload/FriLink/shebeike.jpg" style="width: 170px; height: 40px; margin: 0 10px;" /></a>
+                    <a href="http://zjucam.zju.edu.cn/">
+                        <img alt="" src="Upload/FriLink/zjucam.jpg" style="width: 170px; height: 40px; margin: 0 10px;" /></a>
+                </span>
+            </div>
+            <div class="footer">
+                ©2005-2013 浙江大学农生环测试中心 & 985农业生物与环境科技创新平台<br />
+                Analysis Center of Agrobiology and Environmental Sciences & Institute of Agrobiology and Environmental Sciences, Zhejiang University
+                <br />
+                网站管理员联系电话：0571-88982503 email：xzheng@zju.edu.cn
+                <br />
+                注意：本网站为学校仪器共享使用平台，而非销售商
+            </div>
+        </div>
+    </div>
+</body>
+</html>

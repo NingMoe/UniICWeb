@@ -1,0 +1,138 @@
+﻿/* ------- 以下为通用 CSS 配置  ------- */
+body { margin: 0; padding: 0; color: #222; font-family: Tahoma, Geneva, sans-serif; font-size: 12px; line-height: 1.4em; background: url(images/body_bg.jpg); }
+table { border-collapse: collapse; }
+ul, li { list-style-type: none; padding-left: 0; }
+img { border: none; }
+h1, h2, h3, h4, h5, h6 { color: #333; font-weight: normal; }
+h1 { font-size: 30px; margin: 0 0 30px; padding: 5px 0; font-family: "微软雅黑"; }
+h2 { font-size: 26px; margin: 0 0 25px; padding: 5px 0; font-family: "微软雅黑"; }
+h3 { font-size: 18px;line-height:24px;height:24px; margin: 0 0 10px; padding: 0; font-family: "微软雅黑"; }
+h4 { font-size: 16px; margin: 0 0 15px; padding: 0; font-family: "微软雅黑"; }
+h5 { font-size: 14px; margin: 0 0 10px; padding: 0; font-family: "微软雅黑";}
+h6 { font-size: 12px; margin: 0 0 5px; padding: 0; }
+a, a:link, a:visited {  text-decoration: none; cursor: pointer; color: orange; }
+.color1 { color: orange; }
+.color2 { color: orange; }
+.color3 { color: green; }
+.em { width: 1em; display: inline-block; }
+.click, .click2 { cursor: pointer !important; color: orange !important; }
+.click:hover { color: orange !important; }
+.click2:hover { color: #fff !important; background-color: orange !important; }
+
+/*dialog*/
+.dialog { position: relative; display: none; text-align: left; }
+.dialog table { border-collapse: collapse; border-spacing: 0; margin: 0 auto;padding:5px 15px;width:100%; }
+.dialog h6 { height: 25px; line-height: 25px; font-family: 微软雅黑 !important; color: #065FA0; font-size: 18px; margin-bottom: 20px; overflow: hidden; }
+.dialog th { padding: 5px; color: #666; border: none; height: 40px; vertical-align: middle; }
+.dialog td { padding: 5px 0; height: 40px; vertical-align: middle; }
+.dialog .error { color: red; }
+.dialog .input_txt { width: 200px; height: 22px; line-height: 22px; }
+.dialog table table { border-collapse: collapse; border-spacing: 0; }
+.dialog table table th { margin: 0; padding: 0; height: 20px; text-align: center; }
+.dialog table table td { margin: 0; padding: 0; height: 20px; text-align: center; border: 1px solid #ccc; }
+.dialog .submitarea { padding-top: 10px; text-align: center; }
+/*-------------------------Tags ------------------------*/
+.tabs { margin: 0 auto; overflow: hidden; }
+.tabs .tab_head { overflow: hidden; border-bottom: 1px solid #ccc; margin-top: 5px; margin-bottom: 15px; padding-bottom: 3px; }
+.tabs .tab_head li { float: left; width: 136px; height: 32px; list-style-type: none; text-align: center; line-height: 32px; cursor: pointer; }
+.tabs .tab_head li a { text-decoration: none; display: block; font-size: 14px; font-family: "微软雅黑"; color: #777; }
+.tabs .tab_head li.h_sel { background: url(images/bg.jpg); border-radius: 6px; }
+.tabs .tab_head li.h_sel a { color:orange; }
+.tabs .tab_con { background-color: #fff; min-height: 380px; border: 1px solid #ccc; border-radius: 6px; padding: 6px; }
+.tabs .tab_con .item { display: none; }
+.tabs .tab_con .c_sel { display: block !important; }
+/*------------------------jquery-ui 个性化 ------------------------*/
+
+.menu { margin-top: 5px; margin-bottom: 10px; }
+        .menu li a {border:1px solid #fbfbfb;margin:2px 0;}
+        .menu li a.ui-state-focus {margin:2px 0 !important;}
+/*---------------框架--------------*/
+#tp_body { width: 1000px; height: auto; margin: 0 auto; }
+#tp_header { width: 1000px; height: 100px; position: relative; }
+#tp_logo { height: 50px; width: 270px; margin-top: 5px; float: left; }
+#tp_title { font-family: 微软雅黑; font-size: 36px; font-weight: 500; line-height: 46px; color: #555; position: absolute; top: 25px; left: 300px; word-spacing: 4px; letter-spacing: 4px; }
+#tp_main .ui-tabs-panel { padding: 14px 10px; }
+#tp_footer { text-align: center; line-height: 40px; color: #fff; height: 60px; margin-top: -40px; padding-top: 40px; background: orange; }
+
+/*---------------以下为个性化CSS--------------*/
+/*申请表*/
+.resv_panel h6 { margin-bottom: 0px; }
+.resv_panel .sub_form { width: 80px; height: 30px; line-height: 28px; font-size: 14px; font-weight: 600;cursor: pointer; color: orange; }
+
+.resv_panel .colored { background-color: #fafafa; }
+.resv_panel .resv_tbl_h { padding-left: 20px; }
+.resv_tbl { color: #333; margin: 20px 10px; overflow: hidden; line-height: 16px; font-size: 14px; }
+
+.resv_tbl table { border-collapse: collapse; text-align: left; }
+.resv_tbl td table td { margin: 0; padding: 0 5px; height: 18px; border-width: 0 0 1px 0; }
+.resv_tbl .th { color: orange; text-align: right; padding: 10px; margin: 0; font-family: 微软雅黑; }
+
+.resv_tbl table td { border: 1px solid #ccc; height: 30px; vertical-align: middle; padding: 5px; }
+
+.resv_tbl table td.con { font-size: 12px; line-height: 18px; }
+.resv_tbl table td.con span.h { font-weight: normal; font-family: 微软雅黑; color: #006699; }
+.resv_tbl table td.con td { text-align: left; }
+
+.resv_tbl input:focus { background-color: #dcf3f6; }
+
+.resv_tbl input[type=text] { width: 200px; height: 20px; line-height: 20px; padding: 2px; }
+
+.resv_tbl select { width: 208px; height: 28px; }
+
+.resv_tbl .addSpl { height: 28px; }
+.resv_tbl .addSpl a { float: right; line-height: 28px; font-size: 14px; font-family: 微软雅黑; }
+.resv_tbl .spl_item { line-height: 28px; overflow: hidden; margin: 5px 0; }
+.resv_tbl .spl_item select { width: 210px; float: left; margin-right: 5px; }
+.resv_tbl .spl_item input { width: 30px; float: left; }
+
+/*登录信息*/
+.lg_nav { position: absolute; width: 130px; top: 0; right: 0; padding-top: 10px; }
+/*-----科研实验-----*/
+.qzone { border: 1px solid #ccc; border-radius: 5px; background-color: #fff; }
+#act_list { width: 236px; min-height: 500px; }
+#act_list .ui-accordion .ui-accordion-content { padding: 5px; }
+#act_list .accordion .pro_list .menu { border-width: 0; }
+#act_qzone { width: 700px; min-height: 500px; }
+
+/*首页*/
+.model { overflow: hidden; margin: 4px 0px; height: auto; }
+
+.box { overflow: hidden; background-color: #fff; width: 594px; border: 1px solid #ccc; }
+
+.h_box { font-family: 微软雅黑; }
+
+.c_box { height: 230px; padding: 1px;}
+
+.short_box { overflow: hidden; width: 356px; border: 1px solid #ccc; background-color: #fff; }
+
+/*侧边栏*/
+.sidebar_box { margin-top: 10px; width: 210px; border: 1px solid #aaa; }
+
+.sidebar_box .s_h_box { background: url(images/h_short_box.jpg) no-repeat; background-position-x: -50px; height: 32px; line-height: 32px; color: #fff; padding-left: 15px; font-family: 微软雅黑; }
+
+.sidebar_box .s_c_box ul { margin: 10px 10px 30px 10px; }
+
+.sidebar_box .s_c_box ul li { margin: 5px 0; padding: 5px 10px; border-bottom: 1px dotted #aaa; }
+
+.sidebar_box .s_c_box ul li a { color: #222; }
+/*表*/
+.box_tbl table { margin: 2px; width: 99%; font-size: 12px; text-align: center; }
+.box_tbl table thead tr { background: #8BA110 ; }
+.box_tbl table thead tr th{font-size:14px;font-family:"微软雅黑";color:#fff;line-height: 20px;border: 1px solid #8BA110; }
+.box_tbl td { margin: 0; padding: 0;line-height: 24px;border: 1px solid #ccc; }
+.box_tbl td.odd {background-color:#e2f3b5 }
+
+/*登录*/
+.zq_login {height:194px;border-left:1px solid #ccc; }
+#d_login {}
+
+#d_login table { border: 0px; width: 210px; margin-left: 60px; margin-top: 10px; }
+
+#d_login table input { height: 20px; line-height: 20px; }
+
+#d_login table tr { height: 34px; line-height: 34px; }
+
+.panel_user { text-align: center; }
+
+.panel_user table { margin: 10px auto; }
+.panel_user table a { }

@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="GetTeachWeekOrDate.aspx.cs" Inherits="searchCourse" %>

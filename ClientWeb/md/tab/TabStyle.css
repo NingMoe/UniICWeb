@@ -1,0 +1,7 @@
+﻿/*-------------------------Tabs ------------------------*/
+.tabs { display:block;overflow: hidden; }
+.tab_head {  display:block;overflow: hidden;margin:0;padding:0; }
+.tab_head li {list-style-type: none;cursor: pointer;display:inline;}
+.tab_head li.h_sel{}
+.tab_con .item { display: none; }
+.tab_con .c_sel { display: block !important; }

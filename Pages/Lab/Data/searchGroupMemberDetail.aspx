@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchGroupMemberDetail.aspx.cs" Inherits="searchCourse" %>

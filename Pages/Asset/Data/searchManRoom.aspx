@@ -1,0 +1,1 @@
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchManRoom.aspx.cs" Inherits="searchCourse" %>

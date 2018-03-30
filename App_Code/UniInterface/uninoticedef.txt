@@ -1,0 +1,128 @@
+//
+/* ------------------------------------------------------
+  版权信息： 杭州联创信息技术有限公司，2011-2011
+  文 件 名： UniNoticeDef.h
+  创建时间： 2011.07.12
+  功能描述： 定义通知类型等常数
+  作    者： 何厚武
+  --------------------------------------------------------------- */
+#ifndef _UNINOTICEDEF_H_
+#define _UNINOTICEDEF_H_
+
+//通知状态Status
+#define NOTICESTATUS_INIT 			1		/*初始状态*/
+#define NOTICESTATUS_NOTICEOK 		2		/*已发通知*/
+#define NOTICESTATUS_NOTICEFAIL 	4		/*已发通知*/
+#define NOTICESTATUS_NOMSG		 	8		/*本人要求屏蔽提醒信息*/
+#define NOTICESTATUS_AFFIRM 		0x100		/*已收到确认*/
+
+//通知SubjectType常量
+#define NOTICETYPE_APPLICANT 		10000		/*申请做实验资格(通知导师和设备负责人)*/
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 详情
+#define NOTICETYPE_RESV 			10001		/*预约做实验(通知导师和课题负责人)*/
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_RESVCANCEL		10002		/*取消预约扣积分(通知当事人)*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#奖励或扣除积分%#剩余积分%#详情
+#define NOTICETYPE_RESVEND			10003		/*预约使用结束扣积分或奖励积分(通知当事人)*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_RESVENDNOCARD		10004		/*预约结束未刷卡扣积分(通知当事人)*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#使用成员
+#define NOTICETYPE_RESVCHECKOK 			10005		/*预约审核成功通知当事人*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#签到时间%#详情
+#define NOTICETYPE_SIGNOK 			10006		/*预约签到成功*/
+
+//预约设备%#结束时间
+#define NOTICETYPE_LEAVEOVERSOON 		10007		/*暂时离开即将结束通知当事人*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#返回时间
+#define NOTICETYPE_LEAVEBACK 		10008		/*暂时离开返回*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_LEAVENOCARD		10009		/*暂时离开未刷卡扣积分(通知当事人)*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#等待返回时间%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_LEAVENOBACK		10010		/*暂时离开未返回扣积分(通知当事人)*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#使用成员
+#define NOTICETYPE_RESVOK 			20000		/*预约成功通知当事人*/
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）
+#define NOTICETYPE_RESVEFFECTSOON 		20001		/*预约即将生效通知当事人*/
+//预约小间%#结束时间
+#define NOTICETYPE_RESVOVERSOON 		20002		/*预约即将结束通知当事人*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 应到人数%#实到人数%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_RESVLATE 		20003		/*预约不来超时取消*/
+//处罚%#处罚时间（YYYY-MM-DD HH:MM至HH:MM）
+#define NOTICETYPE_RESVFORBID 		20004		/*违规禁止预约*/
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）
+#define NOTICETYPE_RESVCHANGED 		20005		/*预约修改成功通知当事人*/
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 使用率不达标%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_USERATELOW 		20006		/*使用率不达标*/
+
+//预约设备%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_RETURNLATE 		20007		/*外借不按时归还*/
+
+//损坏设备%#时间（YYYY-MM-DD HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_DAMAGEDEV 		20008		/*损坏设备*/
+
+//审核内容%#审核结果%# 原因
+#define NOTICETYPE_ADMINCHECK 		20009		/*管理员审核*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 取消时间
+#define NOTICETYPE_RESVCANCELSOON 		20010		/*生效预约即将取消*/
+
+//预约ID%#预约人%#预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 详情
+#define NOTICETYPE_NEEDADMINCHECK 			20011		/*预约成功通知管理员审核*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 应到人数%#实到人数%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_USERLOW		 		20012		/*预约使用人数不达标*/
+
+//预约ID%#预约人%#预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%# 详情
+#define NOTICETYPE_NEEDLEADERCHECK 			20013		/*预约成功通知负责人审核*/
+
+//预约小间%#时间（YYYY-MM-DD HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_DEREGULATION 		20014		/*使用违规*/
+
+//预约小间%#预约时间（YYYY-MM-DD HH:MM至HH:MM）%#使用成员
+#define NOTICETYPE_RESVWAITCHECK 			20015		/*预约成功等待管理员审核通知当事人*/
+
+
+//活动名称%#活动地点%#活动时间（YYYY-MM-DD HH:MM至HH:MM）%#
+#define NOTICETYPE_ACTIVITYENROLLOK 			20016		/*申请参加活动成功通知当事人*/
+//活动名称%#活动地点%#活动时间（YYYY-MM-DD HH:MM至HH:MM）%#
+#define NOTICETYPE_ACTIVITYSOON 		20017		/*活动即将生效通知当事人*/
+//活动名称%#活动地点%#活动时间（YYYY-MM-DD HH:MM至HH:MM）%#扣除积分%#剩余积分%#详情
+#define NOTICETYPE_ACTIVITYABSENT 		20018		/*未如约(或迟到）参加活动通知当事人*/
+
+
+//以下用于自助打印复印
+#define NOTICETYPE_OVERDUE 		30001		/*超期罚款通知*/
+
+//以下用于系统故障通知
+//系统状态%#开始时间(MM-DD HH:MM)%# 详情
+#define NOTICETYPE_SYSTEMSTATUS 		40000		/*系统状态*/  
+
+//子系统名称或编号%#故障时间(MM-DD HH:MM)%# 原因
+#define NOTICETYPE_SUBSYSFAULT 		40001		/*子系统故障*/ 
+
+//以下用于自助打印复印
+#define NOTICETYPE_ARREARAGE 		50001		/*系统欠费通知*/
+
+
+//通知NoticeMode常量
+#define NOTICEMODE_BYMAIL 		1		/*邮件通知*/
+#define NOTICEMODE_BYMSG 		2		/*手机短信*/
+#define NOTICEMODE_BYLOGIN 		4		/*网上登录*/
+#define NOTICEMODE_BYADMIN 		8		/*管理员打电话或其他方式*/
+
+//通知NoticeKind常量
+#define NOTICEKIND_SYSTEM 		1		/*系统通知*/
+#define NOTICEKIND_TUTOR 		2		/*导师通知*/
+#define NOTICEKIND_ADMIN 		4		/*管理员通知*/
+
+
+#endif   //_UNINOTICEDEF_H_

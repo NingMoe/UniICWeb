@@ -1,0 +1,23 @@
+向下兼容版本号  即同版本号，旧可替换新
+
+向下兼容原则：
+1、引用结构名接口名未变
+2、修改非解决兼容
+3、修改非解决bug
+
+一般不需修改兼容版本号的情况（不限于）：
+增加独立新功能
+修改样式、更换图片
+
+
+20150408
+space_leaseresv space_resvset : vrGroup.dwGetType
+
+20150427-》20150610
+ajax.devresvstat.id  devid&labid 改为 divid_labid  涉及modules/calandar.ascx
+20150610-》20150610
+增加vtDayOpenRule.Length>0判断，但次错误源于未配置正确的开放时间，所以不作为要修改的必要bug
+20150610-》20150610
+space_ResvSet增加resvAllDay判断，支持全天预约，若无需求则不必须升级
+20150610-》201500923
+去掉了islong和iskind，改在ajax/device判断

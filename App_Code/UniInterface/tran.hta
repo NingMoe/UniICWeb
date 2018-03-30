@@ -1,0 +1,453 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<script type="text/javascript">
+function ReSizeWin(w,h)
+{
+    try {
+        window.resizeTo(w, h);
+        //window.moveTo((window.screen.width - w) / 2, (window.screen.height - h) / 2);
+    } catch (e) {}
+}
+
+while (true) {
+    try {
+    var w = 800, h = 600;
+        window.resizeTo(w, h);
+        window.moveTo((window.screen.width - w) / 2, (window.screen.height - h) / 2);
+        break;
+    } catch (e) { continue; }
+}
+</script>
+<HTA:APPLICATION Applicationname="tran" SingleInstance="yes" Version="1.0" SCROLL="no" border="thick" borderstyle="normal" windowState="normal"></HTA:APPLICATION>
+<script>
+function GetRealNode(node)
+{
+	if(node.nodeName == "xml")
+	{
+		return GetRealNode(node.nextSibling);
+	}
+	if(node.nodeName == "xml-stylesheet")
+	{
+		return GetRealNode(node.nextSibling);
+	}
+	return node;
+}
+
+function OpenXML(szXml1,szXml2)
+{
+    var xmlDoc1;
+    var xmlDoc2;
+	
+    // 判断浏览器的类型
+    if(document.implementation && document.implementation.createDocument)
+    {       
+        // 支持Mozilla浏览器
+        try
+        {
+            xmlDoc1 = document.implementation.createDocument("", "", null);   
+            xmlDoc1.async = false;
+            xmlDoc1.load(szXml1);
+			
+            if (szXml2.length > 0) {
+                xmlDoc2 = document.implementation.createDocument("", "", null);
+                xmlDoc2.async = false;
+                xmlDoc2.load(szXml2);
+            }
+        }
+        catch(e)
+        {
+            alert("error:001");
+			return null;
+        }
+    }
+    else if(typeof window.ActiveXObject != 'undefined')
+    {       
+        //var xmlDoc=Server.CreateObject("Msxml2.DOMDocument.4.0");       
+        // 支持IE浏览器
+        xmlDoc1 = new ActiveXObject('Microsoft.XMLDOM');
+        xmlDoc1.async = false;
+        xmlDoc1.load(szXml1);
+        if (szXml2.length > 0) {
+            xmlDoc2 = new ActiveXObject('Microsoft.XMLDOM');
+            xmlDoc2.async = false;
+            xmlDoc2.load(szXml2);
+        }
+    }
+    else
+    {
+        alert("Browser unknown!");
+		return null;
+    }
+//	if(!xmlDoc1.selectNodes || !xmlDoc1.selectSingleNode)
+//	{
+//        alert("selectNodes unknown!");
+//		return null;
+//	}
+
+    if (szXml2.length > 0) {
+        var oUniInterface = xmlDoc1.selectSingleNode("//UniInterface");
+		var oExtInterface = GetRealNode(xmlDoc2.selectSingleNode("/").firstChild);
+        var oModules = oExtInterface.selectNodes("./Module");
+        if (oModules != null && oModules.length > 0) {
+            for (var i = 0; i < oModules.length; i++) {
+                oUniInterface.appendChild(oModules[i]);
+            }
+        }
+        var oConst = oExtInterface.selectNodes("./Const");
+        if (oConst != null && oConst.length > 0) {
+            for (var i = 0; i < oConst.length; i++) {
+                oUniInterface.appendChild(oConst[i]);
+            }
+        }
+        var oUniStruct = oExtInterface.selectNodes("./UniStructes");
+        if (oUniStruct != null && oUniStruct.length > 0) {
+            for (var i = 0; i < oUniStruct.length; i++) {
+                oUniInterface.appendChild(oUniStruct[i]);
+            }
+        }
+    }
+	return xmlDoc1;
+}
+
+function tran(szXml1,szXml2,szXsl,szResultfile) {
+    var xmlDoc;
+    var xslDoc;
+	var result = "";
+	
+	xmlDoc = OpenXML(szXml1,szXml2);
+	
+    // 判断浏览器的类型
+    if(document.implementation && document.implementation.createDocument)
+    {       
+        try
+        {
+            xslDoc = document.implementation.createDocument("", "", null);
+            xslDoc.async = false;    
+              xslDoc.load(szXsl);
+             
+          }
+          catch(e)
+          {
+              alert("error:002");
+			  return false;
+          }
+          try
+          {
+              // 定义XSLTProcessor对象   
+            var xsltProcessor = new XSLTProcessor();
+            xsltProcessor.importStylesheet(xslDoc);
+            var oResultFragment = xsltProcessor.transformToFragment(xmlDoc,document);
+			result = oResultFragment.toString();
+        }
+        catch(e)
+        {
+            alert("error:003");
+			return false;
+        }   
+    }
+    else if(typeof window.ActiveXObject != 'undefined')
+    {       
+        // 支持IE浏览器
+        xslDoc = new ActiveXObject('Microsoft.XMLDOM');
+        xslDoc.async = false;    
+        xslDoc.load(szXsl);
+
+        result = xmlDoc.documentElement.transformNode(xslDoc);
+    }
+    else
+    {
+        alert("Browser unknown!");
+		return false;
+    }
+	
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
+	var objNewTXT = fso.CreateTextFile(szResultfile,true);
+	objNewTXT.Write(result);
+	objNewTXT.Close();
+	return true;
+}
+function OnTranVC()
+{
+	var szXml1 = document.getElementById("xmlfile").value;
+	var szXml2 = document.getElementById("extxmlfile").value;
+	var szXsl = document.getElementById("vcxslfile").value;
+	var szResultfile = document.getElementById("vcresultfile").value;
+	if(!tran(szXml1,szXml2,szXsl,szResultfile))
+	{
+		alert("生成失败");
+	}
+	
+	szXsl = document.getElementById("vccsvxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("vccsvresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}		
+		postcsv(szResultfile);
+	}
+	szXsl = document.getElementById("vccmdlistxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("vccmdlistresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+		postcsv(szResultfile);
+	}
+	
+	
+	alert("生成完成");
+}
+
+function postcsv(szResultfile)
+{
+	var fso = new ActiveXObject("Scripting.FileSystemObject");
+	var objNewTXT = fso.OpenTextFile(szResultfile,1,2);
+	var allline = [];
+	while(!objNewTXT.AtEndOfStream)
+	{
+		var line = objNewTXT.ReadLine();
+		allline.push(line);
+	}
+	objNewTXT.Close();
+	
+	objNewTXT = fso.CreateTextFile(szResultfile,true);
+	for(var i = 0; i < allline.length;i++)
+	{
+		var l = allline[i];
+		var ll = l.split(",");
+		if(ll.length >3)
+		{
+			var fw = ll[0].match(/^\s+/);
+			var f = eval(ll[0]);
+			ll.shift();
+			l = fw + f + "," + ll.join(",");
+		}
+		objNewTXT.WriteLine(l);
+	}
+	objNewTXT.Close();
+}
+
+function OnTranCS()
+{
+	var szXml1 = document.getElementById("xmlfile").value;
+	var szXml2 = document.getElementById("extxmlfile").value;
+	var szXsl = document.getElementById("csxslfile").value;
+	if(szXsl != "")
+	{
+		var szResultfile = document.getElementById("csresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+	szXsl = document.getElementById("csimplxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("csimplresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+	szXsl = document.getElementById("cswsxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("cswsresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+	szXsl = document.getElementById("cswsallxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("cswsallresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+	szXsl = document.getElementById("csutxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("csutresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+	szXsl = document.getElementById("csstxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("csstresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+
+	szXsl = document.getElementById("cscsvxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("cscsvresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+		postcsv(szResultfile);
+	}
+
+	szXsl = document.getElementById("csuniwsxslfile").value;
+	if(szXsl != "")
+	{
+		szResultfile = document.getElementById("csuniwsresultfile").value;
+		if(!tran(szXml1,szXml2,szXsl,szResultfile))
+		{
+			alert("生成失败");
+			return;
+		}
+	}
+
+	alert("生成完成");
+}
+
+function OnPalVC()
+{
+	var palVCPal = document.getElementById("VCPal");
+	var palCSPal = document.getElementById("CSPal");
+	
+	palVCPal.style.display="block";
+	palCSPal.style.display="none";
+	
+	ReSizeWin(800,400);
+}
+function OnPalCS()
+{
+	var palVCPal = document.getElementById("VCPal");
+	var palCSPal = document.getElementById("CSPal");
+	
+	palVCPal.style.display="none";
+	palCSPal.style.display="block";
+	
+	ReSizeWin(800,620);
+}
+function OnPageLoad()
+{
+	OnPalVC();
+}
+</script>
+<style type="text/css">
+#VCPal{display:block;}
+#CSPal{display:none;}
+</style>
+
+</head>
+<body style="border:0px;" onload="OnPageLoad()">
+<div><button type="button" onclick="OnPalVC()" style="width:80px;height:30px;">VC</button><button type="button" onclick="OnPalCS()" style="width:80px;height:30px;">C#</button></div>
+<table style="width:100%">
+<tr>
+<td width="60px">XML:</td><td><input id="xmlfile" value="UniInterface.xml" style="width:100%"/></td>
+</tr>
+<tr>
+<td width="60px">ExtXML:</td><td><input id="extxmlfile" value="CommonIF.xml" style="width:100%"/></td>
+</tr>
+<tr><td colspan="2"><hr width="100%"/>
+<div id="VCPal">
+	<table style="width:100%">
+	<tr>
+	<td width="60px">VC_XSL:</td><td><input id="vcxslfile" value="UniInterface_vc.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="vcresultfile" value="UniInterface.h" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">VC_CSV_XSL:</td><td><input id="vccsvxslfile" value="UniInterface_vc_csv.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">CSV_Result:</td><td><input id="vccsvresultfile" value="UniInterface.csv" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">VC_CmdList_XSL:</td><td><input id="vccmdlistxslfile" value="UniInterface_vc_cmdlist.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">CmdList_Result:</td><td><input id="vccmdlistresultfile" value="UniTblCMD.h" style="width:100%"/></td>
+	</tr>
+	<tr><td colspan="2" style="text-align:center"><button type="button" onclick="OnTranVC()" style="margin-bottom:20px;"> 生成VC接口文件 </button></td></tr>
+	</table>
+</div>
+<div id="CSPal">
+	<table style="width:100%">
+	<tr>
+	<td width="60px">C#_XSL:</td><td><input id="csxslfile" value="UniInterface_cs.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="csresultfile" value="UniInterface.cs" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">C#Impl_XSL:</td><td><input id="csimplxslfile" value="UniInterface_cs_impl.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="csimplresultfile" value="UniInterface_impl.cs" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">C#Impl_XSL:</td><td><input id="cswsxslfile" value="UniInterface_cs_WS.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="cswsresultfile" value="UniInterface_WS.cs" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td>C#Impl_XSL:</td><td><input id="cswsallxslfile" value="UniInterface_cs_WS_ALL.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td>Result:</td><td><input id="cswsallresultfile" value="UniInterface_WS_ALL.cs" style="width:100%"/></td>
+	</tr>
+
+	<tr>
+	<td width="60px">C#Impl_XSL:</td><td><input id="csutxslfile" value="UniInterface_cs_UT.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="csutresultfile" value="UniInterface_UT.cs" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">C#Impl_XSL:</td><td><input id="csstxslfile" value="UniInterface_cs_ST.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="csstresultfile" value="UniInterface_ST.cs" style="width:100%"/></td>
+	</tr>
+
+	<tr>
+	<td width="60px">C#CSV_XSL:</td><td><input id="cscsvxslfile" value="UniInterface_csv.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="cscsvresultfile" value="UniInterface.csv.cs" style="width:100%"/></td>
+	</tr>
+
+	<tr>
+	<td width="60px">C#Impl_XSL:</td><td><input id="csuniwsxslfile" value="UniService_cs_WS.xsl" style="width:100%"/></td>
+	</tr>
+	<tr>
+	<td width="60px">Result:</td><td><input id="csuniwsresultfile" value="UniService_WS.cs" style="width:100%"/></td>
+	</tr>
+
+	<tr><td colspan="2" style="text-align:center"><button type="button" onclick="OnTranCS()"> 生成C#接口文件 </button></td></tr>
+	</table>
+</div>
+</td></tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="searchDevClass.aspx.cs" Inherits="Resv_searchCls" %>

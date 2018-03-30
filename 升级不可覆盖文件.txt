@@ -1,0 +1,13 @@
+个人预约：
+1：web\ClientWeb\upload
+2：web\ClientWeb\xcus  需覆盖但备份旧文件
+3：web\ClientWeb\language.xml  非多语言web端可无视
+4：web\ClientWeb\Web.Config
+手机端
+1：web\MobileClient\DevPostion.xml
+2：web\MobileClient\Web.Config
+3：web\MobileClient\User.db
+4：web\MobileClient\LabImg
+管理端
+1：web\Web.Config
+2：web\App_Code\UniThirdInterface.cs

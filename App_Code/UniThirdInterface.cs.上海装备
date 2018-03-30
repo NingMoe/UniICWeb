@@ -1,0 +1,208 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Script.Services;
+using System.Web.Services;
+using UniStruct;
+using UniWebLib;
+using Util;
+
+/// <summary>
+/// UniThirdInterface 的摘要说明
+/// </summary>
+[WebService(Namespace = "http://tempuri.org/")]
+[WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
+[ScriptService]
+public class UniThirdInterface : UniBaseService
+{
+
+    public UniThirdInterface()
+    {
+
+        //如果使用设计的组件，请取消注释以下行 
+        //InitializeComponent(); 
+    }
+    [WebMethod(EnableSession = true, Description = "获取预约")]
+    [System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+    public RESVINFO[] GetResvRec(string start, string end)
+    {
+        start = start.Replace("-","");
+        end = end.Replace("-", "");
+        if (start == null || start == "")
+        {
+            start = end = DateTime.Now.ToString("yyyyMMdd");
+        }
+        UniClientCommon common = new UniClientCommon();
+        LoginIn("staadmin001", "unifound808");
+      
+        List<RESVINFO> list = new List<RESVINFO>();
+        RESVREQ vrParameter = new RESVREQ();
+        vrParameter.dwBeginDate = uint.Parse(start);
+        vrParameter.dwEndDate = uint.Parse(end);
+        vrParameter.dwClassKind = (uint)UNIDEVCLS.DWKIND.CLSKIND_COMMONS;
+
+        vrParameter.dwStatFlag = (uint)RESVREQ.DWSTATFLAG.STATFLAG_OVER + (uint)RESVREQ.DWSTATFLAG.STATFLAG_INUSE;
+        vrParameter.dwStatFlag = (uint)vrParameter.dwStatFlag + (uint)RESVREQ.DWSTATFLAG.STATFLAG_CHECKFAIL;
+        UNIRESERVE[] rlt;
+        if (m_Request.Reserve.Get(vrParameter, out rlt) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            for (int i = 0; i < rlt.Length; i++)
+            {
+                RESVINFO it = new RESVINFO();
+                it.trueName = rlt[i].szOwnerName;
+                it.id = rlt[i].dwResvID.ToString();
+                it.roomName = "";
+                it.status = rlt[i].dwStatus.ToString();
+                if (rlt[i].ResvDev != null && rlt[i].ResvDev.Length > 0)
+                {
+                    it.roomName = rlt[i].ResvDev[0].szRoomName.ToString();
+                }
+                it.testName = rlt[i].szTestName;
+                it.startTime = Get1970Date((uint)rlt[i].dwBeginTime, "yyyy-MM-dd HH:mm");
+                it.endTime = Get1970Date((uint)rlt[i].dwEndTime, "yyyy-MM-dd HH:mm");
+                list.Add(it);
+            }
+        }
+        ADMINLOGOUTREQ loginOUt = new ADMINLOGOUTREQ();
+        ADMINLOGOUTRES res;
+        if (Session["LoginResult"] != null)
+        {
+            ADMINLOGINRES sRes = (ADMINLOGINRES)Session["LoginResult"];
+            loginOUt.dwAccNo = sRes.AccInfo.dwAccNo;
+            loginOUt.szLogonName = sRes.AccInfo.szLogonName;
+            m_Request.Admin.Logout(loginOUt, out res);
+        }
+        return list.ToArray();
+    }
+    public string Get1970Date(uint? TotalSeconds, string szFormat)//根据差距秒数 算出现在是日期
+    {
+        if (TotalSeconds == null || TotalSeconds == 0)
+        {
+            return "";
+        }
+        uint TotalSecondsIn = (uint)TotalSeconds;
+        string result = string.Empty;
+        DateTime dt1970 = new DateTime(1970, 01, 01, 08, 0, 0);
+        DateTime dtNow = dt1970.AddSeconds(TotalSecondsIn);
+        return result = dtNow.ToString(szFormat);
+    }
+    protected void LoginIn(string szLogonName, string szPassword)
+    {
+        ADMINLOGINREQ vrParameter = new ADMINLOGINREQ();
+        ADMINLOGINRES vrResult;
+        vrParameter.dwLoginRole = (uint)ADMINLOGINREQ.DWLOGINROLE.LOGIN_MANAGER;
+        vrParameter.szVersion = ((uint)ADMINLOGINREQ.SZVERSION.INTVER_MAIN).ToString() + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_RELEASE).ToString("00") + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_INTERNAL).ToString();
+        vrParameter.szIP = "127.0.0.1";
+        vrParameter.szLogonName = szLogonName;
+        vrParameter.szPassword = "P" + szPassword;
+        REQUESTCODE ret1;
+        if ((vrParameter.dwLoginRole & (uint)ADMINLOGINREQ.DWLOGINROLE.LOGIN_MANAGER) > 0)
+        {
+            m_Request.m_UniDCom.StaSN = 0;
+            //vrParameter.dwLoginRole =vrParameter.dwLoginRole + (uint)ADMINLOGINREQ.DWLOGINROLE.LOGINEXT_PC;
+            ret1 = m_Request.Admin.Login(vrParameter, out vrResult);
+            if (ret1 != REQUESTCODE.EXECUTE_SUCCESS)
+            {
+
+                if (m_Request.szErrMessage != "")
+                {
+
+                }
+                else
+                {
+
+                }
+                return;
+                //ret1 = m_Request.Admin.Login(vrParameter, out vrResult);
+            }
+            else
+            {
+
+            }
+        }
+        else
+        {
+            vrParameter.dwLoginRole = vrParameter.dwLoginRole + (uint)ADMINLOGINREQ.DWLOGINROLE.LOGINEXT_PC;
+            ret1 = m_Request.Admin.StaLogin(vrParameter, out vrResult);
+            if (ret1 != REQUESTCODE.EXECUTE_SUCCESS)
+            {
+                ret1 = m_Request.Admin.StaLogin(vrParameter, out vrResult);
+            }
+            else
+            {
+                if (m_Request.szErrMessage != "")
+                {
+
+                }
+                else
+                {
+
+                }
+                return;
+            }
+        }
+
+        if (ret1 == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            if (vrParameter.dwLoginRole == (uint)ADMINLOGINREQ.DWLOGINROLE.LOGIN_MANAGER)
+            {
+                if (vrParameter.szLogonName.ToLower() == "sysadmin")//vrResult.dwManRole == (uint)ADMINLOGINRES.DWMANROLE.MANROLE_SUPER
+                {
+                    Session["StationSN"] = (uint)0;
+                    Session["SessionID"] = vrResult.dwSessionID;
+                    Session["LoginResult"] = vrResult;
+
+                }
+                else
+                {
+                    vrParameter.dwStaSN = 1;
+                    m_Request.m_UniDCom.StaSN = 1;
+                    m_Request.m_UniDCom.SessionID = (uint)vrResult.dwSessionID;
+                    vrParameter.dwLoginRole = vrParameter.dwLoginRole + (uint)ADMINLOGINREQ.DWLOGINROLE.LOGINEXT_PC;
+                    ret1 = m_Request.Admin.StaLogin(vrParameter, out vrResult);
+                    if (ret1 == REQUESTCODE.EXECUTE_SUCCESS)
+                    {
+                        Session["StationSN"] = vrParameter.dwStaSN;
+                        Session["SessionID"] = vrResult.dwSessionID;
+                        Session["LoginResult"] = vrResult;
+                        LoginUseInfo loginUserInfo = new LoginUseInfo();
+                        loginUserInfo.szLogoName = szLogonName;
+                        loginUserInfo.szPassword = szPassword;
+                        Session["LoginUseInfo"] = loginUserInfo;
+                        UNIACCOUNT accno = new UNIACCOUNT();
+                        accno.dwIdent = (uint)UNIACCOUNT.DWIDENT.EXTIDENT_MANAGER;
+                        Session["LOGIN_ACCINFO"] = accno;
+                        m_Request.m_UniDCom.SessionID = (uint)vrResult.dwSessionID;
+
+                        if (vrResult.AdminInfo.dwAccNo == null)
+                        {
+
+                            return;
+                        }
+                        // Response.Redirect("Inst/Main.aspx");
+                    }
+                    else
+                    {
+
+                    }
+                }
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+    public struct RESVINFO
+    {
+        public string id;
+        public string trueName;
+        public string roomName;
+        public string status;
+        public string startTime;
+        public string endTime;
+        public string testName;
+    }
+}

@@ -1,0 +1,895 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0178)http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#!/../a/resvsub.aspx?date=2017-04-06&kind=100555447&dev=100506966&room_id=100506965&lab=100506958&start=&end=&type=dev -->
+<html lang="zh-cn" class="pixel-ratio-1 watch-active-state"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>手机预约端</title>
+
+    
+    <script type="text/javascript" src="./手机预约端_files/framework7.min.js.下载"></script>
+    
+    <script type="text/javascript" src="./手机预约端_files/uni.m.js.下载"></script>
+    <script type="text/javascript" src="./手机预约端_files/pro.m.js.下载"></script>
+
+    
+    
+    <link rel="stylesheet" type="text/css" href="./手机预约端_files/framework7.min.css">
+    <link rel="stylesheet" type="text/css" href="./手机预约端_files/m.css">
+    <style>
+        .box_square { border-radius: 0; height: auto !important; }
+        .box_text { padding-top: 35%; padding-bottom: 35%; font-size: 40px; }
+
+        .touch_top { margin-top: 0; }
+        .touch_top ul:before { background: none; }
+        .touch_down { margin-bottom: 0; }
+        .narrow_top { margin-top: 15px; }
+        i.icon.sign { line-height: 1em; color: #ccc; }
+
+        .idt_box { display: inline-block; width: 12px; height: 12px; border: solid 1px #EFEFF4; box-shadow: 0 0 1px; }
+        .sel_theme { display: inline-block; width: 12px; height: 12px; border: solid 1px #EFEFF4; margin: 4px 5px; }
+        .sel_theme.active { box-shadow: 0 0 3px; }
+        .item_media_title { font-size: 32px; }
+        .target_title { color: #fff; width: 100px; text-align: center; padding: 5px; margin-top: 20px; margin-left: 0; margin-bottom: -10px; border-top-right-radius: 20px; }
+        /*图片排列*/
+        .swiper_queue { height: 240px; margin: 0 0 15px 0; }
+        .swiper_queue .swiper-slide { background: #fff; box-sizing: border-box; border: 1px solid #ddd; }
+        .swiper_queue img { width: 100%; height: 100%; }
+
+        #ic_rsc_detail .content-block { margin-top: 10px; margin-bottom: 10px; }
+        #ic_rsc_detail h3 { font-size: 1.25em; margin-bottom: 10px; font-weight: 500; color: #333; }
+
+        /*预约列表*/
+        #my_resv_remind .icon-remind { transition: transform 300ms; }
+        .resv_card .card-header { display: block; padding: 5px 10px; }
+        .resv_card .card-header a { display: block; position: relative; }
+        .resv_card .card-header a.active-state { opacity: .3; -webkit-transition-duration: 0ms; transition-duration: 0ms; }
+        .resv_card i.icon-pullright { position: absolute; top: 0; right: -5px; opacity: .7; font-size: 30px; }
+        .resv_card .card-content-inner { padding: 10px; }
+        .resv_card .obj_name { font-size: 14px; font-weight: bold; color: #333; }
+        .resv_card .obj_position { font-size: 13px; color: #666; }
+
+        /*预约提交*/
+        #resv_sub_picker { margin-bottom: 10px; }
+        #resvsub_form .list-block .item-title.label:not(.arrow) { width: 26%; }
+        #resvsub_form .list-block .item-title.label.arrow { width: 20%; }
+        #resvsub_form .list-block .list-group-title { background: #fcf8e3; font-size: 12px; }
+        .card .resv_info_content { padding: 10px; height: 86px; text-shadow: 0 0 2px #999; }
+        .card .obj_resv_stat { padding: 10px; height: 26px; }
+        /*信息栏*/
+        .info_column { margin-left: 12px; margin-top: -20px; font-size: 12px; color: #777; }
+        /*banner*/
+        .banner { position: relative; overflow: hidden; background-color: #333; }
+        .banner_svg { width: 100%; height: 100%; }
+        .banner_con { position: absolute; top: 0; left: 0; width: 100%; height: 100%; text-shadow: 0 0 2px #666; background: transparent; color: white; }
+
+        /*个人中心*/
+        .banner .list-block ul:after { background: transparent; }
+        /*预约动态*/
+        #valid_resv_list li.valid_selected .item-title { font-weight: bold; }
+        #valid_resv_list li .item-after { display: none; }
+        #valid_resv_list li.valid_selected .item-after { display: initial; }
+        .cur_resv_act { height: 52px; background: #fff; -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; display: -webkit-box; display: -ms-flexbox; display: -webkit-flex; display: flex; -webkit-box-pack: justify; -ms-flex-pack: justify; -webkit-justify-content: center; justify-content: center; -webkit-box-align: center; -ms-flex-align: center; -webkit-align-items: center; align-items: center; }
+        .cur_resv_act a { text-align: center; padding: 2px 8px; display: inline-block; }
+        .cur_resv_act a.active-state { opacity: .6; }
+        .cur_resv_act a .name { font-size: 12px; color: #999; }
+        .item-delete.active-state { opacity: .6; }
+
+        /*平面图*/
+        #ic_resv_stat .floor_fixed_sub { position: fixed; width: 80%; padding: 10px 5%; 
+                                         margin: 0 5%; left: 0; bottom: -160px; background: white;
+                                         transition:bottom 500ms;-webkit-transition:bottom 500ms;-moz-transition:bottom 500ms;
+                                         border: 1px solid #ddd;box-shadow: 0 0 5px 1px #ccc;}
+    </style>
+
+</head>
+<body class="theme-blue">
+    <script>
+        //主题
+        (function () {
+            var prefix = "theme=";
+            var start = document.cookie.indexOf(prefix);
+            if (start > -1) {
+                var end = document.cookie.indexOf(";", start + prefix.length);
+                if (end == -1) { end = document.cookie.length; }
+                var color = document.cookie.substring(start + prefix.length, end);
+                if (color) {
+                    var body = document.getElementsByTagName("body")[0];
+                    body.className = "theme-" + color;
+                }
+            }
+        })();
+    </script>
+    <div class="popup tablet-fullscreen reload-overlay text-center fullscreen_preloader" style="display: none;">
+        <div style="margin-top: 50%;"><span style="width: 32px; height: 32px" class="preloader"></span></div>
+        <div>loading...</div>
+        <p style="text-align: center">
+            <button type="button" onclick="location.reload()">点击重新加载，清理缓存</button></p>
+    </div>
+    <div class="statusbar-overlay"></div>
+    <div class="panel-overlay"></div>
+    
+    
+<!--时间选择器-->
+<div id="dlg_basic_dt_selector" class="hidden">
+    <ul class="tmp_time">
+        <li class="md_date">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">预约时间</div>
+                    <div class="item-input">
+                        <div class="visual_div"><span class="grey">...</span></div>
+                        <input type="text" class="mt_sel_time must" placeholder="..." style="height:0;">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="tmp_date">
+        <li class="md_date">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">结束日期</div>
+                    <div class="item-input">
+                        <input type="text" class="mt_end_date must text-center" name="end_date" placeholder="..." style="padding: 0">
+                        <input type="hidden" name="start_date" class="mt_start_date">
+                        <input type="hidden" class="open_start" name="open_start">
+                        <input type="hidden" class="open_end" name="open_end">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="tmp_datetime">
+        <li class="md_date">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">开始时间</div>
+                    <div class="item-input">
+                        <input type="text" name="start" class="mt_start_date must" placeholder="..." style="">
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="md_date">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">结束时间</div>
+                    <div class="item-input">
+                        <input type="text" name="end" class="mt_end_date must" placeholder="..." style="">
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <ul class="tmp_fix">
+        <li>
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">预约时段</div>
+                    <div class="item-input">
+                        <input type="hidden" name="start" class="mt_start">
+                        <input type="hidden" name="end" class="mt_end">
+                        <select class="mt_fix_time" style="width: 120px;"></select>
+
+                    </div>
+                </div>
+            </div>
+        </li>
+        </ul>
+</div>
+<script>
+    //添加时间选择器 panel 容器 obj 预约状态对象 type 选择器类别 obj参数除resvTimeClick需求外：时间[start] [end]日期[startDate] [endDate] 整日跨天需要openStart openEnd
+    pro.md.timeselector = function (app, obj, container) {
+        var $ = Dom7;
+        if (!uni.isNoNull([obj, obj.date])) {
+            uni.msgBox("参数有误：pro.md.timeselector");
+            return;
+        }
+        var date = obj.date;
+        var qz = $("#dlg_basic_dt_selector");
+        var para = obj;
+        var str = "";
+        para.unit = "2"||"10";
+        var hours = [];
+        var minutes = [];
+        var h_start = para.openStart ? parseInt(para.openStart.split(':')[0]) : 0;
+        var h_end = para.openEnd ? parseInt(para.openEnd.split(':')[0]) : 23;
+        for (var i = h_start; i <= h_end; i++) {
+            if (i < 10) hours.push('0' + i);
+            else hours.push(''+i);
+        }
+        var unit = parseInt(para.unit);
+        for (var j = 0; j < (60 / unit) ; j++) {
+            var v = j * unit;
+            if (v < 10) minutes.push('0' + v);
+            else minutes.push(''+v);
+        }
+        var picker;
+        if (para.fix) {//固定时段
+            picker = container || $(".tmp_fix li", qz).clone();
+            var sel = $(".mt_fix_time", picker).html("");
+            var now = new Date();
+            var today = now.format("yyyy-MM-dd") == date;
+            var e = now.getHours() * 100 + now.getMinutes();
+            for (var i = 0; i < obj.ops.length; i++) {
+                var op = obj.ops[i];
+                var start = op.start;
+                var end = op.end;
+                var flg = false;
+                if (today) {
+                    if (timeInt(end) <= e) {
+                        continue;
+                    }
+                    if (timeInt(start) <= e) {
+                        flg = true;
+                    }
+                }
+                sel.append("<option value='" + date + " " + start + "&" + date + " " + end + "'>" + (flg ? uni.translate("现在") : start) + " - " + end + "</option>");
+            }
+            var mt_start = picker.find(".mt_start");
+            var mt_end = picker.find(".mt_end");
+            if (!container) {
+                sel.change(function () {
+                    var v = $(this).val();
+                    var tm = v.split("&");
+                    if (tm.length == 2) {
+                        mt_start.val(tm[0]);
+                        mt_end.val(tm[1]);
+                    }
+                });
+            }
+            sel.change();
+        }
+        else if (obj.allowLong) {//长期
+            if ("1" == "1") {//整日
+                picker = container || $(".tmp_date li", qz).clone();
+                picker.find(".mt_start_date").val(date);
+                dateSel(picker.find(".mt_end_date"), date, container ? picker.find(".mt_end_date").val() : obj.endDate);
+                picker.find(".open_start").val(obj.openStart);
+                picker.find(".open_end").val(obj.openEnd);
+            }
+            else {//跨天
+                picker = container || $(".tmp_datetime li", qz).clone();
+                var mt_start = picker.find(".mt_start_date");
+                var mt_end = picker.find(".mt_end_date");
+                if (uni.isNull(container)) {
+                    mt_start.val(obj.start || '');
+                    mt_end.val(obj.end || '');
+                }
+                dateSel(mt_start, date, true);
+                dateSel(mt_end, date);
+            }
+        }
+        else {//当日
+            picker = container || $(".tmp_time li", qz).clone();
+            if (!uni.isNull(container)) {
+                var vir = picker.find(".visual_div").html().split('-');
+                if (vir.length > 1) {
+                    para.start = $.trim(vir[0]);
+                    para.end = $.trim(vir[1]);
+                }
+            }
+            var mt = picker.find(".mt_sel_time").resvTimeClick(app, para);
+        }
+        //处理函数
+        function timeInt(v) {
+            if (v.length > 5)
+                v = v.substr(v.length - 5);
+            var tmp = v.split(":");
+            if (tmp.length < 2) return 0;
+            return parseInt(tmp[0], 10) * 100 + parseInt(tmp[1], 10);
+        }
+        function dateSel(input, dt, extra) {
+            var max = Math.ceil((obj.max || 1440) / 1440);
+            var min = Math.floor((obj.min || 0) / 1440);
+            var minDate = (uni.parseDate(dt)).addDays(min);
+            var maxDate = max ? ((uni.parseDate(dt)).addDays(max)) : undefined;
+            if ("1" == "1") {//整日
+                var end = uni.parseDate(extra || dt);
+                if (uni.compareDate(minDate, end) > 0) end = minDate;
+                else if (uni.compareDate(maxDate, end) < 0) end = maxDate;
+                input.val(end.format("yyyy-MM-dd"));
+                if (input[0].calendar) {
+                    input[0].calendar.destroy();
+                }
+                input[0].calendar = app.calendar($.extend(pro.getCldPara(), {
+                    input: input[0],
+                    value: [end],
+                    minDate: minDate,
+                    maxDate: maxDate
+                }));
+            }
+            else {//跨天
+                var dates = [];
+                if (extra) {
+                    dates.push(dt);
+                }
+                else {
+                    for (var begin = minDate; uni.compareDate(begin, maxDate) <= 0; begin.addDays(1)) {
+                        dates.push(begin.format("yyyy-MM-dd"));
+                    }
+                }
+                if (input[0].picker) {
+                    input[0].picker.destroy();
+                }
+                    //实例化控件
+                    input[0].picker = app.picker({
+                        input: input[0],
+                        toolbarCloseText: uni.translate('确认'),
+                        formatValue: function (picker, values) {
+                            if (values.length == 4)
+                                return values[0] + " " + values[1]+":"+values[3];
+                            else
+                                return "";
+                        },
+                        cols: [
+                            {
+                                values: dates
+                            },
+                            {
+                                values: hours
+                            },
+                            {
+                                values: [':']
+                            },
+                            {
+                                values: minutes
+                            }
+                        ]
+                    });
+            }
+        }
+        //返回
+        picker.find(".mt_date").val(date);
+        return picker;
+    }
+</script>
+
+    <div class="hidden" id="uni_config">
+        <input type="hidden" id="re_login" value="false">
+        <input type="hidden" class="is_allday" value="1">
+        <input type="hidden" class="is_show_close" value="1">
+        <input type="hidden" class="floor_plan_kind" value="8">
+        <input type="hidden" id="is_third_login" value="false">
+        <input type="hidden" id="cfg_resv_theme_kind" value="1">
+        <input type="hidden" id="cfg_resv_interval" value="60,120">
+        <input type="hidden" id="cfg_resv_range" value="全天@08:00-22:00,上午@08:00-12:00,下午@12:00-18:00,晚上@18:00-22:00">
+        <input type="hidden" id="cfg_all_day_state" value="">
+        <input type="hidden" id="cfg_mobile_prop" value="7">
+        <input type="hidden" id="cfg_coords" value="">
+        <input type="hidden" id="cfg_seat_resource_mode" value="1">
+        <input type="hidden" id="cfg_open_aty" value="0">
+        <input type="hidden" id="cfg_show_close" value="1">
+        <input type="hidden" id="cfg_is_multilanguage" value="0">
+        <input type="hidden" id="cfg_resv_unit" value="2">
+
+    </div>
+    <div class="panel-overlay"></div>
+    <div class="panel panel-right panel-reveal">
+        <div class="content-block">
+            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link close-panel uni_trans">关闭侧栏</a>
+        </div>
+    </div>
+    <div class="panel panel-right panel-cover">
+    </div>
+    <div class="views">
+        
+        <div class="view view-main" data-page="p-resvsub">
+            <div class="navbar">
+                <div class="navbar-inner navbar-on-left" data-page="p-index">
+                    <div id="current_tab_title" class="center sliding uni_trans" style="left: 726px; transform: translate3d(-726px, 0px, 0px);">资源分类</div>
+                    <div class="right sliding" style="transform: translate3d(-738px, 0px, 0px);">
+                        <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/a/article.aspx?id=m_help&amp;type=other" class="link icon-only">
+                            <i class="icon icon-question"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="navbar-inner cached" data-page="cc-contact">
+                    <div class="left"><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link back icon-only"><i class="icon icon-back"></i><span>返回</span></a></div>
+                    <div class="center sliding">联系方式</div>
+                </div>
+                <div class="navbar-inner cached" data-page="cc-pwd">
+                    <div class="left"><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link back icon-only"><i class="icon icon-back"></i><span>返回</span></a></div>
+                    <div class="center sliding">修改密码</div>
+                </div>
+                <div class="navbar-inner cached" data-page="cc-dialog" id="dft_dialog_nav">
+                    <div class="left"><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link back icon-only"><i class="icon icon-back"></i><span>确认</span></a></div>
+                    <div class="center sliding"></div>
+                    <div class="right"></div>
+                </div>
+            <div class="navbar-inner navbar-on-center">
+            <div class="left"><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link back icon-only"><i class="icon icon-back"></i><span>返回</span></a></div>
+            <div class="center sliding" style="left: -726px; transform: translate3d(0px, 0px, 0px);">提交预约</div>
+        </div></div>
+            <div class="pages navbar-through">
+                <div class="page toolbar-fixed page-on-left" data-page="p-index">
+                    <div class="page-content  pull-to-refresh-content native-scroll"><div class="page-content-inner" style="min-height: 755px;">
+                        <div class="pull-to-refresh-layer">
+                            <div class="preloader"></div>
+                            <div class="pull-to-refresh-arrow"></div>
+                        </div>
+                        <div class="tabs">
+                            
+                            <div id="tab_state" class="tab">
+                                
+                                <div class="banner" style="height: 150px;"><svg class="banner_svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="1316.0365346688227" cy="104.72254717093084" r="14.16545243350803" style="fill:#92C13F;fill-opacity:0.3706730457049654"></circle><circle cx="368.18033026937906" cy="146.32103060291317" r="6.643748847646353" style="fill:#FFF301;fill-opacity:0.3850398948539122"></circle><circle cx="249.8314470784893" cy="40.85140395026551" r="13.318290628205865" style="fill:#01AEF0;fill-opacity:0.4988070802975526"></circle><circle cx="94.43927144846646" cy="57.03230651047063" r="18.146831954929965" style="fill:#ED008C;fill-opacity:0.4469794575345738"></circle><circle cx="617.3872655393074" cy="20.062761861194232" r="6.684872688383203" style="fill:#92C13F;fill-opacity:0.24464712303262126"></circle><circle cx="449.4640648172831" cy="89.83155746077009" r="9.612221231948414" style="fill:#FFF301;fill-opacity:0.3002141394200797"></circle><circle cx="1401.871661324943" cy="108.02457212468394" r="19.570521893533822" style="fill:#01AEF0;fill-opacity:0.12871450781096794"></circle><circle cx="473.90859448268066" cy="131.69941961759687" r="23.280861566275828" style="fill:#ED008C;fill-opacity:0.04444769702059759"></circle><circle cx="882.6078371731845" cy="97.1252883562489" r="10.871194758863872" style="fill:#92C13F;fill-opacity:0.37437007622658913"></circle><circle cx="541.2908741587896" cy="148.88548578954908" r="24.307879449244872" style="fill:#FFF301;fill-opacity:0.20172275602959866"></circle><circle cx="927.3242785773331" cy="27.15904702600086" r="19.906997188277554" style="fill:#01AEF0;fill-opacity:0.40123179746503834"></circle><circle cx="70.60815403699053" cy="36.67953242610569" r="12.864905395712817" style="fill:#ED008C;fill-opacity:0.40541160837747525"></circle><circle cx="970.1085731297338" cy="64.8117887106796" r="21.079851263874584" style="fill:#92C13F;fill-opacity:0.27392860185040613"></circle><circle cx="1092.960557489694" cy="111.09434822188851" r="5.555886849304365" style="fill:#FFF301;fill-opacity:0.038165852548496026"></circle><circle cx="1492.73117539974" cy="29.960198196118316" r="12.190063604590689" style="fill:#01AEF0;fill-opacity:0.03674146580212079"></circle><circle cx="398.6586950214945" cy="1.9577916835086473" r="15.871058996256831" style="fill:#ED008C;fill-opacity:0.3883571019970453"></circle><circle cx="672.3653962946166" cy="130.65632762479873" r="7.559919302983525" style="fill:#92C13F;fill-opacity:0.26484224180141336"></circle><circle cx="1356.7234899298835" cy="136.8569991331676" r="16.00421488583435" style="fill:#FFF301;fill-opacity:0.05882396274552937"></circle><circle cx="1031.546672184429" cy="7.010601789027804" r="6.6112331773275965" style="fill:#01AEF0;fill-opacity:0.41074416865787655"></circle><circle cx="534.4175265070905" cy="91.14834373292153" r="14.435033326274288" style="fill:#ED008C;fill-opacity:0.006793261621752533"></circle><circle cx="309.19402928524653" cy="1.080065999401092" r="16.946520404281173" style="fill:#92C13F;fill-opacity:0.3914577025514794"></circle><circle cx="526.663397241574" cy="135.59371230598282" r="9.519137105746317" style="fill:#FFF301;fill-opacity:0.42201136865040967"></circle><circle cx="1272.1360219547832" cy="149.16498740648566" r="11.355972742619585" style="fill:#01AEF0;fill-opacity:0.48681360460110334"></circle><circle cx="827.6465634446434" cy="87.83022633670564" r="5.019274255084211" style="fill:#ED008C;fill-opacity:0.4268701916890505"></circle><circle cx="689.4261210646389" cy="31.113284621851644" r="10.005236796737705" style="fill:#92C13F;fill-opacity:0.22966331769345616"></circle><circle cx="494.4315226082638" cy="18.714599200634574" r="20.259451677223154" style="fill:#FFF301;fill-opacity:0.42772850242375604"></circle><circle cx="896.0037358677016" cy="47.22738465340793" r="13.678739217894108" style="fill:#01AEF0;fill-opacity:0.10504026783387532"></circle><circle cx="186.8666171799366" cy="133.1082148428816" r="21.660207537077973" style="fill:#ED008C;fill-opacity:0.07975705041611647"></circle><circle cx="1112.5016357143577" cy="34.54152371218705" r="12.689790902549309" style="fill:#92C13F;fill-opacity:0.5024274729589904"></circle><circle cx="1300.9789166872952" cy="116.26787989129485" r="20.520866561854177" style="fill:#FFF301;fill-opacity:0.19664793280564385"></circle><circle cx="163.82095541045305" cy="23.74390913645039" r="9.706188870851594" style="fill:#01AEF0;fill-opacity:0.5950911228332196"></circle><circle cx="1241.048549828925" cy="23.56346695792292" r="5.247195793978671" style="fill:#ED008C;fill-opacity:0.10131265044748528"></circle><circle cx="117.95271705431742" cy="61.68360859140143" r="16.702134752841413" style="fill:#92C13F;fill-opacity:0.0019277580210681489"></circle><circle cx="1074.079103899828" cy="18.095400805874228" r="18.98618835694739" style="fill:#FFF301;fill-opacity:0.5028342420418019"></circle><circle cx="1218.019284456294" cy="53.779256939549036" r="16.307882289669486" style="fill:#01AEF0;fill-opacity:0.2638545381703794"></circle><circle cx="246.05969291538975" cy="64.73119913365201" r="23.71125518034807" style="fill:#ED008C;fill-opacity:0.056479349935462775"></circle><circle cx="258.4254534473256" cy="82.61317785288892" r="14.908866819905903" style="fill:#92C13F;fill-opacity:0.417366675945799"></circle><circle cx="873.1194811922805" cy="83.21523899047297" r="6.312758096546589" style="fill:#FFF301;fill-opacity:0.32599889049079467"></circle><circle cx="1121.1707341113054" cy="5.4732886246645185" r="19.124846946606382" style="fill:#01AEF0;fill-opacity:0.15363186743278612"></circle><circle cx="1279.1413316774676" cy="115.97337032205643" r="24.977776994414715" style="fill:#ED008C;fill-opacity:0.10841391766619979"></circle><circle cx="1046.9720468890523" cy="71.21418723352309" r="24.163299809941762" style="fill:#92C13F;fill-opacity:0.21181476264231058"></circle><circle cx="1272.9865614308505" cy="118.29431331199018" r="14.172349142020103" style="fill:#FFF301;fill-opacity:0.46217027562942303"></circle><circle cx="1076.4015666534985" cy="131.24615191992564" r="17.629332041396182" style="fill:#01AEF0;fill-opacity:0.1494117133479238"></circle><circle cx="223.2808487197749" cy="132.61480060601642" r="7.731423106787638" style="fill:#ED008C;fill-opacity:0.338043314524902"></circle><circle cx="448.36267068112636" cy="124.4540215437868" r="22.14864814135317" style="fill:#92C13F;fill-opacity:0.24576570957641075"></circle><circle cx="750.4956435827384" cy="128.96441091590052" r="16.635065162631058" style="fill:#FFF301;fill-opacity:0.03597143039080297"></circle><circle cx="301.8246184081969" cy="32.75360082116949" r="16.184370864257037" style="fill:#01AEF0;fill-opacity:0.35223770124444664"></circle><circle cx="959.0967603433843" cy="140.61954970060017" r="10.191896852869913" style="fill:#ED008C;fill-opacity:0.4989197112383834"></circle><circle cx="391.3167804889615" cy="85.97940348632001" r="16.971082341916187" style="fill:#92C13F;fill-opacity:0.4253715988245961"></circle><circle cx="763.9262368989297" cy="85.03220607947316" r="15.515278465486565" style="fill:#FFF301;fill-opacity:0.3140731746710501"></circle><circle cx="624.6839248005424" cy="51.72099877614096" r="15.730315573806946" style="fill:#01AEF0;fill-opacity:0.18443589709939423"></circle><circle cx="1262.641518239945" cy="34.072074240801534" r="15.201716504283326" style="fill:#ED008C;fill-opacity:0.14952377108127513"></circle><circle cx="1005.1323377402341" cy="138.41666319727312" r="21.864692843364743" style="fill:#92C13F;fill-opacity:0.12793413203575188"></circle><circle cx="58.07419263543636" cy="101.28788269627306" r="13.241408135741683" style="fill:#FFF301;fill-opacity:0.2690198366221783"></circle><circle cx="114.62082516326268" cy="87.61652572444876" r="15.580809112921335" style="fill:#01AEF0;fill-opacity:0.24131887340577163"></circle><circle cx="1145.0476509827881" cy="37.0118641178474" r="18.76929942862206" style="fill:#ED008C;fill-opacity:0.5440349470663834"></circle><circle cx="796.2805797584798" cy="141.54637252446673" r="11.417393600758668" style="fill:#92C13F;fill-opacity:0.24840310714177338"></circle><circle cx="1461.3596201764208" cy="75.54379257788985" r="8.462658503368637" style="fill:#FFF301;fill-opacity:0.29199409348558536"></circle><circle cx="519.6589158600425" cy="25.28620467693935" r="14.83430570344581" style="fill:#01AEF0;fill-opacity:0.3577428750801588"></circle><circle cx="371.8191464137425" cy="127.09820573170451" r="24.151036518023343" style="fill:#ED008C;fill-opacity:0.550893754291389"></circle><circle cx="1119.7726682738744" cy="59.656332031541424" r="19.95053679264099" style="fill:#92C13F;fill-opacity:0.41372892331450273"></circle><circle cx="1464.3862369336985" cy="103.1829297797811" r="14.935726662001558" style="fill:#FFF301;fill-opacity:0.008593410992855599"></circle><circle cx="445.20088899472796" cy="26.961461141866994" r="24.026789586435154" style="fill:#01AEF0;fill-opacity:0.554930372290996"></circle><circle cx="502.7869072175131" cy="124.49828816616646" r="15.016787199431414" style="fill:#ED008C;fill-opacity:0.1095225336499479"></circle><circle cx="15.033987127503224" cy="117.0433884559908" r="22.314945972745164" style="fill:#92C13F;fill-opacity:0.5503947178926007"></circle><circle cx="480.50080845427135" cy="122.06740099033733" r="7.015597282927394" style="fill:#FFF301;fill-opacity:0.07930973320477208"></circle><circle cx="887.9055830908421" cy="56.507565876771395" r="6.586586997242183" style="fill:#01AEF0;fill-opacity:0.06201417549793731"></circle><circle cx="380.86828176058987" cy="72.09299430627266" r="23.265153512448933" style="fill:#ED008C;fill-opacity:0.3286112459520192"></circle><circle cx="557.327202516024" cy="107.58785289723889" r="14.857069776483412" style="fill:#92C13F;fill-opacity:0.5889345066805092"></circle><circle cx="1345.5937076355917" cy="28.56117962182214" r="21.46484702892576" style="fill:#FFF301;fill-opacity:0.5002846543914277"></circle></svg>
+                                    <div class="banner_con">
+                                        <div id="my_resv_remind" class="list-block media-list touch_top">
+                                            <ul style="background: transparent;">
+                                                <li class="item-content">
+                                                    <div class="item-media">
+                                                        <i class="icon icon-remind" style="font-size: 60px; color: white;"></i>
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row" style="margin-top: 10px;">
+                                                            <div class="item-title font-huge" style="color: white;">提醒</div>
+                                                            <div class="item-after" style="color: white; text-shadow: 0 0 6px #333;"></div>
+                                                        </div>
+                                                        <div class="item-subtitle" style="border-bottom: 1px solid #ccc; font-size: 18px;"></div>
+                                                        <div class="item-text font-normal" style="color: white;">没有已生效或即将生效的预约</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="cur_resv_act">
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="act_item act_leave" style="display: none;">
+                                        <i class="icon icon-logout"></i>
+                                        <div class="name uni_trans">暂时离开</div>
+                                    </a>
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="act_item act_checkin" style="display: none;">
+                                        <i class="icon icon-location"></i>
+                                        <div class="name uni_trans">签到使用</div>
+                                    </a>
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="act_item act_back" style="display: none;">
+                                        <i class="icon icon-repeal"></i>
+                                        <div class="name uni_trans">返回使用</div>
+                                    </a>
+                                    
+                                    
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="act_refresh">
+                                        <i class="icon icon-refresh"></i>
+                                        <div class="name uni_trans">刷新状态</div>
+                                    </a>
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="act_item act_more" style="display: none;">
+                                        <i class="icon icon-more"></i>
+                                        <div class="name uni_trans">更多操作</div>
+                                    </a>
+                                </div>
+                                <div class="list-block media-list touch_top">
+                                    <ul id="valid_resv_list" style="margin-top: 1px;"></ul>
+                                </div>
+                                <div class="my_resv_list_panel" style="display: none;">
+                                    <div class="content-block-title" style="margin: 12px 5px -8px 5px;"><i class="icon icon-sort sign" style="font-size: 24px;"></i><span class="grey open_time_info">等待列表</span></div>
+                                    <div class="list-block virtual-list media-list touch_top">
+                                        <ul id="my_resv_list"></ul>
+                                    </div>
+                                </div>
+                                <div id="no_resv_emotion" class="text-center">
+                                    <i class="icon icon-emoji" style="color: #ccc; font-size: 120px;"></i>
+                                    <div class="grey uni_trans">没有预约，个人中心可以查看历史记录</div>
+                                </div>
+                            </div>
+                            
+                            <div id="tab_reserve" class="tab active">
+                                <div class="banner" style="height: 160px;"><svg class="banner_svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="1149.1376630506043" cy="69.17927932497196" r="6.148912382649273" style="fill:#92C13F;fill-opacity:0.2156886062194343"></circle><circle cx="796.494994035694" cy="52.25845300499781" r="25.211614710652835" style="fill:#FFF301;fill-opacity:0.4311206244763204"></circle><circle cx="1289.7759970967995" cy="60.1670270295088" r="12.27261059591023" style="fill:#01AEF0;fill-opacity:0.5088993776379949"></circle><circle cx="1313.2334856234725" cy="88.14586593760559" r="7.639199007699957" style="fill:#ED008C;fill-opacity:0.3107294561931446"></circle><circle cx="881.2575022413262" cy="31.947384333325353" r="7.283416004181351" style="fill:#92C13F;fill-opacity:0.37763557924127666"></circle><circle cx="239.8491271255363" cy="112.27296033421933" r="13.308231483132644" style="fill:#FFF301;fill-opacity:0.36995982269405836"></circle><circle cx="148.3977841033789" cy="79.12890340150884" r="26.101415689907196" style="fill:#01AEF0;fill-opacity:0.06734277109660525"></circle><circle cx="1361.6337932560195" cy="19.84019321529768" r="26.28872359813429" style="fill:#ED008C;fill-opacity:0.2813902150528862"></circle><circle cx="879.5127117569208" cy="40.339756672612594" r="9.851012139383684" style="fill:#92C13F;fill-opacity:0.1442389581995962"></circle><circle cx="991.3977876245932" cy="113.63373117620387" r="21.928586468076706" style="fill:#FFF301;fill-opacity:0.39056701327119336"></circle><circle cx="633.7565533073906" cy="25.12580680231853" r="22.960076753801207" style="fill:#01AEF0;fill-opacity:0.17750896585765874"></circle><circle cx="519.949179298748" cy="19.26621672132228" r="7.906080165448403" style="fill:#ED008C;fill-opacity:0.5777651961469319"></circle><circle cx="646.1950641802315" cy="100.49478107454934" r="19.163401257440192" style="fill:#92C13F;fill-opacity:0.04303962764634983"></circle><circle cx="361.89967258086085" cy="94.30887257181283" r="16.690337921575995" style="fill:#FFF301;fill-opacity:0.11360640413546541"></circle><circle cx="1067.1645357191323" cy="29.784357177126672" r="23.598198996486477" style="fill:#01AEF0;fill-opacity:0.007817674585026468"></circle><circle cx="1173.1187083921004" cy="88.64582008869777" r="24.26152367926047" style="fill:#ED008C;fill-opacity:0.18061440895633973"></circle><circle cx="253.21302885670548" cy="29.327886854921985" r="18.87006119047271" style="fill:#92C13F;fill-opacity:0.08592411737196093"></circle><circle cx="1025.0235260461636" cy="132.42152706241313" r="13.998684454146336" style="fill:#FFF301;fill-opacity:0.5006481028801224"></circle><circle cx="77.66399068574903" cy="47.78306217203873" r="10.386917308732512" style="fill:#01AEF0;fill-opacity:0.4048074944025988"></circle><circle cx="322.10541141848506" cy="82.12954523630654" r="20.685181502550527" style="fill:#ED008C;fill-opacity:0.20168587004545557"></circle><circle cx="1376.5851745466339" cy="58.095626989021376" r="15.048875133682476" style="fill:#92C13F;fill-opacity:0.4863477746645595"></circle><circle cx="1276.1378536826176" cy="6.773960352800579" r="11.890322405423024" style="fill:#FFF301;fill-opacity:0.4247417021059843"></circle><circle cx="1155.1602397208399" cy="12.747082147319233" r="26.615944152207152" style="fill:#01AEF0;fill-opacity:0.5136595291696839"></circle><circle cx="37.8459049125354" cy="24.988217357331166" r="16.203220584724132" style="fill:#ED008C;fill-opacity:0.32888822358049885"></circle><circle cx="220.2862050112598" cy="12.012232176830864" r="23.197721572701404" style="fill:#92C13F;fill-opacity:0.111140027185326"></circle><circle cx="1504.6655029994793" cy="100.72531301277127" r="15.253030085844788" style="fill:#FFF301;fill-opacity:0.05431956564301488"></circle><circle cx="577.5989850272615" cy="15.370633184964824" r="26.635743875582563" style="fill:#01AEF0;fill-opacity:0.21012640366631286"></circle><circle cx="1361.3091540019643" cy="60.49455538740755" r="19.900293461348998" style="fill:#ED008C;fill-opacity:0.30636010770301625"></circle><circle cx="59.903786834999316" cy="55.35285192162487" r="8.615553351504335" style="fill:#92C13F;fill-opacity:0.27576506344115304"></circle><circle cx="1196.541857390255" cy="41.765526911900395" r="12.533039325936208" style="fill:#FFF301;fill-opacity:0.011471761416730786"></circle><circle cx="150.5926176461938" cy="74.42590873510954" r="19.736532308096624" style="fill:#01AEF0;fill-opacity:0.24629470734959202"></circle><circle cx="1161.2954443119854" cy="96.05480083407483" r="12.793085834275892" style="fill:#ED008C;fill-opacity:0.11489468645870393"></circle><circle cx="598.9921961984777" cy="134.64628110633132" r="15.500625734667828" style="fill:#92C13F;fill-opacity:0.5057501282779462"></circle><circle cx="852.9324408033453" cy="32.13490947871268" r="16.482937182200633" style="fill:#FFF301;fill-opacity:0.515130278774621"></circle><circle cx="884.5101518692923" cy="46.77135460289694" r="23.77578342035142" style="fill:#01AEF0;fill-opacity:0.289270693705896"></circle><circle cx="1185.0240299068018" cy="118.63808858788012" r="17.279918437688327" style="fill:#ED008C;fill-opacity:0.32781724091725084"></circle><circle cx="1379.0690177960403" cy="158.07467745914636" r="21.90536547234651" style="fill:#92C13F;fill-opacity:0.5443759577949647"></circle><circle cx="1201.2821984789389" cy="95.74887462893919" r="17.18860316648702" style="fill:#FFF301;fill-opacity:0.0829920731298488"></circle><circle cx="260.61407201866496" cy="57.0339082219866" r="8.988709374137844" style="fill:#01AEF0;fill-opacity:0.46278306787654455"></circle><circle cx="625.4792767991275" cy="92.79171263261503" r="25.373171878790647" style="fill:#ED008C;fill-opacity:0.3533340275961412"></circle><circle cx="555.4623061177131" cy="18.32095860496402" r="23.21962885506462" style="fill:#92C13F;fill-opacity:0.1528075704547558"></circle><circle cx="1286.2251097428452" cy="152.77368297007678" r="6.765194783305055" style="fill:#FFF301;fill-opacity:0.1929480869952338"></circle><circle cx="148.22850611465086" cy="7.371400416400533" r="20.083209240391966" style="fill:#01AEF0;fill-opacity:0.3863877808769076"></circle><circle cx="564.2260807514231" cy="87.31989893938987" r="11.686978338066751" style="fill:#ED008C;fill-opacity:0.29981690219227475"></circle><circle cx="573.5719454133152" cy="14.781546009343884" r="8.519996700555476" style="fill:#92C13F;fill-opacity:0.06348929552383109"></circle><circle cx="1085.895141700933" cy="111.66144002585426" r="25.24485941888114" style="fill:#FFF301;fill-opacity:0.31213460208159205"></circle><circle cx="1201.5478771417" cy="115.00669789424822" r="6.869523894998686" style="fill:#01AEF0;fill-opacity:0.1786821346260199"></circle><circle cx="50.17614734273716" cy="100.51751338867038" r="25.712169143297903" style="fill:#ED008C;fill-opacity:0.00789487667614197"></circle><circle cx="405.4928716023743" cy="48.37261918883879" r="22.12210571829475" style="fill:#92C13F;fill-opacity:0.07142563037969696"></circle><circle cx="1406.0411609085381" cy="114.53080950687675" r="17.31713809905404" style="fill:#FFF301;fill-opacity:0.10265601757873966"></circle><circle cx="1387.0692689564075" cy="64.20270661828982" r="21.41535129612001" style="fill:#01AEF0;fill-opacity:0.38635769258287733"></circle><circle cx="1450.092582254997" cy="6.416925868529297" r="7.8650503985911575" style="fill:#ED008C;fill-opacity:0.06103254360165189"></circle><circle cx="360.9035674050656" cy="18.16641102859453" r="6.277459874949513" style="fill:#92C13F;fill-opacity:0.5202563621513778"></circle><circle cx="372.6786918213485" cy="4.329408369486778" r="19.669621301080955" style="fill:#FFF301;fill-opacity:0.05622877083324118"></circle><circle cx="266.8629729874428" cy="104.96731391613818" r="24.204438158458927" style="fill:#01AEF0;fill-opacity:0.3545970312154736"></circle><circle cx="391.28140349778016" cy="91.03461994662086" r="6.891750261648587" style="fill:#ED008C;fill-opacity:0.33017138063322937"></circle><circle cx="621.4832158596646" cy="96.68795122340285" r="24.976322298296417" style="fill:#92C13F;fill-opacity:0.5536204923947703"></circle><circle cx="461.3962031933758" cy="51.224802616595966" r="9.379896556340443" style="fill:#FFF301;fill-opacity:0.5747346744604258"></circle><circle cx="294.97407200427506" cy="27.83656340640544" r="22.93637016225757" style="fill:#01AEF0;fill-opacity:0.41432587833052326"></circle><circle cx="397.163738719276" cy="120.57954194090321" r="16.731502435725652" style="fill:#ED008C;fill-opacity:0.3336874104717782"></circle><circle cx="316.73318507519565" cy="105.94713444810637" r="25.85752340106923" style="fill:#92C13F;fill-opacity:0.4116602931977795"></circle><circle cx="294.0485212310504" cy="7.435228325742749" r="16.175000757849904" style="fill:#FFF301;fill-opacity:0.10618738311332332"></circle><circle cx="1112.8005669741303" cy="82.9120491228096" r="10.107786234395117" style="fill:#01AEF0;fill-opacity:0.43119128439811494"></circle><circle cx="1485.8927797657707" cy="80.30407150378281" r="26.20547513129854" style="fill:#ED008C;fill-opacity:0.4456052816374607"></circle><circle cx="1126.6069687499892" cy="25.451498083341235" r="21.37095687619897" style="fill:#92C13F;fill-opacity:0.07939994484449309"></circle><circle cx="649.5737005013727" cy="112.71023155158773" r="7.141605566120403" style="fill:#FFF301;fill-opacity:0.4033241501713063"></circle><circle cx="384.8964495221535" cy="1.8628874316251043" r="8.412859610427924" style="fill:#01AEF0;fill-opacity:0.277305562237258"></circle><circle cx="3.041208170465175" cy="40.72541449235022" r="18.356332528258317" style="fill:#ED008C;fill-opacity:0.11933994750844934"></circle><circle cx="1129.2979778597387" cy="54.7825220420491" r="15.274647629511573" style="fill:#92C13F;fill-opacity:0.29031984499347785"></circle><circle cx="146.3695161954198" cy="124.26952391028738" r="25.55323393502032" style="fill:#FFF301;fill-opacity:0.3357265455582503"></circle></svg>
+                                    <div class="banner_con">
+                                        <div class="text-center">
+                                            <div class="font-big" style="margin-top: 38px; margin-bottom: 5px;">欢迎使用</div>
+                                            <div class="font-normal">座位-研修室管理系统</div>
+                                            <div class="text-center">
+                                                <span class="sel_theme bg-blue active" data-theme="blue"></span>
+                                                <span class="sel_theme bg-pink" data-theme="pink"></span>
+                                                <span class="sel_theme bg-orange" data-theme="orange"></span>
+                                                <span class="sel_theme bg-green" data-theme="green"></span>
+                                                <span class="sel_theme bg-red" data-theme="red"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="content-block-title target_title theme-bg">空间</div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li><a class="item-content item-link" href="http://yts.library.gdufe.edu.cn/ClientWeb/m/a/classify.aspx?classkind=1&amp;mode=1&amp;title=%E7%A9%BA%E9%97%B4%E4%BB%8B%E7%BB%8D">
+                                            <div class="item-inner">
+                                                <div class="item-title">空间介绍</div>
+                                                <div class="item-after"></div>
+                                            </div>
+                                        </a></li>
+                                        <li><a class="item-content item-link" href="http://yts.library.gdufe.edu.cn/ClientWeb/m/a/search.aspx?classkind=1&amp;prop=&amp;title=%E9%A2%84%E7%BA%A6%E7%A9%BA%E9%97%B4">
+                                            <div class="item-inner">
+                                                <div class="item-title">预约空间</div>
+                                                <div class="item-after"></div>
+                                            </div>
+                                        </a></li>
+                                        
+                                    </ul>
+                                </div>
+                                
+                            </div>
+                            
+                            <div id="tab_center" class="tab">
+                                <div class="banner" style="height: 140px;"><svg class="banner_svg" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><circle cx="1518.0992735536681" cy="51.861158724839285" r="17.744920797837857" style="fill:#92C13F;fill-opacity:0.12479089143300093"></circle><circle cx="856.5763741813216" cy="110.4830333805892" r="19.809753647911112" style="fill:#FFF301;fill-opacity:0.5045374862573235"></circle><circle cx="516.0280723923707" cy="35.29614232370312" r="8.62386892680735" style="fill:#01AEF0;fill-opacity:0.0212258617566361"></circle><circle cx="167.24950928034787" cy="84.96925787841496" r="12.133594061984333" style="fill:#ED008C;fill-opacity:0.1756709924761959"></circle><circle cx="830.1916398125064" cy="47.64058972734005" r="7.771988426274263" style="fill:#92C13F;fill-opacity:0.38572053275024"></circle><circle cx="296.9925734997082" cy="3.9356564955599405" r="15.024205106892508" style="fill:#FFF301;fill-opacity:0.2845655502015447"></circle><circle cx="235.12356714683324" cy="98.65995066997047" r="10.694460327857788" style="fill:#01AEF0;fill-opacity:0.2582516895902556"></circle><circle cx="1359.0897814753682" cy="100.42580531060794" r="21.019487705148677" style="fill:#ED008C;fill-opacity:0.3793053338413708"></circle><circle cx="1302.8293131008122" cy="28.57257613882321" r="6.387669681547444" style="fill:#92C13F;fill-opacity:0.21442769898981107"></circle><circle cx="568.2190907327861" cy="17.889163366833273" r="13.006169952686296" style="fill:#FFF301;fill-opacity:0.36879316718770383"></circle><circle cx="1331.2737536462955" cy="9.61728599748778" r="11.482971056941402" style="fill:#01AEF0;fill-opacity:0.5065891833521581"></circle><circle cx="119.87761341051578" cy="8.687476338804586" r="11.492910388567905" style="fill:#ED008C;fill-opacity:0.4402293009517164"></circle><circle cx="878.6103532805286" cy="20.70370730965951" r="12.533235113118604" style="fill:#92C13F;fill-opacity:0.15919156714723415"></circle><circle cx="617.9746626261378" cy="24.203873741886675" r="8.843988112164043" style="fill:#FFF301;fill-opacity:0.16266349816183112"></circle><circle cx="626.4247402430532" cy="0.20761737935647506" r="22.740070746012773" style="fill:#01AEF0;fill-opacity:0.5712641805120076"></circle><circle cx="1123.5727060247254" cy="81.94759795483127" r="16.448005895004382" style="fill:#ED008C;fill-opacity:0.4799374816469364"></circle><circle cx="838.46416115929" cy="98.56269658650235" r="23.32472211509815" style="fill:#92C13F;fill-opacity:0.19334402206872414"></circle><circle cx="1104.381575346376" cy="16.42996885536786" r="13.337955761692232" style="fill:#FFF301;fill-opacity:0.2731457821029022"></circle><circle cx="423.0941609896273" cy="43.520727165121016" r="6.080131440794103" style="fill:#01AEF0;fill-opacity:0.227858866870565"></circle><circle cx="636.8835840641852" cy="92.81764573305668" r="15.98428877280065" style="fill:#ED008C;fill-opacity:0.5704549301986974"></circle><circle cx="1509.7055966099838" cy="37.138550089627124" r="16.40514811327152" style="fill:#92C13F;fill-opacity:0.24451097995931947"></circle><circle cx="957.850980719101" cy="79.78967964267164" r="22.519698834589846" style="fill:#FFF301;fill-opacity:0.11754427995149674"></circle><circle cx="227.15377247939477" cy="83.1265689538846" r="19.345484427345202" style="fill:#01AEF0;fill-opacity:0.551476635900719"></circle><circle cx="885.9331148347505" cy="69.86969679971368" r="20.1705956417662" style="fill:#ED008C;fill-opacity:0.48872206115845773"></circle><circle cx="1363.954477577261" cy="12.098117186342222" r="13.492132179245255" style="fill:#92C13F;fill-opacity:0.39938803484317886"></circle><circle cx="656.3637225490035" cy="134.33523952525272" r="20.982174346398015" style="fill:#FFF301;fill-opacity:0.2149399133233243"></circle><circle cx="920.2355190713513" cy="45.08504952158628" r="23.30363311047391" style="fill:#01AEF0;fill-opacity:0.4849057880575012"></circle><circle cx="1041.8083169478107" cy="52.19960545046187" r="9.213562507519919" style="fill:#ED008C;fill-opacity:0.059023331898530484"></circle><circle cx="1354.7819742233976" cy="91.49369552148758" r="15.17614217539211" style="fill:#92C13F;fill-opacity:0.4752508297134401"></circle><circle cx="627.3500882523938" cy="11.756673157449526" r="7.584844252744543" style="fill:#FFF301;fill-opacity:0.0870862896112159"></circle><circle cx="909.452882829122" cy="114.80492530520544" r="8.397432050429547" style="fill:#01AEF0;fill-opacity:0.10516165862923277"></circle><circle cx="183.45509941813373" cy="114.4351762425533" r="17.05317480490086" style="fill:#ED008C;fill-opacity:0.27773117995615415"></circle><circle cx="378.19392352401405" cy="72.14641883252939" r="13.494848452477623" style="fill:#92C13F;fill-opacity:0.25300857182853576"></circle><circle cx="367.4354526414403" cy="110.26934835200689" r="4.9787742756180595" style="fill:#FFF301;fill-opacity:0.34431647917943753"></circle><circle cx="611.21330399643" cy="108.70688786296218" r="18.521619572613734" style="fill:#01AEF0;fill-opacity:0.260191373416244"></circle><circle cx="1449.7540643193165" cy="50.71242862202927" r="7.064143365313011" style="fill:#ED008C;fill-opacity:0.5089558366230253"></circle><circle cx="153.77484219985843" cy="85.63281076221038" r="10.02923775225324" style="fill:#92C13F;fill-opacity:0.08273398711302171"></circle><circle cx="52.333702438166256" cy="15.1777476842819" r="7.25585505953097" style="fill:#FFF301;fill-opacity:0.013169205326050815"></circle><circle cx="954.5780607003752" cy="43.299697104020815" r="19.160224729806803" style="fill:#01AEF0;fill-opacity:0.2996583673702422"></circle><circle cx="566.1511127317737" cy="51.0869054633443" r="4.8899337013174415" style="fill:#ED008C;fill-opacity:0.028145517246604523"></circle><circle cx="242.6770939333013" cy="21.98494196234747" r="18.550549496233664" style="fill:#92C13F;fill-opacity:0.3361473861848361"></circle><circle cx="792.1806688598758" cy="57.92151414165289" r="8.43462460860487" style="fill:#FFF301;fill-opacity:0.43235637008572025"></circle><circle cx="1357.3757771701532" cy="55.12131213689837" r="11.853385604217246" style="fill:#01AEF0;fill-opacity:0.06623574877026783"></circle><circle cx="1132.9422072442333" cy="130.80627342258748" r="14.979136851299625" style="fill:#ED008C;fill-opacity:0.30259310478972634"></circle><circle cx="183.05879071191907" cy="30.029727770639134" r="17.44326636348315" style="fill:#92C13F;fill-opacity:0.02359024081904315"></circle><circle cx="1320.7909266849658" cy="0.9162238297169312" r="11.315531068224459" style="fill:#FFF301;fill-opacity:0.23053422203813567"></circle><circle cx="995.5999095734935" cy="51.4518951997983" r="14.2661017332262" style="fill:#01AEF0;fill-opacity:0.28833902384353993"></circle><circle cx="483.19224344674694" cy="109.60536113559857" r="18.360600275652846" style="fill:#ED008C;fill-opacity:0.02047465310579044"></circle><circle cx="956.1047772129057" cy="4.939760427203073" r="15.424436061142726" style="fill:#92C13F;fill-opacity:0.38903079579543043"></circle><circle cx="788.8418227009008" cy="3.3262974065409034" r="20.68679517918422" style="fill:#FFF301;fill-opacity:0.2955614010936116"></circle><circle cx="1428.929253389414" cy="137.3311238317463" r="7.388529090079896" style="fill:#01AEF0;fill-opacity:0.3280068690148401"></circle><circle cx="1411.4525074921903" cy="76.11852950380919" r="22.69833895382627" style="fill:#ED008C;fill-opacity:0.2781822328949781"></circle><circle cx="673.312283975188" cy="92.55971729191624" r="22.317281221639018" style="fill:#92C13F;fill-opacity:0.41991406912425866"></circle><circle cx="540.466523075779" cy="49.76395099353042" r="10.761442421563498" style="fill:#FFF301;fill-opacity:0.4795603936065147"></circle><circle cx="370.08567437254044" cy="18.030590622745347" r="21.15928534648168" style="fill:#01AEF0;fill-opacity:0.3949682657517115"></circle><circle cx="1019.4557962176234" cy="37.1925800163066" r="13.223410064570494" style="fill:#ED008C;fill-opacity:0.4828856971369817"></circle><circle cx="1162.7662928326731" cy="104.00248461707872" r="13.47834309930116" style="fill:#92C13F;fill-opacity:0.2646880116407935"></circle><circle cx="679.7326276766473" cy="104.88081134518328" r="7.612624361751764" style="fill:#FFF301;fill-opacity:0.28777273638236367"></circle><circle cx="912.5213872455337" cy="123.97068761382108" r="6.562675320370142" style="fill:#01AEF0;fill-opacity:0.3964004664119254"></circle><circle cx="572.5623062760125" cy="5.114846785476206" r="5.417087742982931" style="fill:#ED008C;fill-opacity:0.4756349452978146"></circle><circle cx="942.3775128895797" cy="51.42065885933385" r="17.499496785612955" style="fill:#92C13F;fill-opacity:0.19815355952271818"></circle><circle cx="1199.633069968706" cy="19.634199779858296" r="14.786800630845267" style="fill:#FFF301;fill-opacity:0.19880187420721573"></circle><circle cx="1033.211367562651" cy="135.9574571111846" r="7.886754300106821" style="fill:#01AEF0;fill-opacity:0.3217822471585756"></circle><circle cx="205.4984992373229" cy="36.842507309065915" r="4.669485980590409" style="fill:#ED008C;fill-opacity:0.376911845665602"></circle><circle cx="1441.8804526691465" cy="35.49757673171057" r="14.135688622407555" style="fill:#92C13F;fill-opacity:0.43076568686593486"></circle><circle cx="1057.1454355267733" cy="135.8395849763762" r="20.68144506807345" style="fill:#FFF301;fill-opacity:0.3535399779422579"></circle><circle cx="519.0778126930974" cy="138.5474692872481" r="6.022010664041276" style="fill:#01AEF0;fill-opacity:0.5070547012633013"></circle><circle cx="840.4733180932552" cy="111.8185036991346" r="21.199380281259128" style="fill:#ED008C;fill-opacity:0.37154392409732595"></circle><circle cx="431.17285421831286" cy="57.00922043847286" r="22.49741282324557" style="fill:#92C13F;fill-opacity:0.04406343940593027"></circle><circle cx="1244.4787248053785" cy="132.99463019643517" r="8.078731492953164" style="fill:#FFF301;fill-opacity:0.36328355339278073"></circle></svg>
+                                    <div class="banner_con">
+                                        <div class="list-block media-list touch_top">
+                                            <ul style="background: transparent;">
+                                                <li class="item-content">
+                                                    <div class="item-media">
+                                                        <i class="icon icon-my" style="font-size: 80px; color: #eee;"></i>
+                                                    </div>
+                                                    <div class="item-inner">
+                                                        <div class="item-title-row" style="border-bottom: 1px solid #ccc; margin-top: 20px;">
+                                                            <div class="item-title user_name font-bigger" style="color: white;">站点超级管理员</div>
+                                                        </div>
+                                                        <div class="item-text user_dept font-normal" style="color: white;">StaAdmin001<br>财税学院</div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="list-block touch_top">
+                                    <ul>
+                                        <li>
+                                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#cc-contact" class="item-content item-link">
+                                                <div class="item-media">
+                                                    <i class="icon icon-phone"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        联系方式
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a class="item-content item-link" data-ignore-cache="true" onclick="loginedLoad(&#39;../a/resvlist.aspx?_t=&#39;+(new Date()).getTime())">
+                                                <div class="item-media">
+                                                    <i class="icon icon-sort"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        预约记录
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a class="item-content item-link" data-ignore-cache="true" onclick="loginedLoad(&#39;../a/credit.aspx?_t=&#39;+(new Date()).getTime())">
+                                                <div class="item-media">
+                                                    <i class="icon icon-profile"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        个人信用
+                                                    </div>
+                                                    <div class="item-after credit_score"></div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        
+                                    </ul>
+                                </div>
+                                <div class="list-block">
+                                    <ul>
+                                        <li>
+                                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/a/article.aspx?id=m_help&amp;type=other" class="item-content item-link">
+                                                <div class="item-media">
+                                                    <i class="icon icon-question"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">使用说明</div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="item-content item-link" onclick="location.reload()">
+                                                <div class="item-media">
+                                                    <i class="icon icon-refresh"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        重新加载
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                        
+                                        <li>
+                                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="item-content item-link click_logout">
+                                                <div class="item-media">
+                                                    <i class="icon icon-logout"></i>
+                                                </div>
+                                                <div class="item-inner">
+                                                    <div class="item-title">
+                                                        退出
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div></div>
+                    <div class="toolbar tabbar tabbar-labels">
+                        <div class="toolbar-inner">
+                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#tab_state" class="tab-link">
+                                <i class="icon icon-remind">
+                                    <span id="cur_resv_num" class="badge bg-green">0</span>
+                                </i>
+                                <span class="tabbar-label">预约提醒</span>
+                            </a>
+                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#tab_reserve" class="tab-link active">
+                                <i class="icon icon-form"></i>
+                                <span class="tabbar-label">资源预约</span>
+                            </a>
+                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#tab_center" class="tab-link">
+                                <i class="icon icon-my"></i>
+                                <span class="tabbar-label">个人中心</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <!--个人中心 内联页面-->
+                <div id="page_contact" class="page cached" data-page="cc-contact">
+                    <div class="page-content">
+                        <div class="list-block">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            电话
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="text" class="user_phone" placeholder="..." value="12345678901">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            邮箱
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="email" class="user_email" value="1@1.com">
+                                        </div>
+                                    </div>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <p><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="button button-big click_update_contact button-fill">保存修改</a></p>
+                        </div>
+                    </div>
+                </div>
+                <div id="page_pwd" class="page cached" data-page="cc-pwd">
+                    <div class="page-content">
+                        <div class="list-block">
+                            <ul>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            原密码
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="password" class="old_pwd" placeholder="...">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            新密码
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="password" class="new_pwd1">
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">
+                                            重复密码
+                                        </div>
+                                        <div class="item-input">
+                                            <input type="password" class="new_pwd2">
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="content-block">
+                            <p><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="button button-big click_change_pwd button-fill">保存修改</a></p>
+                        </div>
+                    </div>
+                </div>
+                <!--dialog 内联页面 -->
+                <div class="page cached" data-page="cc-dialog">
+                    <div id="dft_dialog_content" class="page-content">
+                    </div>
+                </div>
+            <div class="page inited page-on-center" data-page="p-resvsub">
+
+        <div class="page-content native-scroll"><div class="page-content-inner">
+            <form id="resvsub_form">
+                <div>
+                    <input type="hidden" class="dev_id" name="dev_id" value="100506966">
+                    <input type="hidden" class="lab_id" name="lab_id" value="100506958">
+                    <input type="hidden" class="room_id" name="room_id" value="100506965">
+                    <input type="hidden" class="kind_id" name="kind_id" value="100555447">
+                    <input type="hidden" class="type" name="type" value="dev">
+                    <input type="hidden" class="prop" name="prop">
+                    <input type="hidden" class="test_id" name="test_id">
+                    <input type="hidden" class="resv_id" name="resv_id" value="">
+                    <input type="hidden" class="term" name="term">
+                    <input type="hidden" class="min_user" name="min_user" value="4">
+                    <input type="hidden" class="max_user" name="max_user" value="8">
+                    <input type="hidden" class="mb_list" name="mb_list">
+                </div>
+                <div>
+                    <div class="card metro resv_rule">
+                        <div class="card-content">
+                            <div class="card-content-inner resv_info_content theme-bg white">
+                                <div class="text-ellipsis"><i class="icon icon-form" style="color:white"></i>&nbsp;<span class="apply_user">图书馆八楼 · 研讨室8-2</span></div>
+                                <div class="text-center apply_info font-bigger text-ellipsis">研讨室8-2</div>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-inner obj_resv_stat"><div class="ss-panel" style="width: 1513px;"><div class="ss-state-panel" style="margin-left: 0px; margin-right: 0px;"><div class="ss-slider"><div class="ss-bar theme-bg" style="background:#ccc;left:0;width:835.2px"></div></div></div><div class="ss-tbl"><table class="ss-table"><tbody><tr><td class="ss-td " data-h="8" style="width:107px">08</td><td class="ss-td " data-h="9" style="width:107px">09</td><td class="ss-td " data-h="10" style="width:107px">10</td><td class="ss-td " data-h="11" style="width:107px">11</td><td class="ss-td " data-h="12" style="width:107px">12</td><td class="ss-td " data-h="13" style="width:107px">13</td><td class="ss-td " data-h="14" style="width:107px">14</td><td class="ss-td ss-td-h" data-h="15" style="width:107px">15</td><td class="ss-td ss-td-h" data-h="16" style="width:107px">16</td><td class="ss-td ss-td-h" data-h="17" style="width:107px">17</td><td class="ss-td ss-td-h" data-h="18" style="width:107px">18</td><td class="ss-td ss-td-h" data-h="19" style="width:107px">19</td><td class="ss-td ss-td-h" data-h="20" style="width:107px">20</td><td class="ss-td ss-td-h" data-h="21" style="width:107px">21</td></tr></tbody></table></div></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="list-block narrow_top">
+                    <div class="list-group">
+                        <ul>
+                        <li class="tr_theme ">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label name_theme">主题</div>
+                                    <div class="item-input">
+                                        
+                                <select name="test_name" class="form-control con_theme must">
+                                    <option value="">未选择</option>
+                                    <option value="比赛（如挑战杯、双百工程等)">比赛（如挑战杯、双百工程等)</option><option value="社团/班级会议（或培训）">社团/班级会议（或培训）</option><option value="ERP/企业沙盘/仿真实习">ERP/企业沙盘/仿真实习</option><option value="小组学习讨论">小组学习讨论</option><option value="论文撰写">论文撰写</option><option value="模拟面试">模拟面试</option><option value="其它">其它</option>
+                                </select>
+                                
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                    <div class="list-group">
+                        <ul class="ul_form">
+                            <li class="list-group-title resv_info_time">当日开放<span class="open_t">08:00 - 22:00</span>，<span class="limit_t">每次需预约<span>30分钟 - 4小时</span></span></li>
+                                                    <li class="item-content uni-date-picker" id="resv_sub_picker">
+                            <div class="item-inner">
+                                <div class="item-title label">预约日期</div>
+                                <div class="item-title label arrow">
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link icon-only minus"><i class="icon icon-back"></i></a>
+                                </div>
+                                <div class="item-input">
+                                    <input type="text" class="stat_date" readonly="">
+                                </div>
+                                <div class="item-title label arrow">
+                                    <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="link icon-only add"><i class="icon icon-forward"></i></a>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="md_date">
+            <div class="item-content">
+                <div class="item-inner">
+                    <div class="item-title label">预约时间</div>
+                    <div class="item-input">
+                        <div class="visual_div"><span class="grey">...</span></div>
+                        <input type="hidden" name="start" class="hd_start" value=""><input type="hidden" name="end" class="hd_end" value=""><input type="text" class="mt_sel_time must" placeholder="..." style="height:0;" readonly="">
+                    </div>
+                </div>
+            </div>
+        </li></ul>
+                    </div>
+                   <div class="list-group md_group hidden" style="display: block;">
+                    <ul>
+                        <li class="list-group-title"><span class="uni_trans">人数限制</span>：<span class="resv_info_group">4-8</span> <span class="uni_trans">人</span></li>
+                        <li>
+                            <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" data-url="searchAccount.aspx&amp;placeholder=%e7%99%bb%e5%bd%95%e5%90%8d%2f%e5%a7%93%e5%90%8d%e6%90%9c%e7%b4%a2" class="item-link group_link">
+                                <div class="item-content">
+                                    <div class="item-inner">
+                                        <div class="item-title label">成员</div>
+                                        <div class="item-after">
+                                            创建小组
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                    </div>
+                   <div class="list-group">
+                    <ul>
+                        <li class="resv_fee_panel hidden">
+                            <div class="item-content">
+                                <div class="item-inner">
+                                    <div class="item-title label">费用</div>
+                                    <div class="item-input">
+                                        <span class="uni_trans">单价</span>：<span class="unit_price"></span>；
+                                <span class="uni_trans">总计</span>：<span class="total_price"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="">
+                            <div class="item-content">
+                                <div class="item-inner box-align-start">
+                                    <div class="item-title label">申请说明</div>
+                                    <div class="item-input">
+                                        <textarea rows="4" name="memo" placeholder="其它备注信息，请填入此输入框 (45)" class="memo must" data-msg="申请说明必须填写" maxlength="45"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                   </div>
+
+                </div>
+            </form>
+            <div class="content-block">
+                <a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="button button-big button-fill" id="sub_resvsub_form" style="display: block;">提交</a>
+                <p class="resv_info_prop text-center grey">&nbsp;</p>
+            </div>
+        </div></div>
+    </div></div>
+        </div>
+    </div>
+    <!--模块组件-->
+    <div class="modals">
+        <!-- 登录模块-->
+        <div class="login-screen" style="display: none;">
+            <div class="view" data-page="login-screen">
+                <div class="page" data-page="login-screen">
+                    <div class="page-content login-screen-content native-scroll"><div class="page-content-inner">
+                        <div class="login-screen-title uni_trans">用户登录</div>
+                        <form>
+                            <div class="list-block">
+                                <ul>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">用户名</div>
+                                            <div class="item-input">
+                                                <input type="text" name="username" id="username" placeholder="学号/工号" class="">
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="item-content">
+                                        <div class="item-inner">
+                                            <div class="item-title label">密码</div>
+                                            <div class="item-input">
+                                                <input type="password" name="password" id="password" placeholder="同一卡通密码">
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="content-block">
+                                <p><a href="http://yts.library.gdufe.edu.cn/ClientWeb/m/ic2/Default.aspx#" class="button button-big click_login button-fill">登录</a></p>
+                                <p class="tag text-center">广州校区研讨室预约系统</p>
+                            </div>
+                        </form>
+                    </div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <script type="text/javascript" src="./手机预约端_files/app.js.下载"></script>
+
+
+</body></html>

@@ -1,0 +1,706 @@
+﻿@charset "utf-8";
+
+body 
+{
+    text-align:left;
+    background:url("../img/aa.jpg") repeat-x #fefeff;
+    overflow-y:visible;
+
+    color: #333;
+    /*text-shadow: 1px 3px 3px #bbb;*/
+    /*text-shadow: 1px 2px 5px #888;*/
+    /*text-shadow: 0 1px 0 #eee;*/ /*凹进效果*/
+    /*text-shadow: 0 -1px 0 #123; *//*凹进效果*/
+    /*text-shadow: 0 -1px 1px #eee;*/ /*凸出效果*/
+    /*text-shadow: 0 1px 1px #123;*//* 凸出效果*/
+    /*text-shadow: 0 -1px 0 #000, 1px 0 0 #000, 0 1px 0 #000, -1px 0 0 #000;*/
+    /*text-shadow: 1px 1px 5px #08c, 1px 1px 0 #68a;*/
+    /*text-shadow: -2px 0 1px #db6, 2px 0 1px #6bd;*/
+    /*text-shadow: -1px -1px 0 #ccc, -1px -1px 3px #ccc, 1px 1px 0 #444, 1px 1px 3px #444;*/
+    /*text-shadow: 0 0 4px #ccc, 0 -5px 4px #ff3, 2px -10px 6px #fd3, -2px -15px 11px #f80, 2px -18px 18px #f20;*/
+    /*text-shadow: 1px 2px 3px rgba(0,0,0,0.5);*/
+}
+body.MainBody {
+    overflow-y:scroll !important;
+    overflow-y:visible !important;
+}
+.tdSet {
+background-color:#fff;
+}
+body.Inst {
+    background:url("../img/1434.jpg") repeat-x #fefeff;
+}
+body.Report {
+    background:url("../img/1434.jpg") repeat-x #fefeff;
+}
+body.Sys {
+    background:url("../img/1434.jpg") #fefeff;
+}
+h2 {
+    font-weight:bold;
+    text-align: center;
+    font-size: 16px;
+}
+.ContentTbl
+{
+	width:95%;
+	height:100%;
+    margin:auto;
+}
+
+.tail
+{
+	text-align:center;
+}
+
+.default_banner,.list_banner,.view_banner
+{
+	height:92px;
+}
+.default_menu,.list_menu,.view_menu
+{
+	height:30px;
+    padding-bottom:3px;
+}
+.default_left,.list_left,.view_left, .list_right
+{
+	vertical-align:top;
+	width:150px;
+	background-color:transparent;
+}
+.default_content,.list_content,.view_content
+{
+	vertical-align:top;
+	background-color:transparent;
+	width:100%;
+}
+.default_tail,.list_tail,.view_tail
+{
+	height:30px;
+}
+
+.default_tbl
+{
+	width:100%;
+}
+
+.LoginStatus
+{
+	float:right;
+}
+.LoginStatus a
+{
+	background:#9999ff;
+}
+
+#waitDialog{position:absolute;left:50%;top:50%;border:1px solid #000000;background:white;font-size:14px;overflow:hidden; vertical-align:middle;line-height:40px;height:40px;z-index:10000;}
+#waitDialog img{ height:30px;vertical-align:middle;}
+#waitDialog span{ height:30px;vertical-align:middle;}
+
+
+#LeftList
+{
+	width:100%;
+}
+
+.LeftListTr
+{
+	position:relative;
+	cursor:pointer;
+    width:100%;
+    background: white;
+}
+
+.LeftListTr td
+{
+	height:20px;
+	line-height:20px;
+	position:relative;
+}
+
+.TrSelect
+{
+	background: #ffffaa;
+}
+
+.Del
+{
+	width:20px;
+	height:20px;
+	position:absolute;
+	top:0px;
+	right:0px;
+}
+
+.Chg
+{
+	width:20px;
+	height:20px;
+	position:absolute;
+	top:0px;
+	right:20px;
+}
+
+.ListChg
+{
+	width:20px;
+	height:20px;
+	cursor:pointer;
+}
+
+
+.SetContentTbl td
+{
+	padding:3px;
+	text-align:left;
+}
+
+.banner {
+    width:100%;
+    margin:auto;
+    height:110px;
+    float:none;
+}
+.logo {   
+    height:90px;
+    width:99%;
+    clear:none;
+    margin-top:20px;
+    filter:alpha(Opacity=90);-moz-opacity:0.9;opacity: 0.9;
+}
+.LogoTitle {
+    font-size:35px;
+    text-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+    color:white;
+    background-position-x: 10%;
+    text-indent:200px;
+    height:60px;
+}
+/*================Default Page====================*/
+.default_left .title {    
+    text-indent: 22px;
+}
+.default_content .title {    
+    text-indent: 22px;
+}
+
+.Blktitle
+{
+	width:100%;
+	height:20px;
+	background:white;
+}
+
+.Blkcontent
+{
+	width:100%;
+	height:100%;
+	background: yellow;
+	border:1px solid #000000;
+}
+
+.UIBox .title {
+    font-family: SimHei;
+    font-weight:bold;
+}
+
+.ListTbl
+{
+	width:100%;
+}
+.ListTbl th
+{
+	border:1px solid #777777;
+	background:#eeeeee;
+	text-align:center;
+}
+
+.ListTbl td
+{
+	border:1px solid #777777;
+    padding:1px;
+    text-align:center;
+}
+DlgListTbl
+{
+	width:100%;
+}
+.DlgListTbl tr
+{
+	border:1px solid #777777;
+	
+}
+.DlgListTbl th
+{
+    font-size:13px;
+    font-weight:bold;
+	border:1px solid #777777;
+}
+
+.DlgListTbl td
+{
+	border:1px solid #777777;
+    padding:1px;
+}
+.tb_info table td
+{
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 15px;
+    border-top: 1px solid #000;
+}
+
+.tb_info table th
+{
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 15px;
+    border-top: 1px solid #000;
+}
+.tb_info table
+{
+    border-bottom: 1px solid #000;
+}
+.center
+{
+	text-align:center;
+}
+
+.NCLS_P
+{
+	padding:50px;
+}
+.NCLS_P td
+{
+	padding:10px;
+}
+.Btn
+{
+	padding:3px 10px 3px 10px;
+}
+.Input
+{
+	width:200px;
+}
+
+.ui-tabs-vertical { width: 99%;min-width:960px;}
+.ui-tabs-vertical .ui-tabs-nav { padding: 2px 0px 2px 2px; float: left; width: 150px;height:500px; }
+.ui-tabs-vertical .ui-tabs-nav li { clear: left; overflow:hidden;width: 150px; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 0 2px 0; }
+.ui-tabs-vertical .ui-tabs-nav li a { font-size: 14px; display:block;width: 100%; }
+.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { width: 152px;border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 0 2px 0; }
+.ui-tabs-vertical .ui-tabs-panel { font-size: 14px;float:center;margin-left:160px;width: auto;padding:5px !important;text-align:left;overflow-x:visible! important;overflow-x:hidden;}
+h2 {
+    text-align:center;
+    font-size:16px;
+}
+
+.tabs-summary fieldset{
+border: 1px solid #aaaaaa;
+width:320px;
+height:220px;
+clear:none;
+float:left;
+margin:6px;
+padding:10px;
+padding-top:0px;
+font-size:14px;
+text-align:center;
+}
+fieldset.ChartFD2 {
+    width: 492px;
+}
+fieldset.ChartFD {
+    width: 97%;
+    height:150px;
+}
+.tabs-summary fieldset legend {
+    color:#808080;
+}
+fieldset div {
+    clear:both;
+}
+
+.tdestat_OK {
+    color: #1a43a0;
+    font-weight: bolder;
+}
+
+table.TblSysStat {
+    width:100%;
+}
+table.TblSysStat td {
+    border:1px solid #dddddd;
+    border-bottom:1px solid #777777;
+    text-align:center;
+}
+.tabs-summary .PieStat {
+    width: 280px; height: 180px; margin: 0;
+    padding:0;
+    background-color:transparent;
+}
+.tabs-summary .BarStat {
+    width: 100%; height: 120px; margin: 0 auto
+}
+.tabs-summary .LineStat {
+    width: 100%; height: 120px; margin: 0 auto
+}
+
+.toolbar {
+    position:relative;
+    height:35px;
+    line-height:35px;
+    vertical-align:bottom;
+    z-index:20;
+}
+.toolbar .OPTD
+{
+	float:left;
+}
+
+.tb_info {
+    float:left;
+}
+.tb_btn {
+    position:relative;
+    float:right;
+}
+.tb_infoInLine table tr td
+{
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 30px;
+    border-top: 1px solid #000;
+    text-align:left;
+}
+.tb_infoInLine table td input
+{
+    margin-left:10px;
+}
+.tb_infoInLine table td select
+{
+    margin-left:10px;
+}
+.tb_infoInLine table tr th
+{
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 30px;
+    border-top: 1px solid #000;
+    text-align:center;
+}
+.tb_infoInLine table
+{
+    border-bottom: 1px solid #000;
+}
+.FixBtn {
+    position:absolute;
+    right:10px;
+    width:auto;
+}
+/*============*/
+.AdvOpts {
+    float: right;
+    line-height:20px;
+    position:absolute;
+    top:-20px;
+    right:0px;
+    z-index:20;
+}
+.AdvLab {
+    border: 1px solid #cccccc;
+    text-align: center;
+    background: #eeeeff;
+    color: #1a43a0;
+}
+.AdvOpts fieldset {
+    padding:8px;
+}
+.AdvOpts label {
+    margin:5px;
+}
+/*============*/
+
+.OPTD {
+    
+    position:relative;
+    height:25px;
+}
+.OPTDBtn {
+    position:absolute;
+    top:0px;
+    text-align:right;
+    right:0px;
+    direction:rtl;
+}
+.OPTD img
+{
+    width:25px;
+    height:25px;
+    margin-left:-2px;
+    margin-right:-2px;
+}
+/*Sub_ResvTable.aspx*/
+.ResvDevTab {
+    width:60px;
+    padding-top:60px;
+    vertical-align:top;
+}
+
+.ResvDevTabCont {
+    position:relative;
+    width:60px;
+    margin-right:-2px;
+    overflow:hidden;
+    z-index:10;
+}
+
+.ResvTable {
+    width:700px;
+    padding:1px;
+    border:2px solid #aaaaaa;
+    border-radius:5px;
+}
+
+.ResvDevTab .tab {
+    position:relative;
+    width:62px;
+    height:50px;
+    border-radius:10px;
+    padding-left:3px;
+    padding-top :30px;
+    padding-bottom:10px;
+    border:2px solid #aaaaaa;
+    background-color: #aaaaaa;
+    color:white;
+    margin-bottom:3px;
+    cursor:pointer;
+}
+.ResvDevTab .text {
+    font-size:14px;
+    width:50px;
+    text-align:center;
+    line-height:14px;
+}
+.ResvDevTab .actTab {
+    background-color:white;
+    color: #333333;
+    cursor:default;
+}
+
+.resvConfirm
+{
+	font-size:14px;
+	color: blue;
+}
+
+.tblBottomStat
+{
+	height:200px;
+}
+
+/*==*/
+.lnkTeacher,.lnkCourse,.lnkLab,.lnkRoom,.lnkUser,.lnkSta,.lnkDevice,.lnkDevKind,.lnkAccount,.accnoTipClass,.lnkAssertRoom,.lnkAssertDevice
+{
+	cursor:pointer;
+    text-decoration:underline;
+    text-decoration-color:#aaaaaa;
+}
+.lnkUrlClass,.lnkSWClass
+{
+	cursor:pointer;
+    text-decoration:underline;
+    color:#2671D7;
+}
+
+.LoginContent {
+    margin:20px;
+    margin-top:5%;
+}
+
+.LoginForm {
+    width:100%;
+    padding-top: 40px;
+}
+.LoginForm table{
+    width:100%;
+    text-align:center;
+}
+.LoginForm tr {
+    height: 35px;
+}
+
+.LoginForm td {
+    text-align:center;
+    white-space:nowrap;
+    word-break:keep-all;
+    padding-left:30px;
+    padding-right:30px;
+}
+
+.LoginForm .label {
+    display:block;
+    width:80px;
+    line-height:22px;
+    font-size:14px;
+    text-align:right;
+    float:left;
+    margin-left:-20px;
+}
+.LoginForm .input {
+    font-size:14px;
+    width: 200px;
+    padding:0px;
+    margin:0px;
+    border:1px solid #64b4f8;
+}
+.LoginForm .button {
+    font-size:14px;
+    width: 80px;
+    height: 30px;
+}
+input.enabled {
+    color:#222222;
+    border:2px outset #0094ff;
+}
+input.disabled {
+    color:#aaaaaa;
+    border:2px outset #aaaaaa;
+}
+
+
+/*==Banner==*/
+#QuickBtn {
+    display:block;
+    clear:left;
+    position:absolute;
+    top:66px;
+    margin-left:150px;
+    z-index:30;
+}
+#QuickBtnList {
+    width:320px;
+    height:250px;
+}
+#QuickBtn a img {
+    width:45px;
+    height:45px;
+}
+.KindBtn {
+}
+.KindBtn td {
+   
+}
+.KindBtn img {
+    width:55px;
+}
+.KindBtn p{
+    font-size:12px;
+    padding: 0px;
+    margin:0px;
+    color: #fff;
+    font-size:14px;
+    text-shadow: 1px 2px 3px rgba(0,0,0,0.5);
+}
+
+.myInfo {
+    background:url('../img/trans30.png') bottom;
+    margin-right:10px;
+    clear:right;
+    float:right;
+    height:22px;
+    line-height:22px;
+    color: #baf1fb;
+    text-shadow: 0 -1px 1px #358;
+}
+.myInfo img {
+    margin-right:2px;
+    margin-top:auto;
+    margin-bottom:0px;
+    vertical-align: middle;
+}
+.myInfo span {
+    margin-right:6px;
+    vertical-align:middle;
+}
+
+#btnLogout
+{
+	padding-top:1px;
+}
+#btnLogout span
+{
+	width:auto;
+	margin-left:auto;
+	margin-right:auto;
+	padding: 1px 3px 0px 3px;
+}
+
+.UserIcon {
+    vertical-align: bottom;
+    width:18px;
+    height:18px;
+}
+/*====*/
+.ui-autocomplete-loading {
+    background: white url('../img/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+
+tr.selected {
+    background: #ffffaa;
+}
+.enum{
+    width:auto;
+    height:auto;
+}
+
+
+.Required
+{
+	display:inline;
+	color:Red;
+	font-family:Fixedsys;
+}
+
+.hasDatepicker
+{
+	width:100px;
+}
+
+label input
+{
+	vertical-align:middle;
+}
+
+.hidden
+{
+	visibility:hidden;
+}
+
+
+.date
+{
+	font-size: 12px;
+	padding: 1px 2px 1px 2px;
+	margin:0px 1px 0px 1px;
+}
+
+.time
+{
+	font-family: "Corbel";
+	color:#000000;
+	font-size: 14px;
+	padding: 1px 2px 1px 2px;
+	background: url("../img/trans10.png");
+	border-radius:3px;
+}
+.imgico{
+width:28px;
+height:28px;
+}
+ label {
+        margin-right:10px;
+        }
+aimgsize {
+width:22px;
+height:22px;
+}

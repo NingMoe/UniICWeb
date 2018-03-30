@@ -1,0 +1,32 @@
+﻿ /*-------------------------Tags ------------------------*/
+.tags   
+  {
+  margin:0 auto;
+  overflow:hidden;
+  }
+  .tag_head { overflow:hidden;border-bottom:1px solid #aaa;margin-top:5px;margin-bottom:15px;}
+  .tag_head li  
+  {
+  	float:left;width:136px;
+      height:32px;
+  	 list-style-type:none;
+  	 text-align:center; 
+       line-height:32px;
+       cursor:pointer;
+       background:url(images/tag_bg.jpg) no-repeat;
+  }
+  .tag_head li a 
+  {
+	text-decoration:none;
+	display:block;
+    color:#065FA0;
+  	 }
+  .tag_head li.h_sel {background:url(images/tag_sel_bg.jpg) no-repeat;}
+    .tag_head li.h_sel a {
+        color: #fff;
+    }
+  .tag_con {background-color:#fff;min-height:380px;}
+    .tag_con .item {
+        display:none;
+    }
+  .tag_con .c_sel{ display:block !important}

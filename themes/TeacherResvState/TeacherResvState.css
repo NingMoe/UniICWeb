@@ -1,0 +1,66 @@
+.tblResv tr td {
+            border: 1px solid #000000;
+            height: 35px;
+            font-size: 12px;
+}
+.td {
+    border: 1px solid #000000;
+    height: 35px;
+    font-size: 12px;
+}
+.tblResv tr th {
+            border: 1px solid #000000;
+            height: 35px;
+            text-align:center;
+}
+.undo{
+background-color:#759ae8;
+}
+.doing {
+background-color:#ffd800;
+}
+.done{
+background-color:#808080;
+}
+.ui-widget-headerResv {
+  background: #ddd;
+  cursor:pointer;
+  font-size:12px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+  background-image: -webkit-linear-gradient(top, #fff, #ddd);
+  background-image: -moz-linear-gradient(top, #fff, #ddd);
+  background-image: -ms-linear-gradient(top, #fff, #ddd);
+  background-image: -o-linear-gradient(top, #fff, #ddd);
+  background-image: linear-gradient(to bottom, #fff, #ddd);  
+  text-decoration:underline;
+  color: #444;
+  text-shadow: 0 1px 0 rgba(255,255,255,.8);
+  -webkit-border-radius: 5px 0 0 0;
+  -moz-border-radius: 5px 0 0 0;
+  border-radius: 5px 0 0 0;
+  -moz-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+  -webkit-box-shadow: 0 2px 2px rgba(0,0,0,.4);
+  box-shadow: 0 2px 2px rgba(0,0,0,.4);
+}
+.ui-widget-selectResv{
+    z-index: 1;
+    top: 0;
+    right: -.5em;
+    bottom: 0;
+    cursor:pointer;
+    background: #000;
+    font-size:14px;
+    font-weight:bolder;
+    text-decoration:underline;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ddd));
+    background-image: -webkit-linear-gradient(top, #fff, #ddd);
+    background-image: -moz-linear-gradient(top, #fff, #ddd);
+    background-image: -ms-linear-gradient(top, #fff, #ddd);
+    background-image: -o-linear-gradient(top, #fff, #ddd);
+    background-image: linear-gradient(to bottom, #fff, #ddd);
+    -moz-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    box-shadow: 2px 2px 2px rgba(0,0,0,.4);
+    -webkit-border-radius: 0 5px 0 0;
+    -moz-border-radius: 0 5px 0 0;
+}  

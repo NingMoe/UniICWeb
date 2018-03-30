@@ -1,0 +1,59 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="pageMaster.master.cs" Inherits="ClientWeb_pro_page_pageMaster" %>
+
+<%@ Register TagPrefix="Uni" TagName="include" Src="../net/include.ascx" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title><%=GetConfig("SysName") %></title>
+    <Uni:include runat="server" />
+    <!--[if lt IE 9]>
+      <script src="../../fm/add/html5shiv.js"></script>
+      <script src="../../fm/add/respond.js"></script>
+    <![endif]-->
+    <style>
+        .dlg_list input[type=text], .dlg_list input[type=password] { width: 200px; min-height: 22px; line-height: 22px; display: inline; }
+.dlg_list select { width: 200px; min-height: 28px; line-height: 28px; display: inline; }
+
+table.makeup {width:100%; }
+table.makeup td { border:none; vertical-align: middle; padding:5px;padding-right:0;text-align:left;min-height:24px;}
+table.makeup td.th {text-align: right; padding-right: 5px; }
+table.makeup input[type=text], table.makeup input[type=password] { width: 200px; min-height: 22px; line-height: 22px; display: inline; }
+table.makeup select { width: 200px; min-height: 28px; line-height: 28px; display: inline; }
+    </style>
+    <script>
+        function selTermYear(term) {
+            var para = uni.url2Obj(location.href);
+            para.term = term;
+            location.href = location.pathname + "?" + uni.obj2Url(para);
+        }
+        function CloseDlg() {
+            var req = uni.getReq();
+            var key = req["dlg_key"];
+            parent.uni.dlgInst[key].dialog("close");
+        }
+        function PostBack() {
+            $("body form:first").submit();
+        }
+        $(function () {
+            //翻译
+            <%if(GetConfig("supMultilanguage")=="1"){%>
+            pro.initLanguage(function () {
+                    uni.translate($("body"));
+            });
+            <%}%>
+            $(".dlg_page_close").click(function () {
+                CloseDlg();
+            });
+        });
+    </script>
+                <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+        </asp:ContentPlaceHolder>
+</head>
+<body style="padding: 2px;" class="uni_postback">
+    
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+</body>
+</html>

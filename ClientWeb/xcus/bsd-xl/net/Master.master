@@ -1,0 +1,76 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="ClientWeb_Templates_Master" %>
+
+<%@ Register TagPrefix="Uni" TagName="acc" Src="~/ClientWeb/pro/net/acc.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="nav" Src="nav.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="include" Src="include.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="lg" Src="dlg_lg.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <title>心理学院公共资源管理平台</title><%--心理学院公共资源管理平台--%>
+    <Uni:include runat="server" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        $(function () {
+            var url = location.href.toLowerCase();
+            var list = $("#act_tabs").find("a");
+            list.each(function (i) {
+                var pthis = $(this);
+                var href = pthis.attr("href").toLowerCase();
+                if (!uni.isNull(href)) {
+                    //if (!pthis.hasClass("multi"))
+                    //    href = href.split("?")[0];
+                    if (url.indexOf(href) > 0) {
+                        pthis.parent("li").addClass("ui-tabs-active ui-state-active");
+                        return false;
+                    }
+                }
+            });
+        });
+    </script>
+    <style type="text/css">
+    </style>
+</head>
+<body>
+    <div id="pub_resource">
+        <div id="acc_info">
+            <Uni:acc runat="server" ID="MyAcc" />
+        </div>
+        <Uni:lg runat="server" />
+    </div>
+    <div id="tp_body">
+        <div id="tp_header">
+            <img alt="" src="theme/images/logo.jpg" id="tp_logo" />
+            <Uni:nav runat="server" ID="MyNav" />
+            <div id="tp_title">心理学院公共资源管理平台</div>
+        </div>
+        <!-- END of templatemo_header -->
+        <div id="tp_main" style="min-height: 600px; overflow: hidden;" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+            <ul id="act_tabs" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+                <li class="ui-state-default ui-corner-top"><a href="Default.aspx" class="ui-tabs-anchor">主页</a></li>
+                <li class="ui-state-default ui-corner-top" style="<%=mustLogin%>"><a href="Research.aspx" class="ui-tabs-anchor">实验室预约</a></li>
+                <li class="ui-state-default ui-corner-top" style="<%=mustLogin%>"><a href="BoardRoom.aspx" class="ui-tabs-anchor">研讨室预约</a></li>
+                <%--<li class="ui-state-default ui-corner-top" style="<%=mustTeach%>"><a href="Teach.aspx" class="ui-tabs-anchor">教学预约</a></li>--%>
+                <li class="ui-state-default ui-corner-top" style="<%=mustLogin%>"><a href="User.aspx" class="ui-tabs-anchor">用户中心</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="LabList.aspx?clsKind=4096" class="ui-tabs-anchor multi">实验室介绍</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="LabList.aspx?clsKind=2048" class="ui-tabs-anchor multi">研讨室介绍</a></li>
+                <li class="ui-state-default ui-corner-top"><a href="ArticleList.aspx?id=about&type=other&title=<%=Server.UrlEncode("关于平台")%>" class="ui-tabs-anchor multi">关于平台</a></li>
+            </ul>
+            <div class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+    </div>
+    <div id="tp_footer">
+        <p>
+            版权所有：  北京师范大学心理学院
+        </p>
+    </div>
+    <!-- END of templatemo_footer -->
+</body>
+</html>

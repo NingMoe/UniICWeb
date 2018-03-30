@@ -1,0 +1,554 @@
+<?xml version="1.0" encoding="gb2312" ?>
+<?xml-stylesheet type="text/xsl" href="SubSysInterface_vc.xsl"?>
+<SubSysInterface Name="PRMSCommon">
+  <Description>
+    <![CDATA[------------------------------------------------------
+  版权信息： 杭州联创信息技术有限公司，2015-2015
+  文 件 名： SubSysInterface.h
+  创建时间： 2015.10.09
+  功能描述： IC空间，实验室与子系统接口定义
+  作    者： 何厚武
+  ---------------------------------------------------------------]]>
+  </Description>
+  <UniStructes>
+    <UniStruct Name="COMMREQPARAM">
+    <Description>联创服务与节点通信参数</Description>
+    <Field Name="dwReqUID" Type="UniDW">
+      <Description>请求UID</Description>
+    </Field>
+    <Field Name="szReqData" Type="UniSZ">
+      <Description>请求内容</Description>
+    </Field>
+    <Field Name="dwResCode" Type="UniDW">
+      <Description>返回码，0表示成功</Description>
+    </Field>
+    <Field Name="szResData" Type="UniSZ">
+      <Description>返回数据</Description>
+    </Field>
+  </UniStruct>
+  </UniStructes>
+  <Module Name="SubSys">
+    <Description>子系统通信接口</Description>
+    <Commands Name="SubSys" UID="0x900000">
+      <Command Name="MSREQ_SUBSYS_LOGIN" Alias="SubSysLogin" UID="0x10">
+        <Description>子系统登录</Description>
+        <Parameter>SUBSYSLOGINREQ</Parameter>
+        <Result>SUBSYSLOGINRES</Result>
+      </Command>
+      <Command Name="MSREQ_SUBSYS_LOGOUT" Alias="SubSysLogout" UID="0x11">
+        <Description>子系统注销</Description>
+        <Parameter>SUBSYSLOGOUTREQ</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_ICUSEREC_UPLOAD" Alias="UploadICUseRec" UID="0x200">
+        <Description>上传IC空间使用记录</Description>
+        <Parameter Array="true">ICUSERECUP</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_PRINTREC_UPLOAD" Alias="UploadPrintRec" UID="0x300">
+        <Description>上传打印复印扫描使用记录</Description>
+        <Parameter Array="true">PRINTRECUP</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_BOOKOVERDUEREC_UPLOAD" Alias="UploadBookOverdueRec" UID="0x400">
+        <Description>上传图书超期缴费记录</Description>
+        <Parameter Array="true">BOOKOVERDUERECUP</Parameter>
+        <Result></Result>
+      </Command>
+      <Command Name="MSREQ_BREACHREC_UPLOAD" Alias="UploadBreachRec" UID="0x500">
+        <Description>上传违约记录</Description>
+        <Parameter Array="true">BREACHRECUP</Parameter>
+        <Result></Result>
+      </Command>
+    </Commands>
+    <UniStructes>
+      <UniStruct Name="SUBSYS">
+        <Description>子系统信息</Description>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="szSubSysName" Type="UniSZ">
+          <Description>子系统名称</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>状态</Description>
+          <Const Name="SUBSYSSTAT_OFFLINE">
+            <Value>0x0</Value>
+            <Description>离线</Description>
+          </Const>
+          <Const Name="SUBSYSSTAT_ONLINE">
+            <Value>0x1</Value>
+            <Description>在线</Description>
+          </Const>
+        </Field>
+        <Field Name="szVersion" Type="UniSZ">
+          <Description>子系统服务器版本</Description>
+        </Field>
+        <Field Name="szIP" Type="UniSZ">
+          <Description>IP地址</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SUBSYSLOGINREQ">
+        <Description>子系统登录请求</Description>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="szVersion" Type="UniSZ">
+          <Description>子系统服务器版本</Description>
+        </Field>
+        <Field Name="szKey" Type="UniSZ">
+          <Description>密钥(扩展)</Description>
+        </Field>
+        <Field Name="szIP" Type="UniSZ">
+          <Description>IP地址</Description>
+        </Field>
+        <Field Name="szMAC" Type="UniSZ">
+          <Description>网卡地址</Description>
+        </Field>
+        <Field Name="dwOldSessionID" Type="UniDW">
+          <Description>上次分配的session值</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SUBSYSLOGINRES">
+        <Description>子系统登录应答</Description>
+        <Field Name="dwSessionID" Type="UniDW">
+          <Description>服务器分配的SessionID</Description>
+        </Field>
+        <Field Name="ExtInfo" Type="UniSZ">
+          <Description>返回扩展信息</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+      <UniStruct Name="SUBSYSLOGOUTREQ">
+        <Description>子系统退出请求</Description>
+        <Field Name="dwSessionID" Type="UniDW">
+          <Description>服务器分配的SessionID</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="ICUSERECUP">
+        <Description>IC空间使用记录上传</Description>
+        <Field Name="dwSID" Type="UniDW">
+          <Description>流水号</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="dwSubStaSN" Type="UniDW">
+          <Description>子站点编号</Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description>学工号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>姓名</Description>
+        </Field>
+        <Field Name="dwUseDate" Type="UniDW">
+          <Description>使用日期</Description>
+        </Field>
+        <Field Name="dwResvBTime" Type="UniDW">
+          <Description>预约开始时间</Description>
+        </Field>
+        <Field Name="dwResvETime" Type="UniDW">
+          <Description>预约结束时间</Description>
+        </Field>
+        <Field Name="dwRealInTime" Type="UniDW">
+          <Description>实际开始时间</Description>
+        </Field>
+        <Field Name="dwRealOutTime" Type="UniDW">
+          <Description>实际结束时间</Description>
+        </Field>
+        <Field Name="dwUseMinutes" Type="UniDW">
+          <Description>使用时长(分钟)</Description>
+        </Field>
+        <Field Name="szUseDev" Type="UniSZ">
+          <Description>使用设备</Description>
+        </Field>
+        <Field Name="dwDevClsKind" Type="UniDW">
+          <Description>类别类型(关联UNIDEVCLS:dwKind定义）</Description>
+        </Field>
+        <Field Name="dwDevKind" Type="UniDW">
+          <Description>设备类型</Description>
+        </Field>
+        <Field Name="dwUseMode" Type="UniDW">
+          <Description>使用方法（参考UNIRESERVE定义）</Description>
+        </Field>
+        <Field Name="dwPurpose" Type="UniDW">
+          <Description>用途（参考UNIRESERVE定义）</Description>
+        </Field>
+        <Field Name="dwRealCost" Type="UniDW">
+          <Description>实际缴纳费用(分)</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="PRINTRECUP">
+        <Description>打印复印扫描记录上传</Description>
+        <Field Name="dwSID" Type="UniDW">
+          <Description>流水号</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="dwSubStaSN" Type="UniDW">
+          <Description>子站点编号</Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description>学工号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>姓名</Description>
+        </Field>
+        <Field Name="dwUseDate" Type="UniDW">
+          <Description>使用日期</Description>
+        </Field>
+        <Field Name="dwUseTime" Type="UniDW">
+          <Description>使用时间</Description>
+        </Field>
+        <Field Name="szUseDev" Type="UniSZ">
+          <Description>使用设备</Description>
+        </Field>
+        <Field Name="dwPages" Type="UniDW">
+          <Description>文印面数(或扫描大小）</Description>
+        </Field>
+        <Field Name="dwPaperType" Type="UniDW">
+          <Description>纸型</Description>
+        </Field>
+        <Field Name="dwPrintType" Type="UniDW">
+          <Description>文印类型</Description>
+        </Field>
+        <Field Name="dwProperty" Type="UniDW">
+          <Description>属性</Description>
+        </Field>
+        <Field Name="dwRealCost" Type="UniDW">
+          <Description>实际缴纳费用(分)</Description>
+        </Field>
+        <Field Name="dwUnitFee" Type="UniDW">
+          <Description>单价</Description>
+        </Field>
+        <Field Name="dwPaperNum" Type="UniDW">
+          <Description>纸张数</Description>
+        </Field>
+        <Field Name="dwMaterialFee" Type="UniDW">
+          <Description>材料费</Description>
+        </Field>
+        <Field Name="dwManualFee" Type="UniDW">
+          <Description>人工费</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="BOOKOVERDUERECUP">
+        <Description>图书超期缴费记录上传</Description>
+        <Field Name="dwSID" Type="UniDW">
+          <Description>流水号</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="dwSubStaSN" Type="UniDW">
+          <Description>子站点编号</Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description>学工号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>姓名</Description>
+        </Field>
+        <Field Name="dwUseDate" Type="UniDW">
+          <Description>使用日期</Description>
+        </Field>
+        <Field Name="dwUseTime" Type="UniDW">
+          <Description>使用时间</Description>
+        </Field>
+        <Field Name="szUseDev" Type="UniSZ">
+          <Description>使用设备</Description>
+        </Field>
+        <Field Name="szBookName" Type="UniSZ">
+          <Description>书名</Description>
+        </Field>
+        <Field Name="dwRealCost" Type="UniDW">
+          <Description>实际缴纳费用(分)</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="BREACHRECUP">
+        <Description>违约记录上传</Description>
+        <Field Name="dwSID" Type="UniDW">
+          <Description>流水号</Description>
+        </Field>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>子系统编号</Description>
+        </Field>
+        <Field Name="dwSubStaSN" Type="UniDW">
+          <Description>子站点编号</Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description>学工号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>姓名</Description>
+        </Field>
+        <Field Name="dwOccurDate" Type="UniDW">
+          <Description>违约日期</Description>
+        </Field>
+        <Field Name="dwOccurTime" Type="UniDW">
+          <Description>违约时间</Description>
+        </Field>
+        <Field Name="szBreachName" Type="UniSZ">
+          <Description>违约类型名</Description>
+        </Field>
+        <Field Name="dwPunishScore" Type="UniDW">
+          <Description>本次罚分</Description>
+        </Field>
+        <Field Name="dwTotalScore" Type="UniDW">
+          <Description>累计罚分</Description>
+        </Field>
+        <Field Name="dwThresholdScore" Type="UniDW">
+          <Description>达到处罚标准的分数</Description>
+        </Field>
+        <Field Name="dwStatus" Type="UniDW">
+          <Description>处罚状态</Description>
+          <Const Name="BREACHSTAT_VALID">
+            <Value>1</Value>
+            <Description>有效</Description>
+          </Const>
+          <Const Name="BREACHSTAT_CANCEL">
+            <Value>2</Value>
+            <Description>管理员取消</Description>
+          </Const>
+          <Const Name="BREACHSTAT_OVER">
+            <Value>4</Value>
+            <Description>已过积分周期期</Description>
+          </Const>
+
+        </Field>
+        <Field Name="szPunishName" Type="UniSZ">
+          <Description>处罚方式</Description>
+        </Field>
+        <Field Name="dwPStartDate" Type="UniDW">
+          <Description>处罚开始时间</Description>
+        </Field>
+        <Field Name="dwPEndDate" Type="UniDW">
+          <Description>处罚结束时间</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+    </UniStructes>
+  </Module>
+  <Module Name="SubIC">
+    <Description>IC空间子系统接口</Description>
+    <Commands Name="SubIC" UID="0x910000">
+      <Command Name="MSREQ_STUDYROOMSTAT_GET" Alias="GetStudyRoomStat" UID="0x500">
+        <Description>获取研修间当前状态</Description>
+        <Parameter>STUDYROOMSTATREQ</Parameter>
+        <Result Array="true">STUDYROOMSTAT</Result>
+      </Command>
+      <Command Name="MSREQ_SEATSTAT_GET" Alias="GetSeatStat" UID="0x510">
+        <Description>获取座位当前状态</Description>
+        <Parameter>SEATSTATREQ</Parameter>
+        <Result Array="true">SEATSTAT</Result>
+      </Command>
+
+    </Commands>
+    <UniStructes>
+
+      <UniStruct Name="STUDYROOMSTATREQ">
+        <Description>获取研修间当前状态请求</Description>
+        <Field Name="dwRoomKinds" Type="UniDW">
+          <Description>研修间类型组合</Description>
+        </Field>
+        <Field Name="szBuildingNo" Type="UniSZ">
+          <Description>大楼编号</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="STUDYROOMSTAT">
+        <Description>研修间当前状态</Description>
+        <Field Name="dwRoomKind" Type="UniDW">
+          <Description>研修间类型</Description>
+          <Const Name="SROOMKIND_SINGLE">
+            <Value>0x101</Value>
+            <Description>单人研修间</Description>
+          </Const>
+          <Const Name="SROOMKIND_GROUP">
+            <Value>0x201</Value>
+            <Description>团体间(多人研讨室)</Description>
+          </Const>
+          <Const Name="SROOMKIND_ACTIVITY">
+            <Value>0x401</Value>
+            <Description>开放活动室</Description>
+          </Const>
+          <Const Name="SROOMKIND_MULTIPLE">
+            <Value>0x801</Value>
+            <Description>多人研修间</Description>
+          </Const>
+        </Field>
+        <Field Name="dwTotalNum" Type="UniDW">
+          <Description>总数</Description>
+        </Field>
+        <Field Name="dwIdleNum" Type="UniDW">
+          <Description>空闲数</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SEATSTATREQ">
+        <Description>获取座位当前状态请求</Description>
+        <Field Name="szBuildingNo" Type="UniSZ">
+          <Description>大楼编号</Description>
+        </Field>
+        <Field Name="szFloorNo" Type="UniSZ">
+          <Description>所在楼层</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SEATSTAT">
+        <Description>座位当前状态</Description>
+        <Field Name="szRoomNo" Type="UniSZ">
+          <Description>房间号</Description>
+        </Field>
+        <Field Name="szRoomName" Type="UniSZ">
+          <Description>房间名称</Description>
+        </Field>
+        <Field Name="dwTotalNum" Type="UniDW">
+          <Description>总数</Description>
+        </Field>
+        <Field Name="dwIdleNum" Type="UniDW">
+          <Description>空闲数</Description>
+        </Field>
+      </UniStruct>
+
+    </UniStructes>
+  </Module>
+  <Module Name="SubRT">
+    <Description>科研实验子系统接口</Description>
+    <Commands Name="SubRT" UID="0x920000">
+      <Command Name="MSREQ_RTDATA_GET" Alias="GetRTData" UID="0x10">
+        <Description>获取科研实验数据</Description>
+        <Parameter>RTDATAREQ</Parameter>
+        <Result Array="true">RTDATA</Result>
+      </Command>
+
+    </Commands>
+    <UniStructes>
+
+      <UniStruct Name="RTDATAREQ">
+        <Description>获取科研实验数据请求</Description>
+       
+        <Field Name="dwBeginDate" Type="UniDW">
+          <Description>预约开始日期</Description>
+        </Field>
+        <Field Name="dwEndDate" Type="UniDW">
+          <Description>预约结束日期</Description>
+        </Field>
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="RTDATA">
+        <Description>获取科研实验数据</Description>
+        <Field Name="dwResvID" Type="UniDW">
+          <Description>预约号</Description>
+        </Field>
+        <Field Name="dwProperty" Type="UniDW">
+          <Description>预约属性</Description>
+        </Field>
+        <Field Name="dwDevID" Type="UniDW">
+          <Description>设备ID</Description>
+        </Field>
+        <Field Name="szAssertSN" Type="UniSZ">
+          <Description>资产编号</Description>
+        </Field>
+        <Field Name="szTestName" Type="UniSZ">
+          <Description>科研实验名称</Description>
+        </Field>
+        <Field Name="dwBeginTime" Type="UniDW">
+          <Description>预约开始时间</Description>
+        </Field>
+        <Field Name="dwEndTime" Type="UniDW">
+          <Description>预约结束时间</Description>
+        </Field>
+        <Field Name="dwOwner" Type="UniDW">
+          <Description>使用人(创建者)</Description>
+        </Field>
+        <Field Name="szPID" Type="UniSZ">
+          <Description>使用人学工号</Description>
+        </Field>
+        <Field Name="szOwnerName" Type="UniSZ">
+          <Description>使用人姓名</Description>
+        </Field>
+        <Field Name="dwIdent" Type="UniDW">
+          <Description>使用人身份（校内（本、研，教师和校外）</Description>
+        </Field>
+        <Field Name="dwUserDeptID" Type="UniDW">
+          <Description>使用人部门ID</Description>
+        </Field>
+        <Field Name="szUserDeptName" Type="UniSZ">
+          <Description>使用人部门</Description>
+        </Field>
+        <Field Name="szTel" Type="UniSZ">
+          <Description>电话</Description>
+        </Field>
+        <Field Name="szHandPhone" Type="UniSZ">
+          <Description>手机</Description>
+        </Field>
+        <Field Name="szEmail" Type="UniSZ">
+          <Description>电邮</Description>
+        </Field>
+        <Field Name="dwRTID" Type="UniDW">
+          <Description>科研实验项目ID</Description>
+        </Field>
+        <Field Name="dwRTKind" Type="UniDW">
+          <Description>科研类型</Description>
+        </Field>
+        <Field Name="szRTName" Type="UniSZ">
+          <Description>科研实验名称</Description>
+        </Field>
+        <Field Name="dwSampleNum" Type="UniDW">
+          <Description>样品数</Description>
+        </Field>
+        <Field Name="dwManID" Type="UniDW">
+          <Description>管理员ID</Description>
+        </Field>
+        <Field Name="szManName" Type="UniSZ">
+          <Description>管理员姓名</Description>
+        </Field>
+        <Field Name="dwReceivableCost" Type="UniDW">
+          <Description>应缴费用</Description>
+        </Field>
+        <Field Name="dwRealCost" Type="UniDW">
+          <Description>实际缴纳费用</Description>
+        </Field>
+        <Field Name="szDescription" Type="UniSZ">
+          <Description>实验描述</Description>
+        </Field>
+      </UniStruct>
+      
+    </UniStructes>
+  </Module>
+
+</SubSysInterface>

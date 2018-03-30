@@ -1,0 +1,139 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Master.master.cs" Inherits="ClientWeb_Templates_Master" %>
+
+<%@ Register TagPrefix="Uni" TagName="dialog" Src="dialog.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="acc" Src="~/ClientWeb/pro/net/acc.ascx" %>
+<%@ Register TagPrefix="Uni" TagName="nav" Src="nav.ascx" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+    <title>大型仪器设备共享管理平台</title>
+    <script type="text/javascript" src="<%=url %>fm/jquery/jquery-1.7.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=url %>fm/jquery-ui/start/jquery-ui-1.10.3.custom.min.css" />
+    <script type="text/javascript" src="<%=url %>fm/jquery-ui/jquery-ui-1.10.3.custom.min.js"></script>
+    <script type="text/javascript" src="<%=url %>fm/uni.lib.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=url %>fm/uni.css" />
+
+    <link href="<%=url %>fm/add/unitable/css/theme.blue.css" rel="stylesheet" />
+    <script src="<%=url %>fm/add/unitable/js/jquery.tablesorter.js" type="text/javascript"></script>
+    <link href="<%=url %>fm/add/unitable/pager/jquery.tablesorter.pager.css" rel="stylesheet" />
+    <script src="<%=url %>fm/add/unitable/pager/jquery.tablesorter.pager.js" type="text/javascript"></script>
+    <script src="<%=url %>fm/add/unitable/js/jquery.tablesorter.widgets.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="<%=url %>pro/pro.lib.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=url %>pro/pro.css" />
+
+    <link href="<%=url %>md/Timepickeraddon/jquery-ui-timepicker-addon.css" rel="stylesheet" />
+    <script src="<%=url %>md/Timepickeraddon/jquery-ui-timepicker-addon.js" type="text/javascript"></script>
+    <script src="<%=url %>md/Timepickeraddon/jquery-ui-timepicker-zh-CN.js" type="text/javascript"></script>
+    <link href="<%=url %>md/validationEngine/validationEngine.jquery.css" rel="stylesheet" />
+    <script src="<%=url %>md/validationEngine/jquery.validationEngine.min.js" type="text/javascript"></script>
+    <script src="<%=url %>md/validationEngine/jquery.validationEngine-zh_CN.js" type="text/javascript"></script>
+
+    <link href="<%=url %>md/PageCtrl/PageCtrl.css" rel="stylesheet" />
+    <script src="<%=url %>md/PageCtrl/PageCtrl.js" type="text/javascript"></script>
+    <link href="<%=url %>md/menu/zyy/ddsmoothmenu.css" rel="stylesheet" />
+    <script src="<%=url %>md/menu/zyy/ddsmoothmenu.js" type="text/javascript"></script>
+
+    <script type="text/javascript" src="theme/cus.js"></script>
+    <link rel="stylesheet" type="text/css" href="theme/cus.css" />
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <script type="text/javascript">
+        ddsmoothmenu.init({
+            mainmenuid: "top_nav", //menu DIV id
+            orientation: 'h', //Horizontal or vertical menu: Set to "h" or "v"
+            classname: 'ddsmoothmenu', //class added to menu's outer DIV
+            contentsource: "markup" //"markup" or ["container_id", "path_to_menu_file"]
+        })
+        $(function () {
+            var its = $("#top_nav").children("ul").children("li");
+            var req = uni.getReq();
+            its.each(function (i) {
+                if (i > 0) {
+                    var url = $(this).children("a").attr("href");
+                    if (url.indexOf("gr") >= 0 && !uni.isNull(req["gr"])) {
+                        var gr = uni.url2Obj(url).gr;
+                        if (req["gr"] == gr) {
+                            $(this).addClass("nav_sel");
+                            return;
+                        }
+                    }
+                    else if (url.indexOf("prc") >= 0 && !uni.isNull(req["prc"])) {
+                        $(this).addClass("nav_sel");
+                        return;
+                    }
+                }
+            });
+            if ((location.href).indexOf("DevList") >= 0 && uni.isNull(req["prc"])) {
+                $("#top_nav .nav_dev").addClass("nav_sel");
+            }
+        });
+    </script>
+    <style type="text/css">
+        #top_nav { height: 22px; }
+        #top_nav li.nav_one a:hover { background: url(theme/images/nav_bg.png) no-repeat; }
+        #top_nav .nav_sel a { background: url(theme/images/nav_bg.png) no-repeat; }
+    </style>
+</head>
+<body>
+    <div id="pub_resource">
+        <Uni:dialog runat="server" ID="MyDialog" />
+        <div id="acc_info">
+            <Uni:acc runat="server" ID="MyAcc" />
+        </div>
+    </div>
+    <div id="tp_body">
+        <div id="tp_header">
+            <Uni:nav runat="server" ID="MyNav" />
+            <div style="font-family: 微软雅黑; font-size: 44px; font-weight: 700; line-height: 44px; color: #bb0000; position: absolute; top: 55px; left: 250px; word-spacing: 4px; letter-spacing: 4px">大型仪器设备共享管理平台</div>
+            <div id="tp_menu">
+                <div id="top_nav" class="ddsmoothmenu">
+                    <ul>
+                        <li class="primary"><a href="Default.aspx">首页</a></li>
+                        <li style="border-left-width: 0;" class="nav_one"><a href="ArticleList.aspx?gr=1&cl=10000">平台介绍</a>
+                            <ul>
+                                <li><a href="ArticleList.aspx?gr=1&cl=10000">平台简介</a></li>
+                                <li><a href="ArticleList.aspx?gr=1&cl=10001">机构设置</a></li>
+                                <li><a href="ArticleList.aspx?gr=1&cl=10002">联系我们</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_dev nav_one"><a href="DevList.aspx">仪器设备</a>
+                        </li>
+                        <li class="nav_one"><a href="DevList.aspx?prc=100">百万仪器</a></li>
+                        <li class="nav_one"><a href="ArticleList.aspx?gr=2&cl=10003">新闻动态</a>
+                            <ul>
+                                <li><a href="ArticleList.aspx?gr=2&cl=10003">平台新闻</a></li>
+                                <li><a href="ArticleList.aspx?gr=2&cl=10004">通知公告</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav_one"><a href="ArticleList.aspx?gr=3&cl=10005">规章制度</a>
+                            <ul>
+                                <li><a href="ArticleList.aspx?gr=3&cl=10005">规章制度</a></li>
+                                <li><a href="ArticleList.aspx?gr=3&cl=10007">使用说明</a></li>
+                            </ul>
+                        </li>
+                        <li class="tail nav_one"><a href="ArticleList.aspx?gr=4&cl=10006">下载中心</a></li>
+                    </ul>
+                    <br style="clear: left" />
+                </div>
+                <!-- end of ddsmoothmenu -->
+            </div>
+            <div class="cleaner"></div>
+        </div>
+        <!-- END of templatemo_header -->
+        <div id="tp_main">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <div id="tp_footer">
+            <p>
+                版权所有：  浙江中医药大学
+            </p>
+        </div>
+        <!-- END of templatemo_footer -->
+    </div>
+</body>
+</html>

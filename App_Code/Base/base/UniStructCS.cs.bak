@@ -1,0 +1,775 @@
+﻿////==========================================================================;
+//
+//
+//  Copyright (c) 2007 - 2008  Lianchuang Corporation.  All Rights Reserved.
+//
+//--------------------------------------------------------------------------;
+// UniStruct.h: interface for the UniStruct.
+//
+//@Author unifound
+//////////////////////////////////////////////////////////////////////
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Collections;
+
+namespace UniWebLib
+{
+    public partial class Struct_ST
+    {
+        static FieldInfo[] m_fiarr = typeof(Struct_ST).GetFields();
+
+        static public string[] GetStructMember(string szName)
+        {
+            for (int i = 0; i < m_fiarr.Length; i++)
+            {
+                if (m_fiarr[i].Name == szName)
+                {
+                    return (string[])m_fiarr[i].GetValue(null);
+                }
+            }
+            return null;
+        }
+    }
+}
+
+public struct Reserved
+{
+    public Dictionary<string,object> Ext;
+}
+
+namespace UniStructCS
+{
+	[Flags]
+	public enum UTFLAG:uint
+	{
+		UTEMPTY     = 0x00000000,
+		UTFILL		= 0x40000000,
+		UTSTREAM    = 0x80000000,
+		UTLOCK		= 0x20000000,
+		UTVALID		= 0x10000000,
+		UTDWORD		= ~UTSTREAM,
+		
+		DEFUNIDWTYPE = UTVALID,
+		DEFUNISZTYPE = UTSTREAM | UTSTREAM,
+	}
+	public enum UTMASK:uint
+	{
+		UTTYPEMASK		= 0x80000000,
+		UTSIZEMASK		= 0x0FFFFFFF,
+		UTFLAGMASK		= 0xF0000000,
+	}
+
+	public enum UNISMAG:uint
+	{
+		//"UniS"
+		UNISTRUCT = 0x53696E55,
+		//"UnST"
+		UNISARRAY = 0x54536E55,
+	}
+
+	public partial class CUniStructCS
+	{
+		public  int GetLength<T>(T v) where T: new()
+		{
+			if (v == null)
+			{
+				return 0;
+			}
+
+			Type t = v.GetType();
+			FieldInfo[] fiarr = t.GetFields();
+
+			if (fiarr == null)
+			{
+				return 0;
+			}
+			return fiarr.GetLength(0);
+		}
+
+		public  string GetFieldName<T>(T v,int nIndex)where T: new()
+		{
+			if (v == null)
+			{
+				return null;
+			}
+
+			Type t = v.GetType();
+            return t.Name + "." + GetCoreFieldName(v,nIndex);
+		}
+
+        public  string GetCoreFieldName<T>(T v, int nIndex)where T: new()
+		{
+            if (v == null)
+            {
+                return null;
+            }
+
+            Type t = v.GetType();
+
+            string[] sfiarr = UniWebLib.Struct_ST.GetStructMember(t.Name);
+
+            if (sfiarr == null)
+            {
+                FieldInfo[] ttfiarr = t.GetFields();
+                sfiarr = new string[ttfiarr.Length];
+                for (int fi = 0; fi < ttfiarr.Length; fi++)
+                {
+                    sfiarr[fi] = ttfiarr[fi].Name;
+                }
+                //throw (new Exception("1," + t.Name));
+            }
+
+            if (sfiarr == null || sfiarr.GetLength(0) <= nIndex)
+            {
+                return null;
+            }
+
+            return sfiarr[nIndex];
+        }
+
+        public  int GetFieldIndex<T>(T v, string sName)where T: new()
+		{
+			string sStructName = null;
+			string sFieldName = null;
+			string [] sarr = sName.Split('.');
+			if(sarr.Length > 2)
+			{
+				return -1;
+			}
+			if(sarr.Length == 1)
+			{
+				sFieldName = sarr[0];
+			}else
+			{
+				sStructName = sarr[0];
+				sFieldName = sarr[1];
+			}
+
+			Type t = v.GetType();
+			if (sStructName != null)
+			{
+				if(sStructName != t.Name)
+				{
+					return -1;
+				}
+			}
+
+            string[] sfiarr = UniWebLib.Struct_ST.GetStructMember(t.Name);
+
+            if (sfiarr == null)
+            {
+                FieldInfo[] ttfiarr = t.GetFields();
+                sfiarr = new string[ttfiarr.Length];
+                for (int fi = 0; fi < ttfiarr.Length; fi++)
+                {
+                    sfiarr[fi] = ttfiarr[fi].Name;
+                }
+                //throw (new Exception("1," + t.Name));
+            }
+
+            if (sfiarr == null)
+			{
+				return -1;
+			}
+
+            for (int i = 0; i < sfiarr.Length; i++)
+			{
+                if (sFieldName == sfiarr[i])
+				{
+					return i;
+				}
+			}
+			return -1;
+		}
+
+        public  object GetValue<T>(T v, int nIndex)where T: new()
+		{
+			Type t = v.GetType();
+			FieldInfo[] fiarr = t.GetFields();
+
+			if (fiarr == null)
+			{
+				return null;
+			}
+			if (nIndex < 0 || nIndex >= fiarr.Length)
+			{
+				return null;
+			}
+			try
+			{
+				return fiarr[nIndex].GetValue(v);
+			}catch(Exception e)
+			{
+				Logger.Trace("-->>nIndex = "+nIndex+","+e.ToString()+":");
+				return null;
+			}
+		}
+        public  void SetValue<T>(T v, int nIndex, object _value)where T: new()
+		{
+			if (nIndex >= GetLength(v))
+			{
+				return ;
+			}
+
+			Type t = v.GetType();
+			FieldInfo[] flds = t.GetFields();
+
+			if (flds == null)
+			{
+				return ;
+			}
+			flds[nIndex].SetValueDirect(__makeref(v),_value);
+		}
+
+		public static uint byte2uint(byte[] value, uint nIndex)
+		{
+			uint retv = 0;
+			retv = value[nIndex];
+			retv |= ((uint)(value[nIndex + 1])) << 8;
+			retv |= ((uint)(value[nIndex + 2])) << 16;
+			retv |= ((uint)(value[nIndex + 3])) << 24;
+			return retv;
+		}
+		public static byte[] uint2byte(uint value)
+		{
+			byte[] retv = new byte[4];
+			retv[0] = (byte)value;
+			retv[1] = (byte)(value >> 8);
+			retv[2] = (byte)(value >> 16);
+			retv[3] = (byte)(value >> 24);
+			return retv;
+		}
+		public static void uint2byte(uint value,ref byte[] pOut,uint nIndex)
+		{
+			pOut[nIndex + 0] = (byte)value;
+			pOut[nIndex + 1] = (byte)(value >> 8);
+			pOut[nIndex + 2] = (byte)(value >> 16);
+			pOut[nIndex + 3] = (byte)(value >> 24);
+		}
+
+        public  uint Import<T>(out T v, byte[] pBuffer)where T: new()
+		{
+            return Import(out v, pBuffer, 0, true);
+		}
+        public uint Import<T>(out T v, byte[] pBuffer, uint _nIndex) where T : new()
+        {
+            return Import(out v, pBuffer, _nIndex, true);
+        }
+        public uint Import<T>(out T destObj, byte[] pBuffer, uint _nIndex, bool bHavMag) where T : new()
+        {
+            object obj;
+            uint ret = Import(out obj, pBuffer, _nIndex, bHavMag, typeof(T));
+            destObj = (T)obj;
+            return ret;
+        }
+        public uint Import(out object v, byte[] pBuffer, uint _nIndex,Type objType)
+        {
+            return Import(out v, pBuffer, _nIndex, true, objType);
+        }
+        public uint Import(out object destObj, byte[] pBuffer, uint _nIndex, bool bHavMag,Type objType)
+		{
+            destObj = Activator.CreateInstance(objType);
+			uint nIndex = _nIndex;
+			try
+			{
+				if(pBuffer == null)
+				{
+					throw(new Exception("0"));
+				}
+                Type t = objType;
+                string[] sfiarr = UniWebLib.Struct_ST.GetStructMember(t.Name);
+
+                if (sfiarr == null)
+				{
+                    FieldInfo[] ttfiarr = objType.GetFields();
+                    sfiarr = new string[ttfiarr.Length];
+                    for (int fi = 0; fi < ttfiarr.Length; fi++)
+                    {
+                        sfiarr[fi] = ttfiarr[fi].Name;
+                    }
+                    //throw (new Exception("1," + t.Name));
+				}
+				if(bHavMag)
+				{
+					if(pBuffer.Length < nIndex + 4)
+					{
+						throw(new Exception("2"));
+					}
+					uint nValue = byte2uint(pBuffer,nIndex);nIndex += 4;
+					if(nValue != (uint)UNISMAG.UNISTRUCT)
+					{
+						throw(new Exception("3,nIndex="+nIndex));
+					}
+				}
+                uint nCount = (uint)sfiarr.Length;
+				for(uint i = 0; i < nCount; i++)
+				{
+                    if (sfiarr[i] == "") continue;
+
+                    FieldInfo fino = t.GetField(sfiarr[i]);
+                    if (fino == null) continue;
+
+                    Type itt = fino.FieldType;
+
+                    if (!itt.IsPublic)
+                    {
+                        continue;
+                    }
+                    //一般Reserved只放在第一个成员，为加速优化
+                    if (i == 0)
+                    {
+                        if (itt == typeof(Reserved))
+                        {
+                            continue;
+                        }
+                    }
+
+					if(pBuffer.Length < nIndex+4)
+					{
+						throw(new Exception("4"));
+					}
+					UTFLAG dwFType = (UTFLAG)byte2uint(pBuffer,nIndex);nIndex += 4;
+
+                    //Logger.Trace("Type="+itt.ToString()+",Name="+fino.Name+",dwFType="+dwFType.ToString("x"));
+					if(itt == typeof(string))
+					{
+                        if (((uint)dwFType & (uint)UTFLAG.UTSTREAM) == 0)
+                        {
+                            throw (new Exception("5," + objType.Name + "." + fino.Name + "(i=" + i.ToString() + ":nIndex=" + nIndex.ToString() + ")类型错误:dwFType=" + dwFType.ToString("x")));
+                        }
+
+						uint nSize = (uint)(dwFType & (UTFLAG)UTMASK.UTSIZEMASK);;
+						if( (dwFType & UTFLAG.UTFILL) == 0)
+						{
+							nSize = 0;
+						}
+						if(pBuffer.Length < nIndex+nSize)
+						{
+							throw(new Exception("6,pBuffer.Length="+pBuffer.Length+",nIndex="+nIndex+",dwFType="+dwFType));
+						}
+						if(((dwFType & UTFLAG.UTFILL) != 0)
+								&&((dwFType & UTFLAG.UTLOCK) == 0)
+							)
+						{
+                            UniStruct.UniSZ newValue = new UniStruct.UniSZ();
+							newValue.Set(pBuffer,nIndex,nSize);nIndex += nSize;
+                            fino.SetValueDirect(__makeref(destObj), newValue.ToString());
+						}else{
+							if(((dwFType&UTFLAG.UTFILL) !=0)
+									&& ((dwFType&UTFLAG.UTLOCK) ==0))
+							{
+								nIndex += nSize;
+							}
+						}
+                    }
+                    else if (itt == typeof(uint) || itt == typeof(uint?) || itt.IsEnum || (itt.IsSerializable && !itt.IsArray))
+					{
+						if(((dwFType & UTFLAG.UTFILL) != 0)
+								&&((dwFType & UTFLAG.UTLOCK) == 0)
+							)
+						{
+							if(pBuffer.Length < nIndex+4)
+							{
+								throw(new Exception("8"));
+							}
+							uint nValue = byte2uint(pBuffer,nIndex);nIndex += 4;
+                            if (itt.IsEnum)
+                            {
+                                Object enumobj = System.Enum.ToObject(itt, nValue);
+                                fino.SetValueDirect(__makeref(destObj), enumobj);
+                            }
+                            else
+                            {
+                                fino.SetValueDirect(__makeref(destObj), nValue);
+                            }
+						}else{
+							if(((dwFType&UTFLAG.UTFILL) !=0)
+									&& ((dwFType&UTFLAG.UTLOCK) ==0))
+							{
+								nIndex += 4;
+							}
+						}
+					}else{
+                        object subobj;
+                        uint nSize = (uint)(dwFType & (UTFLAG)UTMASK.UTSIZEMASK);
+                        if (nSize > 0)
+                        {
+                            if (itt.IsArray)
+                            {
+                                CUniStructArrayCS CSUSA = new CUniStructArrayCS();
+                                if (CSUSA.Import(out subobj, pBuffer, nIndex, itt) != nSize)
+                                {
+                                    //
+                                }
+                            }
+                            else
+                            {
+                                if (Import(out subobj, pBuffer, nIndex, true, itt) != nSize)
+                                {
+                                    //
+                                }
+                            }
+                            fino.SetValueDirect(__makeref(destObj), subobj);
+                        }
+						nIndex += nSize;
+					}
+				}
+			}
+			catch(Exception e)
+			{
+				Logger.Trace("UniStruct.Import faild:"+e.Message+","+e.ToString());
+				return 0;
+			}
+			return (uint)nIndex - _nIndex;
+		}
+		
+		public  uint ExportSize<T>( T v) where T : new()
+		{
+			return ExportSize(v,true,typeof(T));
+		}
+
+        public uint ExportSize(object srcObj, bool bHavMag, Type objType)
+        {
+			if (srcObj == null)
+			{
+				return 0;
+			}
+            Type t = objType;
+			FieldInfo[] fiarr = t.GetFields();
+			if (fiarr == null)
+			{
+				return 0;
+			}
+			uint nExportSize = 0;
+			if(bHavMag)
+			{
+				nExportSize += 4;
+			}
+			uint nCount = (uint)fiarr.GetLength(0);
+			for(uint i = 0; i < nCount; i++)
+			{
+				object poValue = fiarr[i].GetValue(srcObj);
+				Type itt = fiarr[i].FieldType;
+                if (!itt.IsPublic)
+                {
+                    continue;
+                }
+                //一般Reserved只放在第一个成员，为加速优化
+                if (i == 0)
+                {
+                    if (itt == typeof(Reserved))
+                    {
+                        continue;
+                    }
+                }
+                nExportSize += 4;
+				if(poValue == null)
+				{
+					continue;
+				}
+				if(itt == typeof(string))
+				{
+                    UniStruct.UniSZ pValue = new UniStruct.UniSZ((string)poValue);
+					nExportSize += pValue.Size();
+                }
+                else if (itt == typeof(uint) || itt == typeof(uint?) || itt.IsEnum || (itt.IsSerializable && !itt.IsArray))
+				{
+					nExportSize += 4;
+				}else{
+                    uint nSize = 0;
+                    if (itt.IsArray)
+                    {
+                        CUniStructArrayCS cacs = new CUniStructArrayCS();
+                        object poValue2 = fiarr[i].GetValue(srcObj);
+                        nSize = cacs.ExportSize(poValue2,itt);
+                    }
+                    else
+                    {
+                        nSize = ExportSize(poValue, true, itt);
+                    }
+					
+					nExportSize += nSize;
+				}
+			}
+			return (uint)nExportSize;
+		}
+
+		public  byte[] Export<T>(T v) where T : new()
+		{
+			return Export(v,true);
+		}
+		
+		public byte[] Export<T>(T srcObj,bool bHavMag) where T : new()
+		{
+			byte[] pRet = new byte[ExportSize(srcObj,bHavMag,typeof(T))];
+            if (Export(srcObj, bHavMag, ref pRet, 0, typeof(T)) == 0)
+			{
+				return null;
+			}else{
+				return pRet;
+			}			
+		}
+		
+		public uint Export(object srcObj,bool bHavMag,ref byte[] pOut,uint _nIndex,Type objType)
+		{
+			if (srcObj == null || pOut == null || pOut.Length < _nIndex+4)
+			{
+				return 0;
+			}
+            Type t = objType;
+            string[] sfiarr = UniWebLib.Struct_ST.GetStructMember(t.Name);
+
+            if (sfiarr == null)
+			{
+				return 0;
+			}
+			uint nIndex = _nIndex;
+			if(bHavMag)
+			{
+				uint2byte((uint)UNISMAG.UNISTRUCT,ref pOut,nIndex);nIndex += 4;
+			}
+            uint nCount = (uint)sfiarr.Length - 1;
+			for(uint i = 0; i < nCount; i++)
+			{
+                FieldInfo fino = t.GetField(sfiarr[i]);
+                if (fino == null) continue;
+
+                object poValue = fino.GetValue(srcObj);
+                Type itt = fino.FieldType;
+                if (!itt.IsPublic)
+                {
+                    continue;
+                }
+                //一般Reserved只放在第一个成员，为加速优化
+                if (i == 0)
+                {
+                    if (itt == typeof(Reserved))
+                    {
+                        continue;
+                    }
+                }
+                if (itt == typeof(string))
+				{
+					if (pOut.Length < nIndex+4)
+					{
+						return 0;
+					}
+					if(poValue != null && (string)poValue !="[NULL]")
+					{
+						UniStruct.UniSZ pValue = new UniStruct.UniSZ((string)poValue);
+						uint2byte((uint)pValue.m_dwType,ref pOut,nIndex);nIndex += 4;
+						if (pOut.Length < nIndex+pValue.Size())
+						{
+							return 0;
+						}
+						Array.Copy(pValue.Get(),0,pOut,nIndex,pValue.Size());
+						nIndex += pValue.Size();
+					}else{
+						uint2byte((uint)UTFLAG.DEFUNISZTYPE,ref pOut,nIndex);nIndex += 4;
+					}
+                }
+                else if (itt == typeof(uint) || itt == typeof(uint?) || itt.IsEnum || (itt.IsSerializable && !itt.IsArray))
+				{
+					if (pOut.Length < nIndex+4)
+					{
+						return 0;
+					}
+                    //if (poValue != null && ((uint)poValue != uint.MaxValue))
+                    if (poValue != null)
+					{
+						UniStruct.UniDW pValue = new UniStruct.UniDW((uint)poValue);
+						uint2byte((uint)pValue.m_dwType,ref pOut,nIndex);nIndex += 4;
+						
+						if (pOut.Length < nIndex+4)
+						{
+							return 0;
+						}
+						uint2byte((uint)pValue.m_dwValue,ref pOut,nIndex);nIndex += 4;
+					}else{
+						uint2byte((uint)UTFLAG.DEFUNIDWTYPE,ref pOut,nIndex);nIndex += 4;
+					}
+				}else{
+                    uint nSize = 0;
+                    if (itt.IsArray)
+                    {
+                        CUniStructArrayCS cacs = new CUniStructArrayCS();
+                        object poValue2 = fino.GetValue(srcObj);
+                        byte[] bytes = cacs.Export(poValue2,itt);
+                        nSize = (uint)bytes.Length;
+                        Array.Copy(bytes, 0, pOut, nIndex + 4, nSize);
+                    }else
+                    {
+					    nSize = Export(poValue,true,ref pOut,nIndex+4,itt);
+                    }
+                    uint2byte(nSize | (uint)UTFLAG.UTSTREAM | (uint)UTFLAG.UTVALID | (uint)UTFLAG.UTFILL, ref pOut, nIndex); nIndex += 4;
+                    nIndex += nSize;
+				}
+			}
+			return nIndex - _nIndex;
+		}
+	}
+
+	public class CUniStructArrayCS
+	{
+		public  uint Import<T>(out T[] v,byte[] pBuffer) where T : new()
+		{
+            object obj;
+            uint ret = Import(out obj, pBuffer, 0, typeof(T[]));
+            if (obj != null)
+            {
+                v = (T[])obj;
+            }
+            else
+            {
+                v = null;
+            }
+            return ret;
+		}
+
+		public  uint Import(out object v,byte[] pBuffer, uint _index,Type objType)
+		{
+			uint nIndex = _index;
+            v = null;
+			try
+			{
+				if (pBuffer == null || pBuffer.Length < 8)
+				{
+					throw(new Exception("0"));
+				}
+				uint nMag = CUniStructCS.byte2uint(pBuffer, nIndex);
+				if (nMag != (uint)UNISMAG.UNISARRAY)
+				{
+					throw(new Exception("1"));
+				}
+				nIndex += 4;
+				uint nLength = CUniStructCS.byte2uint(pBuffer, nIndex);
+				nIndex += 4;
+                Array vv =  System.Array.CreateInstance(objType.GetElementType(),(int)nLength);
+                v = (object)vv;
+
+                CUniStructCS ccs = new CUniStructCS();
+				for (uint i = 0; i < nLength; i++)
+				{
+                    object vobj;
+                    uint nImported = ccs.Import(out vobj, pBuffer, nIndex, objType.GetElementType());
+                    vv.SetValue(vobj, i);
+					if (nImported == 0)
+					{
+						v = null;
+						throw(new Exception("2,index="+i));
+					}
+					nIndex += nImported;
+				}
+			}catch(Exception e)
+			{
+				Logger.Trace("UniStructArray faild:"+e.Message);
+				return 0;
+			}
+			return (uint)nIndex - _index;
+		}
+
+        public uint ExportSize<T>(T[] v) where T : new()
+        {
+            uint nExportSize = 8;
+            uint nLen = 0;
+            CUniStructCS ccs = new CUniStructCS();
+            if (v != null)
+            {
+                for (uint i = 0; i < v.Length; i++)
+                {
+                    if (v[i] == null)
+                    {
+                        continue;
+                    }
+                    nExportSize += ccs.ExportSize(v[i]);
+                    nLen++;
+                }
+                return nExportSize;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public uint ExportSize(object v, Type objType)
+        {
+            uint nExportSize = 8;
+            uint nLen = 0;
+            CUniStructCS ccs = new CUniStructCS();
+            if (v != null)
+            {
+                for (uint i = 0; i < ((Array)v).Length; i++)
+                {
+                    object obj = ((Array)v).GetValue(i);
+                    if (obj == null)
+                    {
+                        continue;
+                    }
+                    nExportSize += ccs.ExportSize(obj, true, objType.GetElementType());
+                    nLen++;
+                }
+                return nExportSize;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public byte[] Export<T>(T[] v) where T : new()
+        {
+            return Export(v, v.GetType());
+        }
+
+        public  byte[] Export(object v,Type objType)
+        {
+			uint nExportSize = 8;
+			uint nDindex = 0;
+			byte[] retBytes = null;
+			uint nLen = 0;
+            CUniStructCS ccs = new CUniStructCS();
+            if (v != null)
+            {
+                for (uint i = 0; i < ((Array)v).Length; i++)
+                {
+                    object obj = ((Array)v).GetValue(i);
+                    if (obj == null)
+                    {
+                        continue;
+                    }
+                    nExportSize += ccs.ExportSize(obj, true, objType.GetElementType());
+                    nLen++;
+                }
+            }
+            else
+            {
+                return new byte[0];
+            }
+			retBytes = new byte[nExportSize];
+			CUniStructCS.uint2byte((uint)UNISMAG.UNISARRAY,ref retBytes,nDindex);
+			nDindex += 4;
+			CUniStructCS.uint2byte((uint)nLen,ref retBytes,nDindex);
+			nDindex += 4;
+			if (v != null)
+			{
+                for (uint i = 0; i < ((Array)v).Length; i++)
+				{
+                    object obj = ((Array)v).GetValue(i);
+                    if (obj == null)
+                    {
+                        continue;
+                    }
+                    uint nSize = ccs.Export(obj, true, ref retBytes, nDindex, objType.GetElementType());
+                    nDindex += nSize;
+				}
+			}
+			return retBytes;
+		}
+	}
+}

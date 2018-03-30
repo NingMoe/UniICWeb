@@ -1,0 +1,32 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Main.master.cs" Inherits="Templates_Instance" %>
+<%@ Register Src="~/Modules/HeadInclude.ascx" TagPrefix="unifound" TagName="HeadInclude" %>
+<%@ Register Src="~/Modules/banner.ascx" TagName="banner" TagPrefix="unifound" %>
+<%@ Register Src="~/Modules/tail.ascx" TagName="tail" TagPrefix="unifound" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta name="renderer" content="webkit">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head runat="server">
+    <title><%=ConfigConst.GCSysName %></title>
+    <unifound:HeadInclude runat="server" ID="HeadInclude" />
+    <script language="javascript" type="text/javascript" src="<%=MyVPath %>themes/js/MainJScript.js"></script>
+    <asp:contentplaceholder id="HeadContent" runat="server">
+    </asp:contentplaceholder>
+</head>
+<body class="MainBody <%=szBodyClass %>">
+    <table border="0" class="ContentTbl">
+    <tr><td class="default_banner"><unifound:banner ID="Banner" runat="server" /></td></tr>
+    <tr>
+        <td class="default_content">
+        <!--内容 开始 -->
+            <asp:contentplaceholder id="Content" runat="server">
+            </asp:contentplaceholder>
+        <!--内容 结束 -->
+        </td>
+    </tr>
+    <tr><td class="default_tail"><unifound:tail ID="Tail" runat="server" /></td></tr>
+    </table>
+</body>
+<asp:contentplaceholder id="ScriptContent" runat="server">
+</asp:contentplaceholder>
+</html>
