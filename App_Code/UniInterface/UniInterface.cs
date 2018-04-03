@@ -203,6 +203,9 @@ namespace UniWebLib
 		/*手机登录,	参数:MOBILELOGINREQ,	结果:ADMINLOGINRES*/
 		public const uint MSREQ_MOBILE_STALOGIN 	= 0x112;
 
+		/*手机摇一摇登录,	参数:SHAKELOGINREQ,	结果:SHAKELOGINRES*/
+		public const uint MSREQ_MOBILE_SHAKELOGIN 	= 0x113;
+
 		/*管理员退出,	参数:ADMINLOGOUTREQ,	结果:ADMINLOGOUTRES*/
 		public const uint MSREQ_ADMIN_LOGOUT 	= 0x120;
 
@@ -1237,6 +1240,12 @@ namespace UniWebLib
 
 		/*手机登录离开,	参数:RESVUSERGOOUTREQ,	结果:RESVUSERGOOUTRES*/
 		public const uint MSREQ_RESVUSER_GOOUT 	= 0x248;
+
+		/*摇一摇签到开始使用,	参数:SHAKECHECKINREQ,	结果:SHAKECHECKINRES*/
+		public const uint MSREQ_SHAKE_CHECKIN 	= 0x250;
+
+		/*摇一摇入馆,	参数:SHAKECOMEINREQ,	结果:SHAKECOMEINRES*/
+		public const uint MSREQ_SHAKE_COMEIN 	= 0x251;
 
 
 	}

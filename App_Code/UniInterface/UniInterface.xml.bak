@@ -4648,6 +4648,22 @@
             <Value>0x4</Value>
             <Description>手机签到GPS定位</Description>
           </Const>
+          <Const Name="ROOMPROPHP_NORESV">
+            <Value>0x10</Value>
+            <Description>不支持手机扫码预约</Description>
+          </Const>
+          <Const Name="ROOMPROPHP_NOSIGN">
+            <Value>0x20</Value>
+            <Description>不支持手机扫码签到</Description>
+          </Const>
+          <Const Name="ROOMPROPHP_NOLEAVE">
+            <Value>0x40</Value>
+            <Description>不支持手机扫码暂时离开</Description>
+          </Const>
+          <Const Name="ROOMPROPHP_NOEXIT">
+            <Value>0x80</Value>
+            <Description>不支持手机扫码结束使用</Description>
+          </Const>          
           <Const Name="ROOMPROP_NORESV">
             <Value>0x100000</Value>
             <Description>不支持网上预约</Description>
@@ -5542,10 +5558,14 @@
             <Value>0x8</Value>
             <Description>人工管理</Description>
           </Const>
+          <Const Name="DEVCTRL_AUTOUSE">
+            <Value>0x20</Value>
+            <Description>预约生效自动开始使用</Description>
+          </Const>
           <Const Name="DEVCTRL_POWERCTRL">
             <Value>0x10</Value>
             <Description>电源控制</Description>
-          </Const>
+          </Const>          
           <Const Name="DEVCTRL_PRIVATECARD">
             <Value>0x100</Value>
             <Description>专用卡(使用者需预约后换卡)</Description>
@@ -9862,7 +9882,11 @@
         <Parameter>ACTIVITYEXIT</Parameter>
         <Result></Result>
       </Command>
-
+      <Command Name="MSREQ_ACTIVITY_OFFLINESIGN" Alias="ActivityMemberOffLineSign" UID="0x365">
+        <Description>管理员导入签到人员名单</Description>
+        <Parameter >AOFFLINESIGN</Parameter>
+        <Result>AOFFLINESIGN</Result>
+      </Command>
       <Command Name="MSREQ_RESVRULE_GET" Alias="ResvRuleGet" UID="0x410">
         <Description>获取预约规则列表</Description>
         <Parameter>RESVRULEREQ</Parameter>
@@ -12676,6 +12700,66 @@
         </Field>
       </UniStruct>
 
+      <UniStruct Name="ASIGNUSER">
+        <Description>签到人员名单</Description>
+        <Field Name="dwCardID" Type="UniDW">
+          <Description><![CDATA[卡ID号]]></Description>
+        </Field>
+        <Field Name="dwInTime" Type="UniDW">
+          <Description>签到时间(HHMM)</Description>
+        </Field>
+        <Field Name="dwRetStat" Type="UniDW">
+          <Description>返回状态</Description>
+          <Const Name="SIGNRETSTAT_OK" Type="DWORD">
+            <Value>0x1</Value>
+            <Description>签到成功</Description>
+          </Const>        
+          <Const Name="SIGNRETSTAT_NOCARDID" Type="DWORD">
+            <Value>0x100</Value>
+            <Description>未找到该卡号对应的学生</Description>
+          </Const> 
+          <Const Name="SIGNRETSTAT_NOMEMBER" Type="DWORD">
+            <Value>0x200</Value>
+            <Description>未不是该活动的成员</Description>
+          </Const> 
+          <Const Name="SIGNRETSTAT_RESVDONE" Type="DWORD">
+            <Value>0x400</Value>
+            <Description>预约已结束</Description>
+          </Const> 
+        </Field>           
+        <Field Name="dwAccNo" Type="UniDW">
+          <Description>账号</Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description><![CDATA[登录名(学工号)]]></Description>
+        </Field>
+        <Field Name="szCardNo" Type="UniSZ">
+          <Description>卡号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>成员姓名</Description>
+        </Field>     
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      
+      <UniStruct Name="AOFFLINESIGN">
+        <Description>签到人员名单</Description>
+        <Field Name="dwActivityPlanID" Type="UniDW">
+          <Description>活动安排ID</Description>
+        </Field>
+        <Field Name="dwResvID" Type="UniDW">
+          <Description>预约号</Description>
+        </Field>
+        <Field Name="SignUser" Type="UniSZ" ExtType="ASIGNUSER[]">
+          <Description>签到表CUniTable[ASIGNUSER]</Description>
+        </Field>        
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>备注</Description>
+        </Field>
+      </UniStruct>
+      
       <UniStruct Name="RESVRULEREQ">
         <Description></Description>
         <Field Name="dwRuleSN" Type="UniDW">
@@ -16150,6 +16234,11 @@
         <Parameter>RESVKINDSTATREQ</Parameter>
         <Result Array="true">RESVKINDSTAT</Result>
       </Command>
+      <Command Name="MSREQ_RESVMODESTAT_GET" Alias="GetResvModeStat" UID="0x3">
+        <Description>预约方式统计</Description>
+        <Parameter>RESVMODESTATREQ</Parameter>
+        <Result Array="true">RESVMODESTAT</Result>
+      </Command>
       <Command Name="MSREQ_REPORT_USEREC_GET" Alias="GetUseRec" UID="0x10">
         <Description>获取使用记录明细</Description>
         <Parameter>USERECREQ</Parameter>
@@ -16204,6 +16293,11 @@
         <Description>获取教学预约记录</Description>
         <Parameter>TEACHINGRESVRECREQ</Parameter>
         <Result Array="true">TEACHINGRESVREC</Result>
+      </Command>
+      <Command Name="MSREQ_REPORT_ROOMSTAT" Alias="GetRoomStat" UID="0x29">
+        <Description>实验室(房间)统计报表数据</Description>
+        <Parameter>REPORTREQ</Parameter>
+        <Result Array="true">ROOMSTAT</Result>
       </Command>      
       <Command Name="MSREQ_REPORT_DEVUSINGRATE" Alias="GetDevUsingRate" UID="0x30">
         <Description>获取设备使用率查询</Description>
@@ -16240,6 +16334,16 @@
         <Parameter>DEFAULTSTATREQ</Parameter>
         <Result Array="true">DEFAULTSTAT</Result>
       </Command>
+      <Command Name="MSREQ_REPORT_DEVWEEKUSINGRATE" Alias="GetDevWeekUsingRate" UID="0x37">
+        <Description>获取设备周使用率查询</Description>
+        <Parameter>DEVWEEKUSINGRATEREQ</Parameter>
+        <Result Array="false">DEVWEEKUSINGRATE</Result>
+      </Command> 
+      <Command Name="MSREQ_REPORT_YARDACTIVITYSTAT" Alias="GetYardActivityStat" UID="0x38">
+        <Description>场馆活动类型统计</Description>
+        <Parameter>YARDACTIVITYSTATREQ</Parameter>
+        <Result Array="true">YARDACTIVITYSTAT</Result>
+      </Command>      
       <Command Name="MSREQ_REPORT_DEVLIST" Alias="GetDevList" UID="0x101">
         <Description>教学科研仪器设备表 (SJ1)</Description>
         <Parameter>DEVLISTREQ</Parameter>
@@ -16542,6 +16646,62 @@
         <Field Name="szMemo" Type="UniSZ">
           <Description>备注</Description>
         </Field>
+        <Field Name="dwInTime" Type="UniDW">
+          <Description>签到时间</Description>
+        </Field>
+        <Field Name="dwInMode" Type="UniDW">
+          <Description>签到方式</Description>
+          <Const Name="RCMODE_CONSOLE">
+            <Value>0x1</Value>
+            <Description>控制台</Description>
+          </Const>
+          <Const Name="RCMODE_AG">
+            <Value>0x2</Value>
+            <Description>通道机</Description>
+          </Const>
+          <Const Name="RCMODE_HP">
+            <Value>0x4</Value>
+            <Description>手机</Description>
+          </Const>
+          <Const Name="RCMODE_MONITOR">
+            <Value>0x8</Value>
+            <Description>智能座位监控设备</Description>
+          </Const>
+          <Const Name="RCMODE_PC">
+            <Value>0x10</Value>
+            <Description>电脑登录</Description>
+          </Const>
+          <Const Name="RCMODE_DOOR">
+            <Value>0x20</Value>
+            <Description>门禁刷卡</Description>
+          </Const>
+          <Const Name="RCMODE_AUTO">
+            <Value>0x40</Value>
+            <Description>自动签到</Description>
+          </Const>
+          <Const Name="RCMODE_ADMIN">
+            <Value>0x80</Value>
+            <Description>管理员</Description>
+          </Const>
+        </Field>
+        <Field Name="dwOutTime" Type="UniDW">
+          <Description>退出时间</Description>
+        </Field>
+        <Field Name="dwOutMode" Type="UniDW">
+          <Description>退出方式</Description>
+        </Field>
+        <Field Name="dwLeaveTime" Type="UniDW">
+          <Description>暂时离开时间</Description>
+        </Field>
+        <Field Name="dwLeaveMode" Type="UniDW">
+          <Description>暂时离开方式</Description>
+        </Field>
+        <Field Name="dwBackTime" Type="UniDW">
+          <Description>返回时间</Description>
+        </Field>
+        <Field Name="dwBackMode" Type="UniDW">
+          <Description>返回方式</Description>
+        </Field>
       </UniStruct>
 
       <UniStruct Name="RESVKINDSTATREQ">
@@ -16585,6 +16745,62 @@
         </Field>
         <Field Name="dwRealUsers" Type="UniDW">
           <Description>实际到课人数</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="RESVMODESTATREQ">
+        <Description>获取预约方式统计的请求包</Description>
+        <Field Name="dwOwner" Type="UniDW">
+          <Description>预约人(所有者)</Description>
+        </Field>        
+        <Field Name="dwMemberID" Type="UniDW">
+          <Description>成员ID</Description>
+        </Field>
+        <Field Name="dwDevID" Type="UniDW">
+          <Description>设备ID</Description>
+        </Field>
+        <Field Name="dwUseMode" Type="UniDW">
+          <Description>使用方法</Description>
+        </Field>
+        <Field Name="dwPurpose" Type="UniDW">
+          <Description>预约用途</Description>
+        </Field>
+        <Field Name="dwDevKind" Type="UniDW">
+          <Description>设备类型</Description>
+        </Field>
+        <Field Name="dwClassKind" Type="UniDW">
+          <Description>类别(见UNIDEVCLS的Kind定义)</Description>
+        </Field>
+        <Field Name="dwBeginDate" Type="UniDW">
+          <Description>预约开始日期</Description>
+        </Field>
+        <Field Name="dwEndDate" Type="UniDW">
+          <Description>预约结束日期</Description>
+        </Field>
+        <Field Name="szRoomNos" Type="UniSZ">
+          <Description>房间编号,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="dwKind" Type="UniDW">
+          <Description>预约类型</Description>
+        </Field>        
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="RESVMODESTAT">
+        <Description>预约方式统计</Description>
+        <Field Name="dwUseMode" Type="UniDW">
+          <Description>预约方式</Description>
+        </Field>
+        <Field Name="dwUsers" Type="UniDW">
+          <Description>预约人数</Description>
+        </Field>
+        <Field Name="dwResvTimes" Type="UniDW">
+          <Description>预约次数</Description>
+        </Field>
+        <Field Name="dwResvMinutes" Type="UniDW">
+          <Description>预约总时间(分钟)</Description>
         </Field>
       </UniStruct>
 
@@ -16645,6 +16861,18 @@
         <Field Name="dwEndPurchaseDate" Type="UniDW">
           <Description>截止购买日期</Description>
         </Field>
+        <Field Name="szRoomIDs" Type="UniSZ">
+          <Description>房间ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szBuildingIDs" Type="UniSZ">
+          <Description>楼宇ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szCampusIDs" Type="UniSZ">
+          <Description>校区ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="dwActivitySN" Type="UniDW">
+          <Description>活动类型编号</Description>
+        </Field>        
         <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
           <Description>CUniStruct[REQEXTINFO]</Description>
         </Field>
@@ -16855,6 +17083,12 @@
         <Field Name="dwEndDate" Type="UniDW">
           <Description>结束日期</Description>
         </Field>
+        <Field Name="dwStartTime" Type="UniDW">
+          <Description>开始时间</Description>
+        </Field>
+        <Field Name="dwEndTime" Type="UniDW">
+          <Description>结束时间</Description>
+        </Field>        
         <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
           <Description>CUniStruct[REQEXTINFO]</Description>
         </Field>
@@ -16975,6 +17209,40 @@
         </Field>
       </UniStruct>
 
+      <UniStruct Name="ROOMSTAT">
+        <Description>实验室(房间)使用率统计</Description>
+        <Field Name="dwRoomID" Type="UniDW">
+          <Description>房间ID</Description>
+        </Field>
+        <Field Name="szLabSN" Type="UniSZ">
+          <Description>实验室编号</Description>
+        </Field>
+        <Field Name="szLabName" Type="UniSZ">
+          <Description>实验室名称</Description>
+        </Field>
+        <Field Name="szRoomNo" Type="UniSZ">
+          <Description>房间号</Description>
+        </Field>
+        <Field Name="szRoomName" Type="UniSZ">
+          <Description>房间名称</Description>
+        </Field>
+        <Field Name="dwTotalNum" Type="UniDW">
+          <Description>数量(设备数)</Description>
+        </Field>
+        <Field Name="dwTotalTestHour" Type="UniDW">
+          <Description>使用总人学时数</Description>
+        </Field>
+        <Field Name="dwTestUseTimes" Type="UniDW">
+          <Description>教学实验使用人次</Description>
+        </Field>
+        <Field Name="dwUseTimes" Type="UniDW">
+          <Description>课外使用人次</Description>
+        </Field>
+        <Field Name="dwTotalUseTime" Type="UniDW">
+          <Description>课外使用总时间</Description>
+        </Field>
+      </UniStruct>
+      
       <UniStruct Name="DEVKINDSTAT">
         <Description>设备类型使用率统计</Description>
         <Field Name="dwKindID" Type="UniDW">
@@ -17148,7 +17416,10 @@
         </Field>
         <Field Name="dwDeptID" Type="UniDW">
           <Description>人员所属部门ID</Description>
-        </Field>        
+        </Field>
+        <Field Name="dwActivitySN" Type="UniDW">
+          <Description>活动类型编号</Description>
+        </Field>           
         <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
           <Description>CUniStruct[REQEXTINFO]</Description>
         </Field>
@@ -17440,7 +17711,16 @@
         </Field>
         <Field Name="dwClassKind" Type="UniDW">
           <Description>类别(见UNIDEVCLS的Kind定义)</Description>
-        </Field>        
+        </Field>
+         <Field Name="szRoomIDs" Type="UniSZ">
+          <Description>房间ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szBuildingIDs" Type="UniSZ">
+          <Description>楼宇ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szCampusIDs" Type="UniSZ">
+          <Description>校区ID,多个用逗号隔开</Description>
+        </Field>       
         <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
           <Description>CUniStruct[REQEXTINFO]</Description>
         </Field>
@@ -17468,6 +17748,116 @@
         </Field>
       </UniStruct>
 
+      <UniStruct Name="DEVWEEKUSINGRATEREQ">
+        <Description>获取设备周使用率请求</Description>
+        <Field Name="dwGetType" Type="UniDW">
+          <Description><![CDATA[方式]]></Description>
+          <Const Name="DEVUSINGRATE_BYALL">
+            <Value>0</Value>
+            <Description>全部</Description>
+          </Const>
+          <Const Name="DEVUSINGRATE_BYDEVID">
+            <Value>2</Value>
+            <Description>设备ID</Description>
+          </Const>
+          <Const Name="DEVUSINGRATE_BYROOMID">
+            <Value>3</Value>
+            <Description>房间ID</Description>
+          </Const>
+          <Const Name="DEVUSINGRATE_BYLABID">
+            <Value>4</Value>
+            <Description>实验室ID</Description>
+          </Const>
+        </Field>
+        <Field Name="szGetKey" Type="UniSZ">
+          <Description>条件值</Description>
+        </Field>
+        <Field Name="dwStartDate" Type="UniDW">
+          <Description>开始日期</Description>
+        </Field>
+        <Field Name="dwWeeks" Type="UniDW">
+          <Description>查询周数</Description>
+        </Field>
+        <Field Name="dwClassKind" Type="UniDW">
+          <Description>类别(见UNIDEVCLS的Kind定义)</Description>
+        </Field>
+         <Field Name="szRoomIDs" Type="UniSZ">
+          <Description>房间ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szBuildingIDs" Type="UniSZ">
+          <Description>楼宇ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szCampusIDs" Type="UniSZ">
+          <Description>校区ID,多个用逗号隔开</Description>
+        </Field>       
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+        
+      <UniStruct Name="DEVWEEKUSINGRATE">
+        <Description>设备周使用率统计表</Description>
+        <Field Name="dwDevNums" Type="UniDW">
+          <Description>统计设备总数</Description>
+        </Field>
+        <Field Name="dwWeeks" Type="UniDW">
+          <Description>统计周数</Description>
+        </Field>
+        <Field Name="szUsingTable" Type="UniSZ" ExtType="DEVUSINGTABLE[]">
+          <Description>设备使用率数据表(CUniTable[DEVUSINGTABLE]),维数为7</Description>
+        </Field>
+      </UniStruct>
+     
+      <UniStruct Name="YARDACTIVITYSTATREQ">
+        <Description>场馆活动类型统计 请求</Description>
+        <Field Name="dwDevKind" Type="UniDW">
+          <Description>设备类型</Description>
+        </Field>
+        <Field Name="dwClassKind" Type="UniDW">
+          <Description>类别(见UNIDEVCLS的Kind定义)</Description>
+        </Field>
+        <Field Name="dwCheckStat" Type="UniDW">
+          <Description>管理员检查状态(CHECKINFO定义)</Description>
+        </Field>
+        <Field Name="dwStartDate" Type="UniDW">
+          <Description>开始日期</Description>
+        </Field>
+        <Field Name="dwEndDate" Type="UniDW">
+          <Description>结束日期</Description>
+        </Field>
+        <Field Name="szRoomIDs" Type="UniSZ">
+          <Description>房间ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szBuildingIDs" Type="UniSZ">
+          <Description>楼宇ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szCampusIDs" Type="UniSZ">
+          <Description>校区ID,多个用逗号隔开</Description>
+        </Field>
+        <Field Name="szReqExtInfo" Type="UniSZ" ExtType="REQEXTINFO">
+          <Description>CUniStruct[REQEXTINFO]</Description>
+        </Field>
+      </UniStruct>
+      
+     <UniStruct Name="YARDACTIVITYSTAT">
+        <Description>场馆活动类型统计</Description>
+        <Field Name="dwActivitySN" Type="UniDW">
+          <Description>活动类型编号</Description>
+        </Field>
+        <Field Name="szActivityName" Type="UniSZ">
+          <Description>活动类型名称</Description>
+        </Field>
+        <Field Name="dwPIDNum" Type="UniDW">
+          <Description>使用人数</Description>
+        </Field>
+        <Field Name="dwUseTimes" Type="UniDW">
+          <Description>使用人次</Description>
+        </Field>
+        <Field Name="dwTotalUseTime" Type="UniDW">
+          <Description>使用总时间</Description>
+        </Field>
+      </UniStruct>
+      
       <UniStruct Name="DEVMONTHSTATREQ">
         <Description>获取设备月使用统计</Description>
         <Field Name="dwStartDate" Type="UniDW">
@@ -17480,7 +17870,7 @@
           <Description>CUniStruct[REQEXTINFO]</Description>
         </Field>
       </UniStruct>
-
+      
       <UniStruct Name="DEVMONTHSTAT">
         <Description>设备月使用统计</Description>
         <Field Name="dwYearMonth" Type="UniDW">
@@ -18947,7 +19337,11 @@
           <Const Name="CFGDOORCARD_BYTHIRD">
             <Value>(CFGKINDNAME_SYS+19)</Value>
             <Description>门禁刷卡通过第三方实时认证</Description>
-          </Const>          
+          </Const>
+          <Const Name="CFGAUTOGATE_VALIDMIN">
+            <Value>(CFGKINDNAME_SYS+20)</Value>
+            <Description>通道机刷卡有效时间(分钟)</Description>
+          </Const>
           <Const Name="CFGPASSWD_FORBID">
             <Value>(CFGKINDNAME_CCM+1)</Value>
             <Description>禁止客户端修改密码</Description>

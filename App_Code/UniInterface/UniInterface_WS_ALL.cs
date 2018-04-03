@@ -743,6 +743,56 @@ public partial class UniLabAll : UniBaseService
 	}
 	
 	
+	public struct Admin_MobileShakeLoginResult
+	{
+		public uint code;
+		public string Message;
+		public  SHAKELOGINRES vrRes;
+	}
+	
+	[WebMethod (EnableSession = true, Description = "手机摇一摇登录")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+	public Admin_MobileShakeLoginResult 
+	Admin_MobileShakeLogin(SHAKELOGINREQ vrParameter)
+	{
+		if(Context.Session != null)
+		{
+			if(Context.Session["SessionID"] != null)
+			{
+				soaphead.SessionID = (uint)Context.Session["SessionID"];
+				soaphead.StationSN = (uint)Context.Session["StationSN"];
+			}
+		}
+		
+		Admin_MobileShakeLoginResult ret = new Admin_MobileShakeLoginResult();
+		UniRequest m_Request = GetRequest();
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		ret.code = 2;
+
+        uResponse = m_Request.Admin.MobileShakeLogin(vrParameter, out  ret.vrRes);
+		ret.Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			ret.code = 1;
+            return ret;
+        }
+
+		
+		if ((object) ret.vrRes == null)
+		{
+			Trace("vrResult == null");
+			ret.code = 1;
+			return ret;
+		}
+		
+		ret.code = 0;
+		return ret;
+	}
+	
+	
 	public struct Admin_LogoutResult
 	{
 		public uint code;
@@ -15187,6 +15237,106 @@ public partial class UniLabAll : UniBaseService
 		ret.code = 2;
 
         uResponse = m_Request.Console.ResvUserGoOut(vrParameter, out  ret.vrRes);
+		ret.Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			ret.code = 1;
+            return ret;
+        }
+
+		
+		if ((object) ret.vrRes == null)
+		{
+			Trace("vrResult == null");
+			ret.code = 1;
+			return ret;
+		}
+		
+		ret.code = 0;
+		return ret;
+	}
+	
+	
+	public struct Console_ShakeCheckInResult
+	{
+		public uint code;
+		public string Message;
+		public  SHAKECHECKINRES vrRes;
+	}
+	
+	[WebMethod (EnableSession = true, Description = "摇一摇签到开始使用")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+	public Console_ShakeCheckInResult 
+	Console_ShakeCheckIn(SHAKECHECKINREQ vrParameter)
+	{
+		if(Context.Session != null)
+		{
+			if(Context.Session["SessionID"] != null)
+			{
+				soaphead.SessionID = (uint)Context.Session["SessionID"];
+				soaphead.StationSN = (uint)Context.Session["StationSN"];
+			}
+		}
+		
+		Console_ShakeCheckInResult ret = new Console_ShakeCheckInResult();
+		UniRequest m_Request = GetRequest();
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		ret.code = 2;
+
+        uResponse = m_Request.Console.ShakeCheckIn(vrParameter, out  ret.vrRes);
+		ret.Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			ret.code = 1;
+            return ret;
+        }
+
+		
+		if ((object) ret.vrRes == null)
+		{
+			Trace("vrResult == null");
+			ret.code = 1;
+			return ret;
+		}
+		
+		ret.code = 0;
+		return ret;
+	}
+	
+	
+	public struct Console_ShakeComeInResult
+	{
+		public uint code;
+		public string Message;
+		public  SHAKECOMEINRES vrRes;
+	}
+	
+	[WebMethod (EnableSession = true, Description = "摇一摇入馆")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+    [ScriptMethod]
+	public Console_ShakeComeInResult 
+	Console_ShakeComeIn(SHAKECOMEINREQ vrParameter)
+	{
+		if(Context.Session != null)
+		{
+			if(Context.Session["SessionID"] != null)
+			{
+				soaphead.SessionID = (uint)Context.Session["SessionID"];
+				soaphead.StationSN = (uint)Context.Session["StationSN"];
+			}
+		}
+		
+		Console_ShakeComeInResult ret = new Console_ShakeComeInResult();
+		UniRequest m_Request = GetRequest();
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		ret.code = 2;
+
+        uResponse = m_Request.Console.ShakeComeIn(vrParameter, out  ret.vrRes);
 		ret.Message = m_Request.szErrMsg;
 		
 		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)

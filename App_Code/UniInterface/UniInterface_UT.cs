@@ -356,6 +356,54 @@ namespace UniWebLib
 		public string szMemo;		/*说明信息*/
 		};
 
+	/*手机摇一摇登录请求*/
+	public struct SHAKELOGINREQ
+	{
+		private Reserved reserved;
+		
+		public uint? dwStaSN;		/*站点编号*/
+	
+		public string szVersion;		/*版本	XX.XX.XXXXXXXX*/
+	
+		public string szLogonName;		/*登录名*/
+	
+		public string szPassword;		/*密码*/
+	
+		public string szIP;		/*IP地址*/
+	
+		public string szOpenId;		/*摇一摇微信号OpenID*/
+	
+		public uint? dwProperty;		/*扩展属性*/
+	
+		[FlagsAttribute]
+		public enum DWPROPERTY : uint
+		{
+			
+				[EnumDescription("认证成功绑定摇一摇微信号")]
+				MINPROP_BINDOPENID = 1,
+			
+		}
+
+		};
+
+	/*摇一摇登录应答*/
+	public struct SHAKELOGINRES
+	{
+		private Reserved reserved;
+		
+		public uint? dwSessionID;		/*服务器分配的SessionID*/
+	
+	public UNIVERSION SrvVer;		/*UNIVERSION 结构*/
+	
+		public string szPID;		/*学工号*/
+	
+		public string szTrueName;		/*姓名*/
+	
+		public string szDispInfo;		/*显示信息*/
+	
+		public string szMemo;		/*说明信息*/
+		};
+
 	/*获取系统支持的UID*/
 	public struct UIDINFOREQ
 	{
@@ -12275,6 +12323,42 @@ namespace UniWebLib
 
 	/*手机登录退出响应*/
 	public struct RESVUSERGOOUTRES
+	{
+		private Reserved reserved;
+		
+		public string szDispInfo;		/*显示信息*/
+		};
+
+	/*摇一摇签到请求*/
+	public struct SHAKECHECKINREQ
+	{
+		private Reserved reserved;
+		
+		public uint? dwResvID;		/*预约ID号*/
+	
+		public string szMemo;		/*说明信息*/
+		};
+
+	/*摇一摇签到应答*/
+	public struct SHAKECHECKINRES
+	{
+		private Reserved reserved;
+		
+		public string szDispInfo;		/*显示信息*/
+		};
+
+	/*摇一摇进馆请求*/
+	public struct SHAKECOMEINREQ
+	{
+		private Reserved reserved;
+		
+		public uint? dwRoomID;		/*RoomID（扩展）*/
+	
+		public string szMemo;		/*说明信息*/
+		};
+
+	/*摇一摇进馆应答*/
+	public struct SHAKECOMEINRES
 	{
 		private Reserved reserved;
 		

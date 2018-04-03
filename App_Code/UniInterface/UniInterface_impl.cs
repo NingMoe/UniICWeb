@@ -875,6 +875,27 @@ namespace UniWebLib
 		}
 
 
+		/*public REQUESTCODE MobileShakeLogin(CUniStruct<SHAKELOGINREQ> vrParameter,out CUniStruct<SHAKELOGINRES> vrResult)
+		{
+			return Cmd(MSREQ_MOBILE_SHAKELOGIN,vrParameter,out vrResult);
+		}*/
+		
+		public REQUESTCODE MobileShakeLogin(SHAKELOGINREQ  vrParameter,out SHAKELOGINRES  vrResult)
+		{
+			if(OnError != null)
+			{
+				REQUESTCODE ret = UTCmd(MSREQ_MOBILE_SHAKELOGIN,vrParameter,out vrResult);
+				if(ret != REQUESTCODE.EXECUTE_SUCCESS)
+				{
+					OnError(this,ret);
+				}
+				return ret;
+			}else{
+				return UTCmd(MSREQ_MOBILE_SHAKELOGIN,vrParameter,out vrResult);
+			}
+		}
+
+
 		/*public REQUESTCODE Logout(CUniStruct<ADMINLOGOUTREQ> vrParameter,out CUniStruct<ADMINLOGOUTRES> vrResult)
 		{
 			return Cmd(MSREQ_ADMIN_LOGOUT,vrParameter,out vrResult);
@@ -7606,6 +7627,48 @@ namespace UniWebLib
 				return ret;
 			}else{
 				return UTCmd(MSREQ_RESVUSER_GOOUT,vrParameter,out vrResult);
+			}
+		}
+
+
+		/*public REQUESTCODE ShakeCheckIn(CUniStruct<SHAKECHECKINREQ> vrParameter,out CUniStruct<SHAKECHECKINRES> vrResult)
+		{
+			return Cmd(MSREQ_SHAKE_CHECKIN,vrParameter,out vrResult);
+		}*/
+		
+		public REQUESTCODE ShakeCheckIn(SHAKECHECKINREQ  vrParameter,out SHAKECHECKINRES  vrResult)
+		{
+			if(OnError != null)
+			{
+				REQUESTCODE ret = UTCmd(MSREQ_SHAKE_CHECKIN,vrParameter,out vrResult);
+				if(ret != REQUESTCODE.EXECUTE_SUCCESS)
+				{
+					OnError(this,ret);
+				}
+				return ret;
+			}else{
+				return UTCmd(MSREQ_SHAKE_CHECKIN,vrParameter,out vrResult);
+			}
+		}
+
+
+		/*public REQUESTCODE ShakeComeIn(CUniStruct<SHAKECOMEINREQ> vrParameter,out CUniStruct<SHAKECOMEINRES> vrResult)
+		{
+			return Cmd(MSREQ_SHAKE_COMEIN,vrParameter,out vrResult);
+		}*/
+		
+		public REQUESTCODE ShakeComeIn(SHAKECOMEINREQ  vrParameter,out SHAKECOMEINRES  vrResult)
+		{
+			if(OnError != null)
+			{
+				REQUESTCODE ret = UTCmd(MSREQ_SHAKE_COMEIN,vrParameter,out vrResult);
+				if(ret != REQUESTCODE.EXECUTE_SUCCESS)
+				{
+					OnError(this,ret);
+				}
+				return ret;
+			}else{
+				return UTCmd(MSREQ_SHAKE_COMEIN,vrParameter,out vrResult);
 			}
 		}
 

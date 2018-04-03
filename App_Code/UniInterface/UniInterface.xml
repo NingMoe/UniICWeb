@@ -116,6 +116,11 @@
         <Parameter>MOBILELOGINREQ</Parameter>
         <Result>ADMINLOGINRES</Result>
       </Command>
+      <Command Name="MSREQ_MOBILE_SHAKELOGIN" Alias="MobileShakeLogin" UID="0x113">
+        <Description>手机摇一摇登录</Description>
+        <Parameter>SHAKELOGINREQ</Parameter>
+        <Result>SHAKELOGINRES</Result>
+      </Command>      
       <Command Name="MSREQ_ADMIN_LOGOUT" Alias="Logout" UID="0x120">
         <Description><![CDATA[管理员退出]]></Description>
         <Parameter>ADMINLOGOUTREQ</Parameter>
@@ -600,6 +605,58 @@
           <Description><![CDATA[说明信息]]></Description>
         </Field>
       </UniStruct>
+      
+      <UniStruct Name="SHAKELOGINREQ">
+        <Description>手机摇一摇登录请求</Description>
+        <Field Name="dwStaSN" Type="UniDW">
+          <Description>站点编号</Description>
+        </Field>
+        <Field Name="szVersion" Type="UniSZ">
+          <Description><![CDATA[版本	XX.XX.XXXXXXXX]]></Description>
+        </Field>
+        <Field Name="szLogonName" Type="UniSZ">
+          <Description><![CDATA[登录名]]></Description>
+        </Field>
+        <Field Name="szPassword" Type="UniSZ">
+          <Description><![CDATA[密码]]></Description>
+        </Field>
+        <Field Name="szIP" Type="UniSZ">
+          <Description><![CDATA[IP地址]]></Description>
+        </Field>
+        <Field Name="szOpenId" Type="UniSZ">
+          <Description>摇一摇微信号OpenID</Description>
+        </Field>
+        <Field Name="dwProperty" Type="UniDW">
+          <Description>扩展属性</Description>
+          <Const Name="MINPROP_BINDOPENID">
+            <Value>1</Value>
+            <Description>认证成功绑定摇一摇微信号</Description>
+          </Const>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SHAKELOGINRES">
+        <Description>摇一摇登录应答</Description>
+        <Field Name="dwSessionID" Type="UniDW">
+          <Description>服务器分配的SessionID</Description>
+        </Field>
+        <Field Name="SrvVer" Type="UniSZ" ExtType="UNIVERSION">
+          <Description>UNIVERSION 结构</Description>
+        </Field>
+        <Field Name="szPID" Type="UniSZ">
+          <Description>学工号</Description>
+        </Field>
+        <Field Name="szTrueName" Type="UniSZ">
+          <Description>姓名</Description>
+        </Field>
+        <Field Name="szDispInfo" Type="UniSZ">
+          <Description>显示信息</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description><![CDATA[说明信息]]></Description>
+        </Field>
+      </UniStruct>
+
 
       <UniStruct Name="UIDINFOREQ">
         <Description>获取系统支持的UID</Description>
@@ -15525,7 +15582,16 @@
         <Parameter>RESVUSERGOOUTREQ</Parameter>
         <Result>RESVUSERGOOUTRES</Result>
       </Command>
-
+      <Command Name="MSREQ_SHAKE_CHECKIN" Alias="ShakeCheckIn" UID="0x250">
+        <Description>摇一摇签到开始使用</Description>
+        <Parameter>SHAKECHECKINREQ</Parameter>
+        <Result>SHAKECHECKINRES</Result>
+      </Command>
+      <Command Name="MSREQ_SHAKE_COMEIN" Alias="ShakeComeIn" UID="0x251">
+        <Description>摇一摇入馆</Description>
+        <Parameter>SHAKECOMEINREQ</Parameter>
+        <Result>SHAKECOMEINRES</Result>
+      </Command>      
     </Commands>
     <UniStructes>
       <UniStruct Name="CONREQ">
@@ -16214,6 +16280,40 @@
       </UniStruct>
       <UniStruct Name="RESVUSERGOOUTRES">
         <Description>手机登录退出响应</Description>
+        <Field Name="szDispInfo" Type="UniSZ">
+          <Description>显示信息</Description>
+        </Field>
+      </UniStruct>
+      
+      <UniStruct Name="SHAKECHECKINREQ">
+        <Description>摇一摇签到请求</Description>
+        <Field Name="dwResvID" Type="UniDW">
+          <Description>预约ID号</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SHAKECHECKINRES">
+        <Description>摇一摇签到应答</Description>
+        <Field Name="szDispInfo" Type="UniSZ">
+          <Description>显示信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SHAKECOMEINREQ">
+        <Description>摇一摇进馆请求</Description>
+        <Field Name="dwRoomID" Type="UniDW">
+          <Description>RoomID（扩展）</Description>
+        </Field>
+        <Field Name="szMemo" Type="UniSZ">
+          <Description>说明信息</Description>
+        </Field>
+      </UniStruct>
+
+      <UniStruct Name="SHAKECOMEINRES">
+        <Description>摇一摇进馆应答</Description>
         <Field Name="szDispInfo" Type="UniSZ">
           <Description>显示信息</Description>
         </Field>

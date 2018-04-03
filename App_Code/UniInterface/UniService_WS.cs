@@ -436,6 +436,36 @@ public partial class UniService : UniBaseService
 		return;
 	}
 	
+	[WebMethod (Description = "手机摇一摇登录")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+	public void 
+	Admin_MobileShakeLogin(out uint code,out string Message ,SHAKELOGINREQ vrParameter,out SHAKELOGINRES vrRes)
+	{
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		code = 2;
+
+        uResponse = m_Request.Admin.MobileShakeLogin(vrParameter, out  vrRes);
+		Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			code = 1;
+            return;
+        }
+
+		
+		if ((object) vrRes == null)
+		{
+			Trace("vrResult == null");
+			code = 1;
+			return;
+		}
+		
+		code = 0;
+		return;
+	}
+	
 	[WebMethod (Description = "管理员退出")]
 	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
 	[System.Web.Services.Protocols.SoapHeader("soaphead")]
@@ -9117,6 +9147,66 @@ public partial class UniService : UniBaseService
 		code = 2;
 
         uResponse = m_Request.Console.ResvUserGoOut(vrParameter, out  vrRes);
+		Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			code = 1;
+            return;
+        }
+
+		
+		if ((object) vrRes == null)
+		{
+			Trace("vrResult == null");
+			code = 1;
+			return;
+		}
+		
+		code = 0;
+		return;
+	}
+	
+	[WebMethod (Description = "摇一摇签到开始使用")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+	public void 
+	Console_ShakeCheckIn(out uint code,out string Message ,SHAKECHECKINREQ vrParameter,out SHAKECHECKINRES vrRes)
+	{
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		code = 2;
+
+        uResponse = m_Request.Console.ShakeCheckIn(vrParameter, out  vrRes);
+		Message = m_Request.szErrMsg;
+		
+		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)
+        {
+			code = 1;
+            return;
+        }
+
+		
+		if ((object) vrRes == null)
+		{
+			Trace("vrResult == null");
+			code = 1;
+			return;
+		}
+		
+		code = 0;
+		return;
+	}
+	
+	[WebMethod (Description = "摇一摇入馆")]
+	//[SoapHeader("soaphead", Direction = SoapHeaderDirection.InOut)]
+	[System.Web.Services.Protocols.SoapHeader("soaphead")]
+	public void 
+	Console_ShakeComeIn(out uint code,out string Message ,SHAKECOMEINREQ vrParameter,out SHAKECOMEINRES vrRes)
+	{
+	    REQUESTCODE uResponse = REQUESTCODE.DBERR_OPENFAIL;
+		code = 2;
+
+        uResponse = m_Request.Console.ShakeComeIn(vrParameter, out  vrRes);
 		Message = m_Request.szErrMsg;
 		
 		if (uResponse != REQUESTCODE.EXECUTE_SUCCESS)

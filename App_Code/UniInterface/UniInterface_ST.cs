@@ -124,6 +124,40 @@ public partial class Struct_ST
 		"szMemo",		/*说明信息*/
 	 ""};
 
+	/*手机摇一摇登录请求*/
+	static public string[] SHAKELOGINREQ = new string[]{
+		
+		"dwStaSN",		/*站点编号*/
+		
+		"szVersion",		/*版本	XX.XX.XXXXXXXX*/
+	
+		"szLogonName",		/*登录名*/
+	
+		"szPassword",		/*密码*/
+	
+		"szIP",		/*IP地址*/
+	
+		"szOpenId",		/*摇一摇微信号OpenID*/
+	
+      "dwProperty",		/*扩展属性*/
+		 ""};
+
+	/*摇一摇登录应答*/
+	static public string[] SHAKELOGINRES = new string[]{
+		
+		"dwSessionID",		/*服务器分配的SessionID*/
+		
+	"SrvVer",		/*UNIVERSION 结构*/
+	
+		"szPID",		/*学工号*/
+	
+		"szTrueName",		/*姓名*/
+	
+		"szDispInfo",		/*显示信息*/
+	
+		"szMemo",		/*说明信息*/
+	 ""};
+
 	/*获取系统支持的UID*/
 	static public string[] UIDINFOREQ = new string[]{
 		
@@ -8191,6 +8225,34 @@ public partial class Struct_ST
 
 	/*手机登录退出响应*/
 	static public string[] RESVUSERGOOUTRES = new string[]{
+		
+		"szDispInfo",		/*显示信息*/
+	 ""};
+
+	/*摇一摇签到请求*/
+	static public string[] SHAKECHECKINREQ = new string[]{
+		
+		"dwResvID",		/*预约ID号*/
+		
+		"szMemo",		/*说明信息*/
+	 ""};
+
+	/*摇一摇签到应答*/
+	static public string[] SHAKECHECKINRES = new string[]{
+		
+		"szDispInfo",		/*显示信息*/
+	 ""};
+
+	/*摇一摇进馆请求*/
+	static public string[] SHAKECOMEINREQ = new string[]{
+		
+		"dwRoomID",		/*RoomID（扩展）*/
+		
+		"szMemo",		/*说明信息*/
+	 ""};
+
+	/*摇一摇进馆应答*/
+	static public string[] SHAKECOMEINRES = new string[]{
 		
 		"szDispInfo",		/*显示信息*/
 	 ""};
