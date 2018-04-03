@@ -24,6 +24,8 @@ public partial class searchAccount : UniWebLib.UniPage
         else if (szType.ToLower() == "logonname")
         {
             vrGet.szLogonName = szTerm;// (uint)ACCREQ.DWGETTYPE.ACCGET_BYLOGONNAME;
+            vrGet.szReqExtInfo.szOrderKey = "szLogonName";
+            vrGet.szReqExtInfo.szOrderMode = "asc";
         }
         else if (szType.ToLower() == "truename")
         {
@@ -43,7 +45,7 @@ public partial class searchAccount : UniWebLib.UniPage
             vrGet.dwIdent = (uint)UNIACCOUNT.DWIDENT.EXTIDENT_TUTOR;
         }
        // vrGet.szGetID = szTerm;
-        vrGet.szReqExtInfo.dwNeedLines = 10; //最多10条
+        vrGet.szReqExtInfo.dwNeedLines = 15; //最多10条
 
         if (m_Request.Account.Get(vrGet, out vtAccount) == REQUESTCODE.EXECUTE_SUCCESS && vtAccount != null)
         {
