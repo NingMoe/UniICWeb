@@ -416,11 +416,35 @@ public partial class login :UniPage
             Response.End();
             return;
         }
+      
+
         m_Request.m_UniDCom.SessionID = uSessionID;
         REPORTREQ vrParameter = new REPORTREQ();
         vrParameter.szReqExtInfo.szOrderKey = "dwTotalUseTime";
         vrParameter.szReqExtInfo.szOrderMode = "desc";
         string szClassKind = Request["classkind"];
+
+        uint uBeginDate = Parse(Request["begindate"]);
+        uint uEndDate = Parse(Request["enddate"]);
+        uint uDateMonthB = Parse(DateTime.Now.ToString("yyyyMM") + "01");
+        uint uDateMonthE = Parse(DateTime.Now.ToString("yyyyMM") + "31");
+        if (uBeginDate != 0)
+        {
+            vrParameter.dwStartDate = uBeginDate;
+        }
+        else {
+            vrParameter.dwStartDate = uDateMonthB;
+        }
+
+        if (uEndDate != 0)
+        {
+            vrParameter.dwEndDate = uEndDate;
+        }
+        else
+        {
+            vrParameter.dwEndDate = uDateMonthE;
+        }
+
         if (!string.IsNullOrEmpty(szClassKind))
         {
             uint uClassKind = Parse(szClassKind);

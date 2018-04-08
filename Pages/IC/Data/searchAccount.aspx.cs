@@ -9,6 +9,8 @@ public partial class searchAccount : UniWebLib.UniPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        
+
         string szTerm = Request["term"];
         string szType = Request["Type"];
         string szIdent = Request["ident"];

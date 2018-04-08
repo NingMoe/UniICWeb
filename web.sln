@@ -3,25 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "web", ".", "{97D6F1CF-19A3-4994-BAC3-77DEC9B5AC56}"
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "ICWeb", ".", "{97D6F1CF-19A3-4994-BAC3-77DEC9B5AC56}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv2.0"
 		Debug.AspNetCompiler.VirtualPath = "/localhost_8295"
-		Debug.AspNetCompiler.PhysicalPath = "..\web\"
+		Debug.AspNetCompiler.PhysicalPath = "..\ICWeb\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8295\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
 		Release.AspNetCompiler.VirtualPath = "/localhost_8295"
-		Release.AspNetCompiler.PhysicalPath = "..\web\"
+		Release.AspNetCompiler.PhysicalPath = "..\ICWeb\"
 		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_8295\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "8295"
-		SlnRelativePath = "..\web\"
+		SlnRelativePath = "..\ICWeb\"
 	EndProjectSection
 EndProject
 Global

@@ -21,6 +21,7 @@ public partial class _Default : UniPage
     public string m_szMsg2 = "";
 	public string m_szType = "";
     public string m_szOther = "";
+    public string m_status = "0";
     public string validateServer = "http://update.unifound.net/unialipay/BindSchoolAli.aspx";
     //http://update.unifound.net/wxnotice/qrcode.aspx?pcid=1&id=1&session=Seat&msg=座位号:001
 
