@@ -23,7 +23,7 @@ public partial class Sub_Course : UniPage
             GetPageCtrlValue(out vrParameter.szReqExtInfo);
             if (!IsPostBack)
             {
-                dwStartDate.Value = DateTime.Now.AddDays(-30).ToString("yyyy-MM-dd");
+                dwStartDate.Value = DateTime.Now.AddDays(-7).ToString("yyyy-MM-dd");
                 dwEndDate.Value = DateTime.Now.ToString("yyyy-MM-dd");
 
             }

@@ -79,7 +79,8 @@ public partial class Sub_Lab : UniPage
         {
             DateTime dt=DateTime.Now.AddSeconds(30);
             setResv.dwEndTime=Get1970Seconds(dt.ToString("yyyy-MM-dd HH:mm"));
-            m_Request.Reserve.Set(setResv, out setResv);
+            //m_Request.Reserve.Set(setResv, out setResv);
+            m_Request.Reserve.ResvEarlyEnd(setResv);
         }
     }
     protected void Stop(string szResvID)

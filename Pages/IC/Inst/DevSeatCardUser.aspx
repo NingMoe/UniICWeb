@@ -89,7 +89,7 @@
                 $(".delLabBtn").click(function () {
                     var szLabSN = $(this).parents("tr").children().first().text();
                     var dwLabID = $(this).parents("tr").children().first().attr("data-id");
-                    ConfirmBox("强制刷卡离座,30秒后生效?", function () {
+                    ConfirmBox("强制刷卡离座?", function () {
                         ShowWait();
                         TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&ID=" + dwLabID);
                 }, '提示', 1, function () { });
