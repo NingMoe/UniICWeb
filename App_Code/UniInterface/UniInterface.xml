@@ -278,6 +278,10 @@
             <Value>0x4</Value>
             <Description>用户登录</Description>
           </Const>
+          <Const Name="LOGIN_SHAKE">
+            <Value>0x8</Value>
+            <Description>摇一摇</Description>
+          </Const>          
           <Const Name="LOGIN_MASK">
             <Value>0xFF</Value>
             <Description>用户登录掩码</Description>
@@ -527,38 +531,6 @@
         </Field>
         <Field Name="dwLoginRole" Type="UniDW">
           <Description>登录模式</Description>
-          <Const Name="LOGIN_MANAGER">
-            <Value>0x1</Value>
-            <Description>管理员登录</Description>
-          </Const>
-          <Const Name="LOGIN_TEACHER">
-            <Value>0x2</Value>
-            <Description>教师登录</Description>
-          </Const>
-          <Const Name="LOGIN_USER">
-            <Value>0x4</Value>
-            <Description>用户登录</Description>
-          </Const>
-          <Const Name="LOGIN_MASK">
-            <Value>0xFF</Value>
-            <Description>用户登录掩码</Description>
-          </Const>
-          <Const Name="LOGINEXT_PC">
-            <Value>0x100</Value>
-            <Description>电脑登录</Description>
-          </Const>
-          <Const Name="LOGINEXT_HP">
-            <Value>0x200</Value>
-            <Description>手机（微信）登录</Description>
-          </Const>
-          <Const Name="LOGINEXT_CONSOLE">
-            <Value>0x400</Value>
-            <Description>控制台登录</Description>
-          </Const>
-          <Const Name="LOGINEXT_MASK">
-            <Value>0xFF00</Value>
-            <Description>用户登录扩展掩码</Description>
-          </Const>
         </Field>
         <Field Name="szVersion" Type="UniSZ">
           <Description><![CDATA[版本	XX.XX.XXXXXXXX]]></Description>
@@ -2965,6 +2937,10 @@
             <Value>0x40</Value>
             <Description>微信ID号</Description>
           </Const>
+          <Const Name="ACCCHECK_BYOPENID">
+            <Value>0x80</Value>
+            <Description>微信OpenID号(摇一摇)</Description>
+          </Const>          
           <Const Name="ACCCHECK_WITHPW">
             <Value>0x100</Value>
             <Description>需认证密码</Description>

@@ -60,6 +60,9 @@ namespace UniWebLib
 				[EnumDescription("用户登录")]
 				LOGIN_USER = 0x4,
 			
+				[EnumDescription("摇一摇")]
+				LOGIN_SHAKE = 0x8,
+			
 				[EnumDescription("用户登录掩码")]
 				LOGIN_MASK = 0xFF,
 			
@@ -279,37 +282,6 @@ namespace UniWebLib
 		public uint? dwStaSN;		/*站点编号*/
 	
 		public uint? dwLoginRole;		/*登录模式*/
-	
-		[FlagsAttribute]
-		public enum DWLOGINROLE : uint
-		{
-			
-				[EnumDescription("管理员登录")]
-				LOGIN_MANAGER = 0x1,
-			
-				[EnumDescription("教师登录")]
-				LOGIN_TEACHER = 0x2,
-			
-				[EnumDescription("用户登录")]
-				LOGIN_USER = 0x4,
-			
-				[EnumDescription("用户登录掩码")]
-				LOGIN_MASK = 0xFF,
-			
-				[EnumDescription("电脑登录")]
-				LOGINEXT_PC = 0x100,
-			
-				[EnumDescription("手机（微信）登录")]
-				LOGINEXT_HP = 0x200,
-			
-				[EnumDescription("控制台登录")]
-				LOGINEXT_CONSOLE = 0x400,
-			
-				[EnumDescription("用户登录扩展掩码")]
-				LOGINEXT_MASK = 0xFF00,
-			
-		}
-
 	
 		public string szVersion;		/*版本	XX.XX.XXXXXXXX*/
 	
@@ -2224,6 +2196,9 @@ namespace UniWebLib
 			
 				[EnumDescription("微信ID号")]
 				ACCCHECK_BYMSN = 0x40,
+			
+				[EnumDescription("微信OpenID号(摇一摇)")]
+				ACCCHECK_BYOPENID = 0x80,
 			
 				[EnumDescription("需认证密码")]
 				ACCCHECK_WITHPW = 0x100,

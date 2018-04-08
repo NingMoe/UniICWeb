@@ -91,7 +91,7 @@ public partial class Struct_ST
 		
 		"dwStaSN",		/*站点编号*/
 		
-      "dwLoginRole",		/*登录模式*/
+		"dwLoginRole",		/*登录模式*/
 		
 		"szVersion",		/*版本	XX.XX.XXXXXXXX*/
 	
