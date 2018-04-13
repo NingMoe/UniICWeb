@@ -19,7 +19,8 @@ public partial class _Default : UniPage
     public string m_szTitle = "";
     public string m_szMsg = "";
     public string m_szMsg2 = "";
-	public string m_szType = "";
+    public string m_szResvMsg = "";
+    public string m_szType = "";
     public string m_szOther = "";
     public string m_status = "0";
     public string validateServer = "http://update.unifound.net/unialipay/BindSchoolAli.aspx";
@@ -218,6 +219,31 @@ public partial class _Default : UniPage
 
             req.szIP = GetRealIP();// "192.168.3.299";
             REQUESTCODE uResponse = m_Request.Console.MobileScan(req, out res);
+            Session["dwSessionID"] = res.dwSessionID;
+            DEVRESVSTATREQ stareq = new DEVRESVSTATREQ();
+            stareq.dwDevID = req.dwDevID;
+            stareq.dwResvPurpose = 319;
+            stareq.szReqExtInfo.dwStartLine = 0;
+            stareq.szReqExtInfo.dwNeedLines = 10000;
+            stareq.szDates = DateTime.Now.ToString("yyyyMMdd");
+            if (Session["dwSessionID"]!=null)
+            {
+                m_Request.m_UniDCom.SessionID = (uint)Session["dwSessionID"];
+                DEVRESVSTAT[] vrResult;
+                REQUESTCODE uResponse1 = m_Request.Device.GetDevResvStat(stareq, out vrResult);
+                if (uResponse1 == REQUESTCODE.EXECUTE_SUCCESS&&vrResult[0].szResvInfo.Length>0)
+                {
+                    m_szResvMsg = "设备预约信息:";
+                    for (int i = 0; i < vrResult[0].szResvInfo.Length; i++)
+                    {
+                        string bengindate =vrResult[0].szResvInfo[i].dwBegin.ToString();
+                        string enddate = vrResult[0].szResvInfo[i].dwEnd.ToString();
+                        
+                        string date = "["+returndate(bengindate)+"-" + returndate(enddate) + "],";
+                        m_szResvMsg += date;
+                    }
+                }
+            }
             string szschoolCode = Request["sysidform"];
             string szUserID = Request["aluseridform"];
             
@@ -396,15 +422,15 @@ public partial class _Default : UniPage
         {
             if (Request.UserAgent.IndexOf("MicroMessenger") < 0)
             {
-                Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&aliUserid=" + aliUserid + "&sysid=" + szSchoolCode + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther);
+                Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&aliUserid=" + aliUserid + "&sysid=" + szSchoolCode + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther+"&ResvMsg=" + Server.UrlEncode(m_szResvMsg));
             }
             else {
-                Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&wxUserid=" + aliUserid + "&sysid=" + szSchoolCode + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther);
+                Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&wxUserid=" + aliUserid + "&sysid=" + szSchoolCode + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther+"&ResvMsg=" + Server.UrlEncode(m_szResvMsg));
             }
             
         }
         else {
-            Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther+ "&status="+ m_status);
+            Response.Redirect("WxSeatSignMsg.aspx?type=" + m_szType + "&title=" + Server.UrlEncode(m_szTitle) + "&msg=" + Server.UrlEncode(m_szMsg) + "&msg2=" + Server.UrlEncode(m_szMsg2) + m_szOther+ "&ResvMsg=" + Server.UrlEncode(m_szResvMsg) + "&status=" + m_status);
         }
     }
 	
@@ -452,4 +478,22 @@ public partial class _Default : UniPage
         Logger.trace("resp:" + resp);
 
     }
+    //返回00:00格式时间
+    public string returndate(string strdate)
+    {
+        string rtdates="";
+        if (!string.IsNullOrEmpty(strdate))
+        {
+            rtdates = (uint.Parse(strdate)/100).ToString();
+            if (uint.Parse(strdate) % 100 == 0 || uint.Parse(strdate) % 100 == 5)
+            {
+                rtdates = rtdates + ":0" + uint.Parse(strdate) % 100;
+            }
+            else {
+                rtdates = rtdates + ":" + uint.Parse(strdate) % 100;
+            }  
+        }
+        return rtdates;
+    }
+
 }

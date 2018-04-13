@@ -699,18 +699,32 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
             {
                 if (m == 0)//只检测第一个开放规则是因为过期的开放规则服务不会返回
                 {
-                    if (open[0].dwDate == ToUInt(DateTime.Now.ToString("yyyyMMdd")) && arr[k] < ToUInt(DateTime.Now.ToString("HHmm")))//如果是当天 则检查开始时间
-                    {
-                        return -3;
-                    }
+                    //if (open[0].dwDate == ToUInt(DateTime.Now.ToString("yyyyMMdd")) && arr[k]> ToUInt(DateTime.Now.ToString("HHmm")))//如果是当天 则检查开始时间
+                    //{
+                    //    return -3;
+                    //}
                 }
                 if (m > 0 && open[m].dwDate != null && open[m].dwDate != open[m - 1].dwDate)//新的一天
                 {
                     if (outside) return -3;//不在开放时间
                     else outside = true;
                 }
-                if (arr[k] >= open[m].dwBegin && arr[k + 1] <= open[m].dwEnd)
-                    outside = false;
+                int nLenTemp = open.Length;
+                if (nLenTemp== 2)
+                {
+                    if (arr[k] >= open[m].dwBegin && (arr[k + 1] <= open[0].dwEnd|| arr[k + 1] <= open[1].dwEnd))
+                        outside = false;
+                }
+                if (nLenTemp ==3)
+                {
+                    if (arr[k] >= open[m].dwBegin && (arr[k + 1] <= open[0].dwEnd || arr[k + 1] <= open[1].dwEnd || arr[k + 1] <= open[2].dwEnd))
+                        outside = false;
+                }
+                else
+                {
+                    if (arr[k] >= open[m].dwBegin && arr[k + 1] <= open[m].dwEnd)
+                        outside = false;
+                }
             }
             if (outside)
                 return -3;
@@ -963,6 +977,11 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
     {
         string devid = Request["dev_id"];
         string name = Request["dev_name"];
+        //赵康4-4
+        if (string.IsNullOrEmpty(name)&&Request["cld_name"]!= null&& Request["cld_name"] != "default")
+        {
+            name = Request["cld_name"];
+        }
         string campusId = Request["campus"];
         string labid = Request["lab_id"];
         string roomId = Request["room_id"];
@@ -982,7 +1001,7 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
         bool isAllOpenRule = Request["all_open"] == "true";
         string order = Request["dev_order"];
         string reqPr=Request["req_prop"];
-        
+
         List<devResvSta> list = new List<devResvSta>();
         rs = list;
         if (string.IsNullOrEmpty(dt))
@@ -1082,6 +1101,8 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
         {
             for (int i = 0; i < rlt.Length; i++)
             {
+                freeStart = Request["fr_start"];
+
                 if (IsStat(rlt[i].dwProperty, (uint)UNIDEVICE.DWPROPERTY.DEVPROP_NORESV)) continue;//不支持预约
 
                 if (string.IsNullOrEmpty(devid))
@@ -1098,6 +1119,7 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
                     }
                 }
                 //
+
                 devResvSta sta = ConvertDevResvSta(rlt[i], (dt.Split(',').Length > 1 && !isAllOpenRule),dt);
                 sta.clskind = classKind;
                 sta.classId = classId;
@@ -1109,9 +1131,23 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
                     freeAllDay = true;
                     if (freeAllDay)
                     {
-                        if (DateTime.Now > DateTime.Parse(Request["date"] + " " + freeStart)) freeStart = DateTime.Now.ToString("HH:mm");
-                        else freeStart = sta.open[0];
-                        freeEnd = sta.open[1];
+                        if (DateTime.Now > (DateTime.Parse(Request["date"] + " " + freeStart)))//跨分钟处理
+                        {
+                            freeStart = DateTime.Now.ToString("HH:mm");
+                        }
+                        if ((DateTime.Parse(Request["date"] + " " + freeStart))<DateTime.Parse(sta.open[0]))//传入开始时间小于规则开始时间
+                        {
+                            freeStart = sta.open[0];
+                        }
+                        if ((DateTime.Parse(Request["date"] + " " + freeEnd)) > DateTime.Parse(sta.open[1]))//传入开始时间大于规则结束时间
+                        {
+                            freeEnd= sta.open[1];
+                        }
+
+                        //{
+                        //    freeStart = sta.open[0];
+                        //}
+                        //freeEnd = sta.open[1];
                     }
                     else
                     {
@@ -1126,6 +1162,8 @@ public partial class ClientWeb_pro_ajax_device : UniClientAjax
                     {
                         freeSta = getDevFreeStat(rlt[i], arr);//0=空闲 >0有预约的条数 其它返回 -2=已过期 -3 不在开放时间 -1=已审核/管理员预留 不可用
                         if (dt.Split(',').Length == 1)//多天无意义
+
+                            //arr数组中时间应该取传入时间得当前条件下空闲时间
                             freeTime = getDevFreeTime(rlt[i], arr);
                     }
                 }

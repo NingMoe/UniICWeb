@@ -23,6 +23,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*版本信息*/
+	
 	public struct UNIVERSION
 	{
 		private Reserved reserved;
@@ -39,6 +40,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*管理员登录请求*/
+	
 	public struct ADMINLOGINREQ
 	{
 		private Reserved reserved;
@@ -109,6 +111,7 @@ namespace UniWebLib
 		};
 
 	/*管理员登录应答*/
+	
 	public struct ADMINLOGINRES
 	{
 		private Reserved reserved;
@@ -275,6 +278,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录请求*/
+	
 	public struct MOBILELOGINREQ
 	{
 		private Reserved reserved;
@@ -307,6 +311,7 @@ namespace UniWebLib
 		};
 
 	/*控制台退出请求*/
+	
 	public struct ADMINLOGOUTREQ
 	{
 		private Reserved reserved;
@@ -321,6 +326,7 @@ namespace UniWebLib
 		};
 
 	/*控制台退出响应*/
+	
 	public struct ADMINLOGOUTRES
 	{
 		private Reserved reserved;
@@ -329,6 +335,7 @@ namespace UniWebLib
 		};
 
 	/*手机摇一摇登录请求*/
+	
 	public struct SHAKELOGINREQ
 	{
 		private Reserved reserved;
@@ -359,6 +366,7 @@ namespace UniWebLib
 		};
 
 	/*摇一摇登录应答*/
+	
 	public struct SHAKELOGINRES
 	{
 		private Reserved reserved;
@@ -377,6 +385,7 @@ namespace UniWebLib
 		};
 
 	/*获取系统支持的UID*/
+	
 	public struct UIDINFOREQ
 	{
 		private Reserved reserved;
@@ -393,6 +402,7 @@ namespace UniWebLib
 		};
 
 	/*系统支持的UID*/
+	
 	public struct UIDINFO
 	{
 		private Reserved reserved;
@@ -430,6 +440,7 @@ namespace UniWebLib
 		};
 
 	/*字段限制*/
+	
 	public struct FIELDLIMIT
 	{
 		private Reserved reserved;
@@ -440,6 +451,7 @@ namespace UniWebLib
 		};
 
 	/*UID权限明细*/
+	
 	public struct PRIVUID
 	{
 		private Reserved reserved;
@@ -478,6 +490,7 @@ namespace UniWebLib
 		};
 
 	/*获取操作权限请求*/
+	
 	public struct OPPRIVREQ
 	{
 		private Reserved reserved;
@@ -492,6 +505,7 @@ namespace UniWebLib
 		};
 
 	/*操作权限*/
+	
 	public struct OPPRIV
 	{
 		private Reserved reserved;
@@ -514,6 +528,7 @@ namespace UniWebLib
 		};
 
 	/*获取用户角色*/
+	
 	public struct USERROLEREQ
 	{
 		private Reserved reserved;
@@ -526,6 +541,7 @@ namespace UniWebLib
 		};
 
 	/*用户角色*/
+	
 	public struct USERROLE
 	{
 		private Reserved reserved;
@@ -544,6 +560,7 @@ namespace UniWebLib
 		};
 
 	/*客户端卸载密码结构*/
+	
 	public struct CLTPASSWD
 	{
 		private Reserved reserved;
@@ -560,6 +577,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct ADMINREQ
 	{
 		private Reserved reserved;
@@ -586,6 +604,7 @@ namespace UniWebLib
 		};
 
 	/*管理员信息*/
+	
 	public struct UNIADMIN
 	{
 		private Reserved reserved;
@@ -652,6 +671,7 @@ namespace UniWebLib
 		};
 
 	/*获取管理房间请求*/
+	
 	public struct MANROOMREQ
 	{
 		private Reserved reserved;
@@ -664,6 +684,7 @@ namespace UniWebLib
 		};
 
 	/*管理员管理房间*/
+	
 	public struct MANROOM
 	{
 		private Reserved reserved;
@@ -680,6 +701,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct ADMINCHECK
 	{
 		private Reserved reserved;
@@ -776,6 +798,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用审核信息*/
+	
 	public struct USEDDEVCHECKINFO
 	{
 		private Reserved reserved;
@@ -802,6 +825,7 @@ namespace UniWebLib
 		};
 
 	/*获取审核信息*/
+	
 	public struct CHECKREQ
 	{
 		private Reserved reserved;
@@ -820,6 +844,7 @@ namespace UniWebLib
 		};
 
 	/*审核信息*/
+	
 	public struct CHECKINFO
 	{
 		private Reserved reserved;
@@ -842,6 +867,7 @@ namespace UniWebLib
 		};
 
 	/*获取审核信息日志*/
+	
 	public struct CHECKLOGREQ
 	{
 		private Reserved reserved;
@@ -860,6 +886,7 @@ namespace UniWebLib
 		};
 
 	/*审核信息日志*/
+	
 	public struct CHECKLOG
 	{
 		private Reserved reserved;
@@ -890,6 +917,7 @@ namespace UniWebLib
 		};
 
 	/*获取刷新标志请求*/
+	
 	public struct REFRESHFLAGREQ
 	{
 		private Reserved reserved;
@@ -914,6 +942,7 @@ namespace UniWebLib
 		};
 
 	/*获取刷新标志请求*/
+	
 	public struct REFRESHFLAGINFO
 	{
 		private Reserved reserved;
@@ -924,6 +953,7 @@ namespace UniWebLib
 		};
 
 	/*获取节假日*/
+	
 	public struct HOLIDAYREQ
 	{
 		private Reserved reserved;
@@ -934,6 +964,7 @@ namespace UniWebLib
 		};
 
 	/*节假日信息*/
+	
 	public struct UNIHOLIDAY
 	{
 		private Reserved reserved;
@@ -948,6 +979,7 @@ namespace UniWebLib
 		};
 
 	/*检测某个值是否存在请求*/
+	
 	public struct CHECKEXISTREQ
 	{
 		private Reserved reserved;
@@ -962,6 +994,7 @@ namespace UniWebLib
 		};
 
 	/*获取某个字段的最大值请求*/
+	
 	public struct MAXVALUEREQ
 	{
 		private Reserved reserved;
@@ -974,6 +1007,7 @@ namespace UniWebLib
 		};
 
 	/*返回最大值*/
+	
 	public struct MAXVALUE
 	{
 		private Reserved reserved;
@@ -982,6 +1016,7 @@ namespace UniWebLib
 		};
 
 	/*工作管理人员界面参数信息请求*/
+	
 	public struct IFPARAMREQ
 	{
 		private Reserved reserved;
@@ -990,6 +1025,7 @@ namespace UniWebLib
 		};
 
 	/*工作管理人员界面参数信息*/
+	
 	public struct IFPARAM
 	{
 		private Reserved reserved;
@@ -1002,6 +1038,7 @@ namespace UniWebLib
 		};
 
 	/*获取管理员操作日志请求包*/
+	
 	public struct ADMINLOGREQ
 	{
 		private Reserved reserved;
@@ -1020,6 +1057,7 @@ namespace UniWebLib
 		};
 
 	/*管理员操作日志*/
+	
 	public struct ADMINLOG
 	{
 		private Reserved reserved;
@@ -1042,6 +1080,7 @@ namespace UniWebLib
 		};
 
 	/*IP地址黑名单*/
+	
 	public struct IPBLACKLIST
 	{
 		private Reserved reserved;
@@ -1056,6 +1095,7 @@ namespace UniWebLib
 		};
 
 	/*管理员修改密码*/
+	
 	public struct ADMINCHGPASSWD
 	{
 		private Reserved reserved;
@@ -1070,6 +1110,7 @@ namespace UniWebLib
 		};
 
 	/*系统状态*/
+	
 	public struct BSYSINFO
 	{
 		private Reserved reserved;
@@ -1082,6 +1123,7 @@ namespace UniWebLib
 		};
 
 	/*状态统计信息*/
+	
 	public struct STATUSINFO
 	{
 		private Reserved reserved;
@@ -1092,6 +1134,7 @@ namespace UniWebLib
 		};
 
 	/*审核信息统计*/
+	
 	public struct BCHECKSTAT
 	{
 		private Reserved reserved;
@@ -1104,6 +1147,7 @@ namespace UniWebLib
 		};
 
 	/*设备信息统计*/
+	
 	public struct BDEVSTAT
 	{
 		private Reserved reserved;
@@ -1116,6 +1160,7 @@ namespace UniWebLib
 		};
 
 	/*房间信息统计*/
+	
 	public struct BROOMSTAT
 	{
 		private Reserved reserved;
@@ -1128,6 +1173,7 @@ namespace UniWebLib
 		};
 
 	/*今日课程统计*/
+	
 	public struct BTODAYRESVSTAT
 	{
 		private Reserved reserved;
@@ -1140,6 +1186,7 @@ namespace UniWebLib
 		};
 
 	/*自由上机统计*/
+	
 	public struct BFREEUSESTAT
 	{
 		private Reserved reserved;
@@ -1154,6 +1201,7 @@ namespace UniWebLib
 		};
 
 	/*服务器返回信息*/
+	
 	public struct BASICSTAT
 	{
 		private Reserved reserved;
@@ -1197,6 +1245,7 @@ namespace UniWebLib
 		};
 
 	/*审核类别请求*/
+	
 	public struct CHECKTYPEREQ
 	{
 		private Reserved reserved;
@@ -1207,6 +1256,7 @@ namespace UniWebLib
 		};
 
 	/*审核类别*/
+	
 	public struct CHECKTYPE
 	{
 		private Reserved reserved;
@@ -1252,6 +1302,7 @@ namespace UniWebLib
 		};
 
 	/*获取用户意见反馈请求*/
+	
 	public struct USERFEEDBACKREQ
 	{
 		private Reserved reserved;
@@ -1282,6 +1333,7 @@ namespace UniWebLib
 		};
 
 	/*用户意见反馈*/
+	
 	public struct USERFEEDBACK
 	{
 		private Reserved reserved;
@@ -1377,6 +1429,7 @@ namespace UniWebLib
 		};
 
 	/*服务类别请求*/
+	
 	public struct SERVICETYPEREQ
 	{
 		private Reserved reserved;
@@ -1385,6 +1438,7 @@ namespace UniWebLib
 		};
 
 	/*服务类别*/
+	
 	public struct UNISERVICETYPE
 	{
 		private Reserved reserved;
@@ -1415,6 +1469,7 @@ namespace UniWebLib
 		};
 
 	/*获取用户意见反馈请求*/
+	
 	public struct POLLONLINEREQ
 	{
 		private Reserved reserved;
@@ -1431,6 +1486,7 @@ namespace UniWebLib
 		};
 
 	/*投票选项*/
+	
 	public struct POLLITEM
 	{
 		private Reserved reserved;
@@ -1451,6 +1507,7 @@ namespace UniWebLib
 		};
 
 	/*网上投票信息*/
+	
 	public struct POLLONLINE
 	{
 		private Reserved reserved;
@@ -1543,6 +1600,7 @@ namespace UniWebLib
 		};
 
 	/*投票*/
+	
 	public struct POLLVOTE
 	{
 		private Reserved reserved;
@@ -1559,6 +1617,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取站点的请求包*/
+	
 	public struct STATIONREQ
 	{
 		private Reserved reserved;
@@ -1582,6 +1641,7 @@ namespace UniWebLib
 		};
 
 	/*设备软硬件配置信息*/
+	
 	public struct DEVICECONFIG
 	{
 		private Reserved reserved;
@@ -1647,6 +1707,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNISTATION
 	{
 		private Reserved reserved;
@@ -1703,6 +1764,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/**/
+	
 	public struct UNIDEPT
 	{
 		private Reserved reserved;
@@ -1747,6 +1809,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEPTREQ
 	{
 		private Reserved reserved;
@@ -1761,6 +1824,7 @@ namespace UniWebLib
 		};
 
 	/*校区*/
+	
 	public struct UNICAMPUS
 	{
 		private Reserved reserved;
@@ -1775,6 +1839,7 @@ namespace UniWebLib
 		};
 
 	/*获取校区请求*/
+	
 	public struct CAMPUSREQ
 	{
 		private Reserved reserved;
@@ -1789,6 +1854,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct CLASSREQ
 	{
 		private Reserved reserved;
@@ -1809,6 +1875,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNICLASS
 	{
 		private Reserved reserved;
@@ -1831,6 +1898,7 @@ namespace UniWebLib
 		};
 
 	/*获取账户列表输入参数*/
+	
 	public struct ACCREQ
 	{
 		private Reserved reserved;
@@ -1863,6 +1931,7 @@ namespace UniWebLib
 		};
 
 	/*账户信息*/
+	
 	public struct UNIACCOUNT
 	{
 		private Reserved reserved;
@@ -1993,6 +2062,7 @@ namespace UniWebLib
 		};
 
 	/*扩展账户信息*/
+	
 	public struct UNIACCEXTINFO
 	{
 		private Reserved reserved;
@@ -2001,6 +2071,7 @@ namespace UniWebLib
 		};
 
 	/*获取导师*/
+	
 	public struct TUTORREQ
 	{
 		private Reserved reserved;
@@ -2017,6 +2088,7 @@ namespace UniWebLib
 		};
 
 	/*导师信息*/
+	
 	public struct UNITUTOR
 	{
 		private Reserved reserved;
@@ -2035,6 +2107,7 @@ namespace UniWebLib
 		};
 
 	/*获取扩展身份人员信息*/
+	
 	public struct EXTIDENTACCREQ
 	{
 		private Reserved reserved;
@@ -2051,6 +2124,7 @@ namespace UniWebLib
 		};
 
 	/*获取用户信息*/
+	
 	public struct ACCINFOREQ
 	{
 		private Reserved reserved;
@@ -2061,6 +2135,7 @@ namespace UniWebLib
 		};
 
 	/*扩展身份人员信息*/
+	
 	public struct EXTIDENTACC
 	{
 		private Reserved reserved;
@@ -2091,6 +2166,7 @@ namespace UniWebLib
 		};
 
 	/*获取导师的学生*/
+	
 	public struct TUTORSTUDENTREQ
 	{
 		private Reserved reserved;
@@ -2105,6 +2181,7 @@ namespace UniWebLib
 		};
 
 	/*导师学生信息*/
+	
 	public struct TUTORSTUDENT
 	{
 		private Reserved reserved;
@@ -2148,6 +2225,7 @@ namespace UniWebLib
 		};
 
 	/*导师审核学生*/
+	
 	public struct TUTORSTUDENTCHECK
 	{
 		private Reserved reserved;
@@ -2166,6 +2244,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct ACCCHECKREQ
 	{
 		private Reserved reserved;
@@ -2226,6 +2305,7 @@ namespace UniWebLib
 		};
 
 	/*存退款结构*/
+	
 	public struct UNIDEPOSIT
 	{
 		private Reserved reserved;
@@ -2292,6 +2372,7 @@ namespace UniWebLib
 		};
 
 	/*支付结算提交消费流水结构*/
+	
 	public struct UNIPAYMENT
 	{
 		private Reserved reserved;
@@ -2334,6 +2415,7 @@ namespace UniWebLib
 		};
 
 	/*获取互动信息*/
+	
 	public struct NOTICEREQ
 	{
 		private Reserved reserved;
@@ -2356,6 +2438,7 @@ namespace UniWebLib
 		};
 
 	/*互动信息*/
+	
 	public struct NOTICEINFO
 	{
 		private Reserved reserved;
@@ -2408,6 +2491,7 @@ namespace UniWebLib
 		};
 
 	/*通知短信确认*/
+	
 	public struct NOTICEAFFIRM
 	{
 		private Reserved reserved;
@@ -2424,6 +2508,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct MAJORREQ
 	{
 		private Reserved reserved;
@@ -2442,6 +2527,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNIMAJOR
 	{
 		private Reserved reserved;
@@ -2464,6 +2550,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct TESTDATAREQ
 	{
 		private Reserved reserved;
@@ -2488,6 +2575,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNITESTDATA
 	{
 		private Reserved reserved;
@@ -2547,6 +2635,7 @@ namespace UniWebLib
 		};
 
 	/*管理员上传实验数据*/
+	
 	public struct ADMINTESTDATA
 	{
 		private Reserved reserved;
@@ -2561,6 +2650,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct CLOUDDISKREQ
 	{
 		private Reserved reserved;
@@ -2571,6 +2661,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct CLOUDDISK
 	{
 		private Reserved reserved;
@@ -2595,6 +2686,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct CDISKSTATREQ
 	{
 		private Reserved reserved;
@@ -2603,6 +2695,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct CDISKSTAT
 	{
 		private Reserved reserved;
@@ -2623,6 +2716,7 @@ namespace UniWebLib
 		};
 
 	/*获取任课教师信息*/
+	
 	public struct UNITEACHERREQ
 	{
 		private Reserved reserved;
@@ -2657,6 +2751,7 @@ namespace UniWebLib
 		};
 
 	/*教授课程*/
+	
 	public struct TEACHCOURSE
 	{
 		private Reserved reserved;
@@ -2671,6 +2766,7 @@ namespace UniWebLib
 		};
 
 	/*任课教师信息*/
+	
 	public struct UNITEACHER
 	{
 		private Reserved reserved;
@@ -2699,6 +2795,7 @@ namespace UniWebLib
 		};
 
 	/*请求用户使用信息*/
+	
 	public struct USERCURINFOREQ
 	{
 		private Reserved reserved;
@@ -2707,6 +2804,7 @@ namespace UniWebLib
 		};
 
 	/*用户使用信息(同CONUSERINFO)*/
+	
 	public struct USERCURINFO
 	{
 		private Reserved reserved;
@@ -2729,6 +2827,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/**/
+	
 	public struct UNILAB
 	{
 		private Reserved reserved;
@@ -2763,6 +2862,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct LABREQ
 	{
 		private Reserved reserved;
@@ -2783,6 +2883,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct FULLLAB
 	{
 		private Reserved reserved;
@@ -2823,6 +2924,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct FULLLABREQ
 	{
 		private Reserved reserved;
@@ -2843,6 +2945,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEVCLSREQ
 	{
 		private Reserved reserved;
@@ -2859,6 +2962,7 @@ namespace UniWebLib
 		};
 
 	/*设备类别*/
+	
 	public struct UNIDEVCLS
 	{
 		private Reserved reserved;
@@ -2935,6 +3039,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEVKINDREQ
 	{
 		private Reserved reserved;
@@ -2959,6 +3064,7 @@ namespace UniWebLib
 		};
 
 	/*设备名称类别*/
+	
 	public struct UNIDEVKIND
 	{
 		private Reserved reserved;
@@ -3031,6 +3137,7 @@ namespace UniWebLib
 		};
 
 	/*获取楼宇信息请求*/
+	
 	public struct BUILDINGREQ
 	{
 		private Reserved reserved;
@@ -3051,6 +3158,7 @@ namespace UniWebLib
 		};
 
 	/*楼宇名称*/
+	
 	public struct UNIBUILDING
 	{
 		private Reserved reserved;
@@ -3075,6 +3183,7 @@ namespace UniWebLib
 		};
 
 	/*获取房间信息请求*/
+	
 	public struct ROOMREQ
 	{
 		private Reserved reserved;
@@ -3103,6 +3212,7 @@ namespace UniWebLib
 		};
 
 	/*房间名称*/
+	
 	public struct UNIROOM
 	{
 		private Reserved reserved;
@@ -3240,6 +3350,7 @@ namespace UniWebLib
 		};
 
 	/*获取房间信息请求*/
+	
 	public struct FULLROOMREQ
 	{
 		private Reserved reserved;
@@ -3268,6 +3379,7 @@ namespace UniWebLib
 		};
 
 	/*房间完整信息*/
+	
 	public struct FULLROOM
 	{
 		private Reserved reserved;
@@ -3358,6 +3470,7 @@ namespace UniWebLib
 		};
 
 	/*获取房间基本信息请求*/
+	
 	public struct BASICROOMREQ
 	{
 		private Reserved reserved;
@@ -3393,6 +3506,7 @@ namespace UniWebLib
 		};
 
 	/*房间基本信息*/
+	
 	public struct BASICROOM
 	{
 		private Reserved reserved;
@@ -3405,6 +3519,7 @@ namespace UniWebLib
 		};
 
 	/*获取通道门信息请求*/
+	
 	public struct CHANNELGATEREQ
 	{
 		private Reserved reserved;
@@ -3439,6 +3554,7 @@ namespace UniWebLib
 		};
 
 	/*通道门*/
+	
 	public struct UNICHANNELGATE
 	{
 		private Reserved reserved;
@@ -3483,6 +3599,7 @@ namespace UniWebLib
 		};
 
 	/*控制房间命令*/
+	
 	public struct CHANNELGATECTRLINFO
 	{
 		private Reserved reserved;
@@ -3499,6 +3616,7 @@ namespace UniWebLib
 		};
 
 	/*获取房间组合请求*/
+	
 	public struct ROOMGROUPREQ
 	{
 		private Reserved reserved;
@@ -3511,6 +3629,7 @@ namespace UniWebLib
 		};
 
 	/*房间组合成员*/
+	
 	public struct RGMEMBER
 	{
 		private Reserved reserved;
@@ -3525,6 +3644,7 @@ namespace UniWebLib
 		};
 
 	/*房间组合*/
+	
 	public struct ROOMGROUP
 	{
 		private Reserved reserved;
@@ -3539,6 +3659,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备列表*/
+	
 	public struct DEVREQ
 	{
 		private Reserved reserved;
@@ -3622,6 +3743,7 @@ namespace UniWebLib
 		};
 
 	/*计费信息明细*/
+	
 	public struct FDINFO
 	{
 		private Reserved reserved;
@@ -3660,6 +3782,7 @@ namespace UniWebLib
 		};
 
 	/*计费信息*/
+	
 	public struct UNIACCTINFO
 	{
 		private Reserved reserved;
@@ -3726,6 +3849,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备监控器请求*/
+	
 	public struct DEVMONITORREQ
 	{
 		private Reserved reserved;
@@ -3738,6 +3862,7 @@ namespace UniWebLib
 		};
 
 	/*设备监控器*/
+	
 	public struct DEVMONITOR
 	{
 		private Reserved reserved;
@@ -3769,6 +3894,7 @@ namespace UniWebLib
 		};
 
 	/*获取监控器与设备的对应关系请求*/
+	
 	public struct MONDEVREQ
 	{
 		private Reserved reserved;
@@ -3781,6 +3907,7 @@ namespace UniWebLib
 		};
 
 	/*监控器与设备的对应关系*/
+	
 	public struct MONDEV
 	{
 		private Reserved reserved;
@@ -3805,6 +3932,7 @@ namespace UniWebLib
 		};
 
 	/*设备监控状态*/
+	
 	public struct DEVMONITORSTAT
 	{
 		private Reserved reserved;
@@ -3817,6 +3945,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约明细*/
+	
 	public struct DEVRESV
 	{
 		private Reserved reserved;
@@ -3837,6 +3966,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用信息*/
+	
 	public struct DEVUSEINFO
 	{
 		private Reserved reserved;
@@ -3877,6 +4007,7 @@ namespace UniWebLib
 		};
 
 	/*设备信息*/
+	
 	public struct UNIDEVICE
 	{
 		private Reserved reserved;
@@ -4196,6 +4327,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备配置表请求*/
+	
 	public struct DEVCFGREQ
 	{
 		private Reserved reserved;
@@ -4206,6 +4338,7 @@ namespace UniWebLib
 		};
 
 	/*设备配置表*/
+	
 	public struct DEVCFG
 	{
 		private Reserved reserved;
@@ -4269,6 +4402,7 @@ namespace UniWebLib
 		};
 
 	/*智能检测座位状态*/
+	
 	public struct SEATDETECTSTAT
 	{
 		private Reserved reserved;
@@ -4289,6 +4423,7 @@ namespace UniWebLib
 		};
 
 	/*管理员人工管理设备使用*/
+	
 	public struct DEVMANUSE
 	{
 		private Reserved reserved;
@@ -4323,6 +4458,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备配置类别表请求*/
+	
 	public struct DEVCFGKINDREQ
 	{
 		private Reserved reserved;
@@ -4333,6 +4469,7 @@ namespace UniWebLib
 		};
 
 	/*设备配置类别表*/
+	
 	public struct DEVCFGKIND
 	{
 		private Reserved reserved;
@@ -4367,6 +4504,7 @@ namespace UniWebLib
 		};
 
 	/*设置设备值班员*/
+	
 	public struct DEVATTENDANT
 	{
 		private Reserved reserved;
@@ -4383,6 +4521,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用费的经费分配比例请求*/
+	
 	public struct DEVFARREQ
 	{
 		private Reserved reserved;
@@ -4391,6 +4530,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用费的经费分配比例*/
+	
 	public struct DEVFAR
 	{
 		private Reserved reserved;
@@ -4409,6 +4549,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约设备列表*/
+	
 	public struct DEVFORRESVREQ
 	{
 		private Reserved reserved;
@@ -4455,6 +4596,7 @@ namespace UniWebLib
 		};
 
 	/*设备信息*/
+	
 	public struct DEVFORRESV
 	{
 		private Reserved reserved;
@@ -4507,6 +4649,7 @@ namespace UniWebLib
 		};
 
 	/*查询设备预约状态请求*/
+	
 	public struct DEVRESVSTATREQ
 	{
 		private Reserved reserved;
@@ -4563,6 +4706,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约信息*/
+	
 	public struct DEVRESVTIME
 	{
 		private Reserved reserved;
@@ -4591,6 +4735,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约状态*/
+	
 	public struct DEVRESVSTAT
 	{
 		private Reserved reserved;
@@ -4675,6 +4820,7 @@ namespace UniWebLib
 		};
 
 	/*查询设备长期预约状态请求*/
+	
 	public struct DEVLONGRESVSTATREQ
 	{
 		private Reserved reserved;
@@ -4709,6 +4855,7 @@ namespace UniWebLib
 		};
 
 	/*设备长期预约状态*/
+	
 	public struct DEVLONGRESVSTAT
 	{
 		private Reserved reserved;
@@ -4773,6 +4920,7 @@ namespace UniWebLib
 		};
 
 	/*查询实验室预约状态请求*/
+	
 	public struct LABRESVSTATREQ
 	{
 		private Reserved reserved;
@@ -4798,6 +4946,7 @@ namespace UniWebLib
 		};
 
 	/*教学预约详细信息*/
+	
 	public struct TEACHINGRESVINFO
 	{
 		private Reserved reserved;
@@ -4830,6 +4979,7 @@ namespace UniWebLib
 		};
 
 	/*实验室预约状态*/
+	
 	public struct LABRESVSTAT
 	{
 		private Reserved reserved;
@@ -4848,6 +4998,7 @@ namespace UniWebLib
 		};
 
 	/*查询房间预约状态请求*/
+	
 	public struct ROOMRESVSTATREQ
 	{
 		private Reserved reserved;
@@ -4872,6 +5023,7 @@ namespace UniWebLib
 		};
 
 	/*房间预约状态*/
+	
 	public struct ROOMRESVSTAT
 	{
 		private Reserved reserved;
@@ -4892,6 +5044,7 @@ namespace UniWebLib
 		};
 
 	/*查询房间组合预约状态请求*/
+	
 	public struct RGRESVSTATREQ
 	{
 		private Reserved reserved;
@@ -4904,6 +5057,7 @@ namespace UniWebLib
 		};
 
 	/*房间组合预约状态*/
+	
 	public struct RGRESVSTAT
 	{
 		private Reserved reserved;
@@ -4922,6 +5076,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约设备列表(按类型)*/
+	
 	public struct DEVKINDFORRESVREQ
 	{
 		private Reserved reserved;
@@ -4954,6 +5109,7 @@ namespace UniWebLib
 		};
 
 	/*获取长期预约设备列表(按类型)*/
+	
 	public struct DEVKINDFORLONGRESVREQ
 	{
 		private Reserved reserved;
@@ -4988,6 +5144,7 @@ namespace UniWebLib
 		};
 
 	/*设备信息*/
+	
 	public struct DEVKINDFORRESV
 	{
 		private Reserved reserved;
@@ -5063,6 +5220,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约设备列表(按房间)*/
+	
 	public struct ROOMFORRESVREQ
 	{
 		private Reserved reserved;
@@ -5093,6 +5251,7 @@ namespace UniWebLib
 		};
 
 	/*房间预约信息*/
+	
 	public struct ROOMFORRESV
 	{
 		private Reserved reserved;
@@ -5117,6 +5276,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约可用设备请求包*/
+	
 	public struct RESVUSABLEDEVREQ
 	{
 		private Reserved reserved;
@@ -5125,6 +5285,7 @@ namespace UniWebLib
 		};
 
 	/*租借设备明细*/
+	
 	public struct RESVUSABLEDEV
 	{
 		private Reserved reserved;
@@ -5151,6 +5312,7 @@ namespace UniWebLib
 		};
 
 	/*客户端注册到服务器*/
+	
 	public struct DEVREGISTREQ
 	{
 		private Reserved reserved;
@@ -5169,6 +5331,7 @@ namespace UniWebLib
 		};
 
 	/*服务器对客户端注册的响应*/
+	
 	public struct DEVREGISTRES
 	{
 		private Reserved reserved;
@@ -5227,6 +5390,7 @@ namespace UniWebLib
 		};
 
 	/*客户端登录请求*/
+	
 	public struct DEVLOGONREQ
 	{
 		private Reserved reserved;
@@ -5264,6 +5428,7 @@ namespace UniWebLib
 		};
 
 	/*客户端登录请求的响应*/
+	
 	public struct DEVLOGONRES
 	{
 		private Reserved reserved;
@@ -5278,6 +5443,7 @@ namespace UniWebLib
 		};
 
 	/*客户端查询当前信息*/
+	
 	public struct DEVQUERYREQ
 	{
 		private Reserved reserved;
@@ -5292,6 +5458,7 @@ namespace UniWebLib
 		};
 
 	/*客户端注销时用户选择的计费信息*/
+	
 	public struct USERFEECHECK
 	{
 		private Reserved reserved;
@@ -5310,6 +5477,7 @@ namespace UniWebLib
 		};
 
 	/*客户端注销请求*/
+	
 	public struct DEVLOGOUTREQ
 	{
 		private Reserved reserved;
@@ -5342,6 +5510,7 @@ namespace UniWebLib
 		};
 
 	/*客户端注销请求*/
+	
 	public struct DEVLOGOUTRES
 	{
 		private Reserved reserved;
@@ -5364,6 +5533,7 @@ namespace UniWebLib
 		};
 
 	/*客户端与服务器定时握手请求*/
+	
 	public struct DEVHANDSHAKEREQ
 	{
 		private Reserved reserved;
@@ -5380,6 +5550,7 @@ namespace UniWebLib
 		};
 
 	/*服务器对客户端定时握手的响应*/
+	
 	public struct DEVHANDSHAKERES
 	{
 		private Reserved reserved;
@@ -5398,6 +5569,7 @@ namespace UniWebLib
 		};
 
 	/*客户端与服务器定时握手请求*/
+	
 	public struct CLTCHGPWINFO
 	{
 		private Reserved reserved;
@@ -5416,6 +5588,7 @@ namespace UniWebLib
 		};
 
 	/*控制设备命令*/
+	
 	public struct DEVCTRLINFO
 	{
 		private Reserved reserved;
@@ -5547,6 +5720,7 @@ namespace UniWebLib
 		};
 
 	/*控制房间命令*/
+	
 	public struct ROOMCTRLINFO
 	{
 		private Reserved reserved;
@@ -5563,6 +5737,7 @@ namespace UniWebLib
 		};
 
 	/*用户可进入房间请求*/
+	
 	public struct PERMITROOMREQ
 	{
 		private Reserved reserved;
@@ -5571,6 +5746,7 @@ namespace UniWebLib
 		};
 
 	/*用户可进入房间信息*/
+	
 	public struct PERMITROOMINFO
 	{
 		private Reserved reserved;
@@ -5616,6 +5792,7 @@ namespace UniWebLib
 		};
 
 	/*获取房间控制信息请求包*/
+	
 	public struct ROOMCTRLREQ
 	{
 		private Reserved reserved;
@@ -5626,6 +5803,7 @@ namespace UniWebLib
 		};
 
 	/*控制设备命令*/
+	
 	public struct CTRLREQ
 	{
 		private Reserved reserved;
@@ -5644,6 +5822,7 @@ namespace UniWebLib
 		};
 
 	/*租借设备明细*/
+	
 	public struct LOANDEV
 	{
 		private Reserved reserved;
@@ -5662,6 +5841,7 @@ namespace UniWebLib
 		};
 
 	/*获取运行程序请求*/
+	
 	public struct RUNAPPREQ
 	{
 		private Reserved reserved;
@@ -5674,6 +5854,7 @@ namespace UniWebLib
 		};
 
 	/*运行程序*/
+	
 	public struct RUNAPP
 	{
 		private Reserved reserved;
@@ -5706,6 +5887,7 @@ namespace UniWebLib
 		};
 
 	/*上传机器软件信息结束*/
+	
 	public struct SWUPLOADEND
 	{
 		private Reserved reserved;
@@ -5724,6 +5906,7 @@ namespace UniWebLib
 		};
 
 	/*设备外借请求*/
+	
 	public struct DEVLOANREQ
 	{
 		private Reserved reserved;
@@ -5746,6 +5929,7 @@ namespace UniWebLib
 		};
 
 	/*设备归还请求*/
+	
 	public struct DEVRETURNREQ
 	{
 		private Reserved reserved;
@@ -5772,6 +5956,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEVDAMAGERECREQ
 	{
 		private Reserved reserved;
@@ -5806,6 +5991,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEVDAMAGEREC
 	{
 		private Reserved reserved;
@@ -5895,6 +6081,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct DEVOPENRULEREQ
 	{
 		private Reserved reserved;
@@ -5907,6 +6094,7 @@ namespace UniWebLib
 		};
 
 	/*每日开放时间段*/
+	
 	public struct DAYOPENRULE
 	{
 		private Reserved reserved;
@@ -5925,6 +6113,7 @@ namespace UniWebLib
 		};
 
 	/*指定用户组开放时间表*/
+	
 	public struct PERIODOPENRULEREQ
 	{
 		private Reserved reserved;
@@ -5937,6 +6126,7 @@ namespace UniWebLib
 		};
 
 	/*时间期间开放规则*/
+	
 	public struct PERIODOPENRULE
 	{
 		private Reserved reserved;
@@ -5951,6 +6141,7 @@ namespace UniWebLib
 		};
 
 	/*指定用户组开放时间表*/
+	
 	public struct GROUPOPENRULEREQ
 	{
 		private Reserved reserved;
@@ -5961,6 +6152,7 @@ namespace UniWebLib
 		};
 
 	/*指定用户组开放时间表*/
+	
 	public struct GROUPOPENRULE
 	{
 		private Reserved reserved;
@@ -5994,6 +6186,7 @@ namespace UniWebLib
 		};
 
 	/*指定用户组开放时间表*/
+	
 	public struct CHANGEGROUPOPENRULE
 	{
 		private Reserved reserved;
@@ -6012,6 +6205,7 @@ namespace UniWebLib
 		};
 
 	/*时间期间开放规则*/
+	
 	public struct CHANGEPERIODOPENRULE
 	{
 		private Reserved reserved;
@@ -6032,6 +6226,7 @@ namespace UniWebLib
 		};
 
 	/*设备开放时间表*/
+	
 	public struct DEVOPENRULE
 	{
 		private Reserved reserved;
@@ -6046,6 +6241,7 @@ namespace UniWebLib
 		};
 
 	/*当前设备统计信息*/
+	
 	public struct CURDEVSTAT
 	{
 		private Reserved reserved;
@@ -6056,6 +6252,7 @@ namespace UniWebLib
 		};
 
 	/*教学设备统计*/
+	
 	public struct TEACHINGDEVSTAT
 	{
 		private Reserved reserved;
@@ -6068,6 +6265,7 @@ namespace UniWebLib
 		};
 
 	/*获取教学用设备按节次统计*/
+	
 	public struct DEVFORTREQ
 	{
 		private Reserved reserved;
@@ -6078,6 +6276,7 @@ namespace UniWebLib
 		};
 
 	/*设备节次教学使用信息*/
+	
 	public struct DEVSECINFO
 	{
 		private Reserved reserved;
@@ -6096,6 +6295,7 @@ namespace UniWebLib
 		};
 
 	/*获取教学用设备*/
+	
 	public struct TEACHINGDEVREQ
 	{
 		private Reserved reserved;
@@ -6134,6 +6334,7 @@ namespace UniWebLib
 		};
 
 	/*教学设备信息*/
+	
 	public struct TEACHINGDEV
 	{
 		private Reserved reserved;
@@ -6210,6 +6411,7 @@ namespace UniWebLib
 		};
 
 	/*获取获奖记录*/
+	
 	public struct REWARDRECREQ
 	{
 		private Reserved reserved;
@@ -6269,6 +6471,7 @@ namespace UniWebLib
 		};
 
 	/*获奖使用设备*/
+	
 	public struct REWARDUSEDEV
 	{
 		private Reserved reserved;
@@ -6305,6 +6508,7 @@ namespace UniWebLib
 		};
 
 	/*获奖记录*/
+	
 	public struct REWARDREC
 	{
 		private Reserved reserved;
@@ -6413,6 +6617,7 @@ namespace UniWebLib
 		};
 
 	/*获取费用记录*/
+	
 	public struct COSTRECREQ
 	{
 		private Reserved reserved;
@@ -6431,6 +6636,7 @@ namespace UniWebLib
 		};
 
 	/*费用记录*/
+	
 	public struct COSTREC
 	{
 		private Reserved reserved;
@@ -6508,6 +6714,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取门禁集控器的请求包*/
+	
 	public struct DCSREQ
 	{
 		private Reserved reserved;
@@ -6536,6 +6743,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNIDCS
 	{
 		private Reserved reserved;
@@ -6611,6 +6819,7 @@ namespace UniWebLib
 		};
 
 	/*门禁信息表*/
+	
 	public struct DOORCTRLINFO
 	{
 		private Reserved reserved;
@@ -6625,6 +6834,7 @@ namespace UniWebLib
 		};
 
 	/*集控器登录请求*/
+	
 	public struct DCSLOGINREQ
 	{
 		private Reserved reserved;
@@ -6637,6 +6847,7 @@ namespace UniWebLib
 		};
 
 	/*集控器登录响应*/
+	
 	public struct DCSLOGINRES
 	{
 		private Reserved reserved;
@@ -6657,6 +6868,7 @@ namespace UniWebLib
 		};
 
 	/*集控器退出请求*/
+	
 	public struct DCSLOGOUTREQ
 	{
 		private Reserved reserved;
@@ -6667,6 +6879,7 @@ namespace UniWebLib
 		};
 
 	/*控制器状态*/
+	
 	public struct DOORCTRLSTAT
 	{
 		private Reserved reserved;
@@ -6679,6 +6892,7 @@ namespace UniWebLib
 		};
 
 	/*集控器定时通信请求*/
+	
 	public struct DCSPULSEREQ
 	{
 		private Reserved reserved;
@@ -6689,6 +6903,7 @@ namespace UniWebLib
 		};
 
 	/*集控器定时通信应答*/
+	
 	public struct DCSPULSERES
 	{
 		private Reserved reserved;
@@ -6699,6 +6914,7 @@ namespace UniWebLib
 		};
 
 	/*门禁刷卡请求*/
+	
 	public struct DOORCARDREQ
 	{
 		private Reserved reserved;
@@ -6734,6 +6950,7 @@ namespace UniWebLib
 		};
 
 	/*门禁刷卡响应*/
+	
 	public struct DOORCARDRES
 	{
 		private Reserved reserved;
@@ -6785,6 +7002,7 @@ namespace UniWebLib
 		};
 
 	/*手机开门请求*/
+	
 	public struct MOBILEOPENDOORREQ
 	{
 		private Reserved reserved;
@@ -6819,6 +7037,7 @@ namespace UniWebLib
 		};
 
 	/*手机开门响应*/
+	
 	public struct MOBILEOPENDOORRES
 	{
 		private Reserved reserved;
@@ -6854,6 +7073,7 @@ namespace UniWebLib
 		};
 
 	/*获取门禁控制器的请求包*/
+	
 	public struct DOORCTRLREQ
 	{
 		private Reserved reserved;
@@ -6888,6 +7108,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNIDOORCTRL
 	{
 		private Reserved reserved;
@@ -6977,6 +7198,7 @@ namespace UniWebLib
 		};
 
 	/*给门禁控制器发命令*/
+	
 	public struct DOORCTRLCMD
 	{
 		private Reserved reserved;
@@ -6995,6 +7217,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取组信息的请求包*/
+	
 	public struct GROUPREQ
 	{
 		private Reserved reserved;
@@ -7027,6 +7250,7 @@ namespace UniWebLib
 		};
 
 	/*组成员*/
+	
 	public struct GROUPMEMBER
 	{
 		private Reserved reserved;
@@ -7092,6 +7316,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNIGROUP
 	{
 		private Reserved reserved;
@@ -7154,6 +7379,7 @@ namespace UniWebLib
 		};
 
 	/*获取组成员明细的请求包*/
+	
 	public struct GROUPMEMDETAILREQ
 	{
 		private Reserved reserved;
@@ -7182,6 +7408,7 @@ namespace UniWebLib
 		};
 
 	/*组成员明细*/
+	
 	public struct GROUPMEMDETAIL
 	{
 		private Reserved reserved;
@@ -7238,6 +7465,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取预约信息的请求包*/
+	
 	public struct RESVREQ
 	{
 		private Reserved reserved;
@@ -7309,6 +7537,7 @@ namespace UniWebLib
 		};
 
 	/*预约表*/
+	
 	public struct UNIRESERVE
 	{
 		private Reserved reserved;
@@ -7662,6 +7891,7 @@ namespace UniWebLib
 		};
 
 	/*获取科研实验预约的请求包*/
+	
 	public struct RTRESVREQ
 	{
 		private Reserved reserved;
@@ -7698,6 +7928,7 @@ namespace UniWebLib
 		};
 
 	/*预约样品表*/
+	
 	public struct RESVSAMPLE
 	{
 		private Reserved reserved;
@@ -7718,6 +7949,7 @@ namespace UniWebLib
 		};
 
 	/*预约表*/
+	
 	public struct RTRESV
 	{
 		private Reserved reserved;
@@ -7832,6 +8064,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验审核*/
+	
 	public struct RTRESVCHECK
 	{
 		private Reserved reserved;
@@ -7848,6 +8081,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单审核*/
+	
 	public struct RTPREPAY
 	{
 		private Reserved reserved;
@@ -7860,6 +8094,7 @@ namespace UniWebLib
 		};
 
 	/*获取科研实验账单的请求包*/
+	
 	public struct RTRESVBILLREQ
 	{
 		private Reserved reserved;
@@ -7868,6 +8103,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单*/
+	
 	public struct RTRESVBILL
 	{
 		private Reserved reserved;
@@ -7880,6 +8116,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单*/
+	
 	public struct RTBILL
 	{
 		private Reserved reserved;
@@ -7904,6 +8141,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单审核*/
+	
 	public struct RTBILLCHECK
 	{
 		private Reserved reserved;
@@ -7916,6 +8154,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单结算*/
+	
 	public struct RTBILLSETTLE
 	{
 		private Reserved reserved;
@@ -7940,6 +8179,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验账单入账*/
+	
 	public struct RTBILLRECEIVE
 	{
 		private Reserved reserved;
@@ -7960,6 +8200,7 @@ namespace UniWebLib
 		};
 
 	/*免登录预约*/
+	
 	public struct ANONYMOUSRESV
 	{
 		private Reserved reserved;
@@ -7990,6 +8231,7 @@ namespace UniWebLib
 		};
 
 	/*全体学生预约*/
+	
 	public struct ALLUSERRESV
 	{
 		private Reserved reserved;
@@ -8020,6 +8262,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约列表用于网站显示的请求包*/
+	
 	public struct RESVSHOWREQ
 	{
 		private Reserved reserved;
@@ -8040,6 +8283,7 @@ namespace UniWebLib
 		};
 
 	/*预约表*/
+	
 	public struct RESVSHOW
 	{
 		private Reserved reserved;
@@ -8074,6 +8318,7 @@ namespace UniWebLib
 		};
 
 	/*获取教学预约列表的请求包*/
+	
 	public struct TEACHINGRESVREQ
 	{
 		private Reserved reserved;
@@ -8104,6 +8349,7 @@ namespace UniWebLib
 		};
 
 	/*教学预约*/
+	
 	public struct TEACHINGRESV
 	{
 		private Reserved reserved;
@@ -8154,6 +8400,7 @@ namespace UniWebLib
 		};
 
 	/*放假调课*/
+	
 	public struct HOLIDAYSHIFT
 	{
 		private Reserved reserved;
@@ -8168,6 +8415,7 @@ namespace UniWebLib
 		};
 
 	/*预约组成员*/
+	
 	public struct RESVMEMBER
 	{
 		private Reserved reserved;
@@ -8180,6 +8428,7 @@ namespace UniWebLib
 		};
 
 	/*预约开始信息*/
+	
 	public struct RESVSTARTINFO
 	{
 		private Reserved reserved;
@@ -8196,6 +8445,7 @@ namespace UniWebLib
 		};
 
 	/*预约开始信息*/
+	
 	public struct RESVENDINFO
 	{
 		private Reserved reserved;
@@ -8219,6 +8469,7 @@ namespace UniWebLib
 		};
 
 	/*自动预约请求，系统自动分配设备并暂时锁定，等待用户确认*/
+	
 	public struct AUTORESVREQ
 	{
 		private Reserved reserved;
@@ -8249,6 +8500,7 @@ namespace UniWebLib
 		};
 
 	/*预约设备明细*/
+	
 	public struct RESVDEV
 	{
 		private Reserved reserved;
@@ -8283,6 +8535,7 @@ namespace UniWebLib
 		};
 
 	/*预约时间段明细*/
+	
 	public struct RESVTIMEREQ
 	{
 		private Reserved reserved;
@@ -8293,6 +8546,7 @@ namespace UniWebLib
 		};
 
 	/*预约时间段明细*/
+	
 	public struct RESVTIME
 	{
 		private Reserved reserved;
@@ -8313,6 +8567,7 @@ namespace UniWebLib
 		};
 
 	/*预约费用核算*/
+	
 	public struct RESVCOSTADJUST
 	{
 		private Reserved reserved;
@@ -8331,6 +8586,7 @@ namespace UniWebLib
 		};
 
 	/*预约费用结算*/
+	
 	public struct RESVCHECKOUT
 	{
 		private Reserved reserved;
@@ -8349,6 +8605,7 @@ namespace UniWebLib
 		};
 
 	/*预约结束时间*/
+	
 	public struct RESVENDTIME
 	{
 		private Reserved reserved;
@@ -8359,6 +8616,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备预约信息的请求包*/
+	
 	public struct DEVRESVREQ
 	{
 		private Reserved reserved;
@@ -8385,6 +8643,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约信息*/
+	
 	public struct DEVRESVINFO
 	{
 		private Reserved reserved;
@@ -8399,6 +8658,7 @@ namespace UniWebLib
 		};
 
 	/*获取作息时间表请求包*/
+	
 	public struct CTSREQ
 	{
 		private Reserved reserved;
@@ -8409,6 +8669,7 @@ namespace UniWebLib
 		};
 
 	/*作息时间表*/
+	
 	public struct CLASSTIMETABLE
 	{
 		private Reserved reserved;
@@ -8425,6 +8686,7 @@ namespace UniWebLib
 		};
 
 	/*获取学期信息的请求包*/
+	
 	public struct TERMREQ
 	{
 		private Reserved reserved;
@@ -8437,6 +8699,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNITERM
 	{
 		private Reserved reserved;
@@ -8487,6 +8750,7 @@ namespace UniWebLib
 		};
 
 	/*获取课程的请求包*/
+	
 	public struct COURSEREQ
 	{
 		private Reserved reserved;
@@ -8505,6 +8769,7 @@ namespace UniWebLib
 		};
 
 	/*课程*/
+	
 	public struct UNICOURSE
 	{
 		private Reserved reserved;
@@ -8556,6 +8821,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验计划请求包*/
+	
 	public struct TESTPLANREQ
 	{
 		private Reserved reserved;
@@ -8605,6 +8871,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNITESTPLAN
 	{
 		private Reserved reserved;
@@ -8730,6 +8997,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目卡请求包*/
+	
 	public struct TESTCARDREQ
 	{
 		private Reserved reserved;
@@ -8748,6 +9016,7 @@ namespace UniWebLib
 		};
 
 	/*实验项目卡*/
+	
 	public struct TESTCARD
 	{
 		private Reserved reserved;
@@ -8835,6 +9104,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目请求包*/
+	
 	public struct TESTITEMREQ
 	{
 		private Reserved reserved;
@@ -8876,6 +9146,7 @@ namespace UniWebLib
 		};
 
 	/*实验安排项目卡*/
+	
 	public struct UNITESTITEM
 	{
 		private Reserved reserved;
@@ -8977,6 +9248,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目试验者预约信息请求包*/
+	
 	public struct TESTITEMMEMRESVREQ
 	{
 		private Reserved reserved;
@@ -8993,6 +9265,7 @@ namespace UniWebLib
 		};
 
 	/*实验项目试验者预约信息*/
+	
 	public struct TESTITEMMEMRESV
 	{
 		private Reserved reserved;
@@ -9007,6 +9280,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目详细信息请求包*/
+	
 	public struct TESTITEMINFOREQ
 	{
 		private Reserved reserved;
@@ -9031,6 +9305,7 @@ namespace UniWebLib
 		};
 
 	/*实验项目详细信息*/
+	
 	public struct TESTITEMINFO
 	{
 		private Reserved reserved;
@@ -9119,6 +9394,7 @@ namespace UniWebLib
 		};
 
 	/*提交实验报告模板*/
+	
 	public struct REPORTFORMUPLOAD
 	{
 		private Reserved reserved;
@@ -9131,6 +9407,7 @@ namespace UniWebLib
 		};
 
 	/*提交实验报告*/
+	
 	public struct REPORTUPLOAD
 	{
 		private Reserved reserved;
@@ -9143,6 +9420,7 @@ namespace UniWebLib
 		};
 
 	/*批改实验报告*/
+	
 	public struct REPORTCORRECT
 	{
 		private Reserved reserved;
@@ -9159,6 +9437,7 @@ namespace UniWebLib
 		};
 
 	/*设备组合*/
+	
 	public struct DEVGROUP
 	{
 		private Reserved reserved;
@@ -9177,6 +9456,7 @@ namespace UniWebLib
 		};
 
 	/*获取活动安排请求包*/
+	
 	public struct ACTIVITYPLANREQ
 	{
 		private Reserved reserved;
@@ -9213,6 +9493,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNIACTIVITYPLAN
 	{
 		private Reserved reserved;
@@ -9365,6 +9646,7 @@ namespace UniWebLib
 		};
 
 	/*获取活动安排的座位请求包*/
+	
 	public struct APSEATREQ
 	{
 		private Reserved reserved;
@@ -9375,6 +9657,7 @@ namespace UniWebLib
 		};
 
 	/*活动安排的座位信息*/
+	
 	public struct APSEAT
 	{
 		private Reserved reserved;
@@ -9410,6 +9693,7 @@ namespace UniWebLib
 		};
 
 	/*申请参加活动*/
+	
 	public struct ACTIVITYENROLL
 	{
 		private Reserved reserved;
@@ -9428,6 +9712,7 @@ namespace UniWebLib
 		};
 
 	/*退出活动申请*/
+	
 	public struct ACTIVITYEXIT
 	{
 		private Reserved reserved;
@@ -9442,6 +9727,7 @@ namespace UniWebLib
 		};
 
 	/*签到人员名单*/
+	
 	public struct ASIGNUSER
 	{
 		private Reserved reserved;
@@ -9483,6 +9769,7 @@ namespace UniWebLib
 		};
 
 	/*签到人员名单*/
+	
 	public struct AOFFLINESIGN
 	{
 		private Reserved reserved;
@@ -9497,6 +9784,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct RESVRULEREQ
 	{
 		private Reserved reserved;
@@ -9517,6 +9805,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct RESVRULEADMINREQ
 	{
 		private Reserved reserved;
@@ -9539,6 +9828,7 @@ namespace UniWebLib
 		};
 
 	/*审核表*/
+	
 	public struct RULECHECKINFO
 	{
 		private Reserved reserved;
@@ -9582,6 +9872,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用规则结构*/
+	
 	public struct UNIRESVRULE
 	{
 		private Reserved reserved;
@@ -9721,6 +10012,7 @@ namespace UniWebLib
 		};
 
 	/*获取科研实验请求包*/
+	
 	public struct RESEARCHTESTREQ
 	{
 		private Reserved reserved;
@@ -9745,6 +10037,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验成员*/
+	
 	public struct RTMEMBER
 	{
 		private Reserved reserved;
@@ -9761,6 +10054,7 @@ namespace UniWebLib
 		};
 
 	/*科研实验*/
+	
 	public struct RESEARCHTEST
 	{
 		private Reserved reserved;
@@ -9876,6 +10170,7 @@ namespace UniWebLib
 		};
 
 	/*获取样品信息请求包*/
+	
 	public struct SAMPLEINFOREQ
 	{
 		private Reserved reserved;
@@ -9892,6 +10187,7 @@ namespace UniWebLib
 		};
 
 	/*样品信息*/
+	
 	public struct SAMPLEINFO
 	{
 		private Reserved reserved;
@@ -9933,6 +10229,7 @@ namespace UniWebLib
 		};
 
 	/*获取场馆预约的请求包*/
+	
 	public struct YARDRESVREQ
 	{
 		private Reserved reserved;
@@ -9993,6 +10290,7 @@ namespace UniWebLib
 		};
 
 	/*场馆预约*/
+	
 	public struct YARDRESV
 	{
 		private Reserved reserved;
@@ -10121,6 +10419,7 @@ namespace UniWebLib
 		};
 
 	/*获取场馆预约审核信息的请求包*/
+	
 	public struct YARDRESVCHECKINFOREQ
 	{
 		private Reserved reserved;
@@ -10151,6 +10450,7 @@ namespace UniWebLib
 		};
 
 	/*场馆预约审核信息*/
+	
 	public struct YARDRESVCHECKINFO
 	{
 		private Reserved reserved;
@@ -10199,6 +10499,7 @@ namespace UniWebLib
 		};
 
 	/*场馆预约审核*/
+	
 	public struct YARDRESVCHECK
 	{
 		private Reserved reserved;
@@ -10219,6 +10520,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约审核信息的请求包*/
+	
 	public struct RESVCHECKINFOREQ
 	{
 		private Reserved reserved;
@@ -10243,6 +10545,7 @@ namespace UniWebLib
 		};
 
 	/*预约审核信息*/
+	
 	public struct RESVCHECKINFO
 	{
 		private Reserved reserved;
@@ -10291,6 +10594,7 @@ namespace UniWebLib
 		};
 
 	/*预约审核*/
+	
 	public struct RESVCHECK
 	{
 		private Reserved reserved;
@@ -10311,6 +10615,7 @@ namespace UniWebLib
 		};
 
 	/*获取场馆活动的请求包*/
+	
 	public struct YARDACTIVITYREQ
 	{
 		private Reserved reserved;
@@ -10327,6 +10632,7 @@ namespace UniWebLib
 		};
 
 	/*场馆活动可用设备类型*/
+	
 	public struct YADEVKIND
 	{
 		private Reserved reserved;
@@ -10337,6 +10643,7 @@ namespace UniWebLib
 		};
 
 	/*场馆活动*/
+	
 	public struct YARDACTIVITY
 	{
 		private Reserved reserved;
@@ -10375,6 +10682,7 @@ namespace UniWebLib
 		};
 
 	/*第三方预约设备*/
+	
 	public struct TRESVDEV
 	{
 		private Reserved reserved;
@@ -10383,6 +10691,7 @@ namespace UniWebLib
 		};
 
 	/*第三方预约时间表*/
+	
 	public struct TRESVTIME
 	{
 		private Reserved reserved;
@@ -10395,6 +10704,7 @@ namespace UniWebLib
 		};
 
 	/*第三方预约共享设备*/
+	
 	public struct THIRDRESVSHAREDEV
 	{
 		private Reserved reserved;
@@ -10409,6 +10719,7 @@ namespace UniWebLib
 		};
 
 	/*第三方删除预约*/
+	
 	public struct THIRDRESVDEL
 	{
 		private Reserved reserved;
@@ -10417,6 +10728,7 @@ namespace UniWebLib
 		};
 
 	/*获取第三方预约的请求包*/
+	
 	public struct THIRDRESVREQ
 	{
 		private Reserved reserved;
@@ -10435,6 +10747,7 @@ namespace UniWebLib
 		};
 
 	/*第三方预约*/
+	
 	public struct THIRDRESV
 	{
 		private Reserved reserved;
@@ -10485,6 +10798,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约信息表*/
+	
 	public struct DEVICERESV
 	{
 		private Reserved reserved;
@@ -10536,6 +10850,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取监控分类库的请求包*/
+	
 	public struct CTRLCLASSREQ
 	{
 		private Reserved reserved;
@@ -10548,6 +10863,7 @@ namespace UniWebLib
 		};
 
 	/*监控分类库结构*/
+	
 	public struct UNICTRLCLASS
 	{
 		private Reserved reserved;
@@ -10609,6 +10925,7 @@ namespace UniWebLib
 		};
 
 	/*获取网址组的请求包*/
+	
 	public struct CTRLURLREQ
 	{
 		private Reserved reserved;
@@ -10621,6 +10938,7 @@ namespace UniWebLib
 		};
 
 	/*网址组结构*/
+	
 	public struct UNICTRLURL
 	{
 		private Reserved reserved;
@@ -10663,6 +10981,7 @@ namespace UniWebLib
 		};
 
 	/*获取软件组的请求包*/
+	
 	public struct CTRLSWREQ
 	{
 		private Reserved reserved;
@@ -10675,6 +10994,7 @@ namespace UniWebLib
 		};
 
 	/*软件组结构*/
+	
 	public struct UNICTRLSW
 	{
 		private Reserved reserved;
@@ -10732,6 +11052,7 @@ namespace UniWebLib
 		};
 
 	/*获取软件的请求包*/
+	
 	public struct SOFTWAREREQ
 	{
 		private Reserved reserved;
@@ -10766,6 +11087,7 @@ namespace UniWebLib
 		};
 
 	/*软件结构*/
+	
 	public struct UNISOFTWARE
 	{
 		private Reserved reserved;
@@ -10817,6 +11139,7 @@ namespace UniWebLib
 		};
 
 	/*获取程序的请求包*/
+	
 	public struct PROGRAMREQ
 	{
 		private Reserved reserved;
@@ -10858,6 +11181,7 @@ namespace UniWebLib
 		};
 
 	/*程序结构*/
+	
 	public struct UNIPROGRAM
 	{
 		private Reserved reserved;
@@ -10907,6 +11231,7 @@ namespace UniWebLib
 		};
 
 	/*获取机器程序的请求包*/
+	
 	public struct PCSWINFOREQ
 	{
 		private Reserved reserved;
@@ -10933,6 +11258,7 @@ namespace UniWebLib
 		};
 
 	/*机器程序结构*/
+	
 	public struct UNIPCSWINFO
 	{
 		private Reserved reserved;
@@ -10955,6 +11281,7 @@ namespace UniWebLib
 		};
 
 	/*获取机房程序的请求包*/
+	
 	public struct ROOMSWINFOREQ
 	{
 		private Reserved reserved;
@@ -10981,6 +11308,7 @@ namespace UniWebLib
 		};
 
 	/*机房程序结构*/
+	
 	public struct UNIROOMSWINFO
 	{
 		private Reserved reserved;
@@ -10999,6 +11327,7 @@ namespace UniWebLib
 		};
 
 	/*机器程序结构（上传用）*/
+	
 	public struct PCPROGRAM
 	{
 		private Reserved reserved;
@@ -11019,6 +11348,7 @@ namespace UniWebLib
 		};
 
 	/*机器程序结束信息（上传用）*/
+	
 	public struct PROGEND
 	{
 		private Reserved reserved;
@@ -11033,6 +11363,7 @@ namespace UniWebLib
 		};
 
 	/*退出程序信息*/
+	
 	public struct QUITAPPINFO
 	{
 		private Reserved reserved;
@@ -11043,6 +11374,7 @@ namespace UniWebLib
 		};
 
 	/*网址信息*/
+	
 	public struct URLCHECKINFO
 	{
 		private Reserved reserved;
@@ -11069,6 +11401,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*登录请求包*/
+	
 	public struct THIRDLOGINREQ
 	{
 		private Reserved reserved;
@@ -11081,6 +11414,7 @@ namespace UniWebLib
 		};
 
 	/*登录应答包*/
+	
 	public struct THIRDLOGINRES
 	{
 		private Reserved reserved;
@@ -11091,6 +11425,7 @@ namespace UniWebLib
 		};
 
 	/*获取账户列表输入参数*/
+	
 	public struct THIRDACCREQ
 	{
 		private Reserved reserved;
@@ -11114,6 +11449,7 @@ namespace UniWebLib
 		};
 
 	/*同步帐户请求包*/
+	
 	public struct SYNCACCREQ
 	{
 		private Reserved reserved;
@@ -11137,6 +11473,7 @@ namespace UniWebLib
 		};
 
 	/*获取最新帐户信息状态*/
+	
 	public struct SYNCACCINFO
 	{
 		private Reserved reserved;
@@ -11185,6 +11522,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/**/
+	
 	public struct PERIODFEE
 	{
 		private Reserved reserved;
@@ -11199,6 +11537,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct FEEREQ
 	{
 		private Reserved reserved;
@@ -11219,6 +11558,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct RTDEVFEEREQ
 	{
 		private Reserved reserved;
@@ -11229,6 +11569,7 @@ namespace UniWebLib
 		};
 
 	/*收费标准详细信息*/
+	
 	public struct FEEDETAIL
 	{
 		private Reserved reserved;
@@ -11292,6 +11633,7 @@ namespace UniWebLib
 		};
 
 	/*收费标准详细信息*/
+	
 	public struct UNIFEE
 	{
 		private Reserved reserved;
@@ -11342,6 +11684,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct RTDEVSAMPLEREQ
 	{
 		private Reserved reserved;
@@ -11352,6 +11695,7 @@ namespace UniWebLib
 		};
 
 	/*科研项目对应的设备的样品及费率表*/
+	
 	public struct RTDEVSAMPLE
 	{
 		private Reserved reserved;
@@ -11370,6 +11714,7 @@ namespace UniWebLib
 		};
 
 	/*获取账单请求*/
+	
 	public struct BILLREQ
 	{
 		private Reserved reserved;
@@ -11420,6 +11765,7 @@ namespace UniWebLib
 		};
 
 	/*用户账单*/
+	
 	public struct UNIBILL
 	{
 		private Reserved reserved;
@@ -11533,6 +11879,7 @@ namespace UniWebLib
 		};
 
 	/*账单缴费*/
+	
 	public struct BILLPAY
 	{
 		private Reserved reserved;
@@ -11551,6 +11898,7 @@ namespace UniWebLib
 		};
 
 	/*机时使用规则请求*/
+	
 	public struct FTRULEREQ
 	{
 		private Reserved reserved;
@@ -11582,6 +11930,7 @@ namespace UniWebLib
 		};
 
 	/*机时使用规则*/
+	
 	public struct FREETIMERULE
 	{
 		private Reserved reserved;
@@ -11630,6 +11979,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取控制台的请求包*/
+	
 	public struct CONREQ
 	{
 		private Reserved reserved;
@@ -11644,6 +11994,7 @@ namespace UniWebLib
 		};
 
 	/*控制台信息*/
+	
 	public struct UNICONSOLE
 	{
 		private Reserved reserved;
@@ -11720,6 +12071,7 @@ namespace UniWebLib
 		};
 
 	/*控制台登录请求*/
+	
 	public struct CONLOGINREQ
 	{
 		private Reserved reserved;
@@ -11734,6 +12086,7 @@ namespace UniWebLib
 		};
 
 	/*控制台登录响应*/
+	
 	public struct CONLOGINRES
 	{
 		private Reserved reserved;
@@ -11764,6 +12117,7 @@ namespace UniWebLib
 		};
 
 	/*控制台退出请求*/
+	
 	public struct CONLOGOUTREQ
 	{
 		private Reserved reserved;
@@ -11774,6 +12128,7 @@ namespace UniWebLib
 		};
 
 	/*控制台定时通信请求*/
+	
 	public struct CONPULSEREQ
 	{
 		private Reserved reserved;
@@ -11786,6 +12141,7 @@ namespace UniWebLib
 		};
 
 	/*控制台定时通信响应*/
+	
 	public struct CONPULSERES
 	{
 		private Reserved reserved;
@@ -11796,6 +12152,7 @@ namespace UniWebLib
 		};
 
 	/*控制台显示消息结构*/
+	
 	public struct CONMESSAGE
 	{
 		private Reserved reserved;
@@ -11828,6 +12185,7 @@ namespace UniWebLib
 		};
 
 	/*控制台刷卡返回用户信息*/
+	
 	public struct CONUSERINFO
 	{
 		private Reserved reserved;
@@ -11883,6 +12241,7 @@ namespace UniWebLib
 		};
 
 	/*控制台教师登录返回信息*/
+	
 	public struct CONTEACHERINFO
 	{
 		private Reserved reserved;
@@ -11895,6 +12254,7 @@ namespace UniWebLib
 		};
 
 	/*刷卡上机请求*/
+	
 	public struct CARDFORPCREQ
 	{
 		private Reserved reserved;
@@ -11911,6 +12271,7 @@ namespace UniWebLib
 		};
 
 	/*刷卡上机应答*/
+	
 	public struct CARDFORPCRES
 	{
 		private Reserved reserved;
@@ -11937,6 +12298,7 @@ namespace UniWebLib
 		};
 
 	/*通道机刷卡请求*/
+	
 	public struct AUTOGATECARDREQ
 	{
 		private Reserved reserved;
@@ -11964,6 +12326,7 @@ namespace UniWebLib
 		};
 
 	/*通道机刷卡响应*/
+	
 	public struct AUTOGATECARDRES
 	{
 		private Reserved reserved;
@@ -11974,6 +12337,7 @@ namespace UniWebLib
 		};
 
 	/*控制台刷卡进入*/
+	
 	public struct CONUSERINREQ
 	{
 		private Reserved reserved;
@@ -12004,6 +12368,7 @@ namespace UniWebLib
 		};
 
 	/*控制台刷卡进入*/
+	
 	public struct CONUSERINRES
 	{
 		private Reserved reserved;
@@ -12016,6 +12381,7 @@ namespace UniWebLib
 		};
 
 	/*控制台刷卡退出请求*/
+	
 	public struct CONUSEROUTREQ
 	{
 		private Reserved reserved;
@@ -12038,6 +12404,7 @@ namespace UniWebLib
 		};
 
 	/*控制台刷卡退出应答*/
+	
 	public struct CONUSEROUTRES
 	{
 		private Reserved reserved;
@@ -12050,6 +12417,7 @@ namespace UniWebLib
 		};
 
 	/*手机扫描请求*/
+	
 	public struct MOBILESCANREQ
 	{
 		private Reserved reserved;
@@ -12084,6 +12452,7 @@ namespace UniWebLib
 		};
 
 	/*手机扫描响应*/
+	
 	public struct MOBILESCANRES
 	{
 		private Reserved reserved;
@@ -12138,6 +12507,7 @@ namespace UniWebLib
 		};
 
 	/*手机开始使用请求*/
+	
 	public struct MOBILEUSERINREQ
 	{
 		private Reserved reserved;
@@ -12148,6 +12518,7 @@ namespace UniWebLib
 		};
 
 	/*手机进入响应*/
+	
 	public struct MOBILEUSERINRES
 	{
 		private Reserved reserved;
@@ -12156,6 +12527,7 @@ namespace UniWebLib
 		};
 
 	/*手机开始使用请求*/
+	
 	public struct MOBILEDELAYREQ
 	{
 		private Reserved reserved;
@@ -12166,6 +12538,7 @@ namespace UniWebLib
 		};
 
 	/*手机进入响应*/
+	
 	public struct MOBILEDELAYRES
 	{
 		private Reserved reserved;
@@ -12174,6 +12547,7 @@ namespace UniWebLib
 		};
 
 	/*手机退出请求*/
+	
 	public struct MOBILEUSEROUTREQ
 	{
 		private Reserved reserved;
@@ -12202,6 +12576,7 @@ namespace UniWebLib
 		};
 
 	/*手机退出响应*/
+	
 	public struct MOBILEUSEROUTRES
 	{
 		private Reserved reserved;
@@ -12210,6 +12585,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录签到请求*/
+	
 	public struct RESVUSERCOMEINREQ
 	{
 		private Reserved reserved;
@@ -12236,6 +12612,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录签到响应*/
+	
 	public struct RESVUSERCOMEINRES
 	{
 		private Reserved reserved;
@@ -12244,6 +12621,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录延时请求*/
+	
 	public struct RESVUSERDELAYREQ
 	{
 		private Reserved reserved;
@@ -12260,6 +12638,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录延时响应*/
+	
 	public struct RESVUSERDELAYRES
 	{
 		private Reserved reserved;
@@ -12268,6 +12647,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录退出请求*/
+	
 	public struct RESVUSERGOOUTREQ
 	{
 		private Reserved reserved;
@@ -12297,6 +12677,7 @@ namespace UniWebLib
 		};
 
 	/*手机登录退出响应*/
+	
 	public struct RESVUSERGOOUTRES
 	{
 		private Reserved reserved;
@@ -12305,6 +12686,7 @@ namespace UniWebLib
 		};
 
 	/*摇一摇签到请求*/
+	
 	public struct SHAKECHECKINREQ
 	{
 		private Reserved reserved;
@@ -12315,6 +12697,7 @@ namespace UniWebLib
 		};
 
 	/*摇一摇签到应答*/
+	
 	public struct SHAKECHECKINRES
 	{
 		private Reserved reserved;
@@ -12323,6 +12706,7 @@ namespace UniWebLib
 		};
 
 	/*摇一摇进馆请求*/
+	
 	public struct SHAKECOMEINREQ
 	{
 		private Reserved reserved;
@@ -12333,6 +12717,7 @@ namespace UniWebLib
 		};
 
 	/*摇一摇进馆应答*/
+	
 	public struct SHAKECOMEINRES
 	{
 		private Reserved reserved;
@@ -12345,6 +12730,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取预约记录*/
+	
 	public struct RESVRECREQ
 	{
 		private Reserved reserved;
@@ -12403,6 +12789,7 @@ namespace UniWebLib
 		};
 
 	/*设备预约信息*/
+	
 	public struct UNIRESVREC
 	{
 		private Reserved reserved;
@@ -12568,6 +12955,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约类型统计记录*/
+	
 	public struct RESVKINDSTATREQ
 	{
 		private Reserved reserved;
@@ -12582,6 +12970,7 @@ namespace UniWebLib
 		};
 
 	/*预约类型统计*/
+	
 	public struct RESVKINDSTAT
 	{
 		private Reserved reserved;
@@ -12604,6 +12993,7 @@ namespace UniWebLib
 		};
 
 	/*获取预约方式统计的请求包*/
+	
 	public struct RESVMODESTATREQ
 	{
 		private Reserved reserved;
@@ -12634,6 +13024,7 @@ namespace UniWebLib
 		};
 
 	/*预约方式统计*/
+	
 	public struct RESVMODESTAT
 	{
 		private Reserved reserved;
@@ -12648,6 +13039,7 @@ namespace UniWebLib
 		};
 
 	/*查询统计的 请求*/
+	
 	public struct REPORTREQ
 	{
 		private Reserved reserved;
@@ -12709,6 +13101,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用记录 请求*/
+	
 	public struct USERECREQ
 	{
 		private Reserved reserved;
@@ -12751,6 +13144,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用记录*/
+	
 	public struct DEVUSEREC
 	{
 		private Reserved reserved;
@@ -12827,6 +13221,7 @@ namespace UniWebLib
 		};
 
 	/*查询明细的条件*/
+	
 	public struct DOORCARDRECREQ
 	{
 		private Reserved reserved;
@@ -12872,6 +13267,7 @@ namespace UniWebLib
 		};
 
 	/*门禁刷卡记录*/
+	
 	public struct DOORCARDREC
 	{
 		private Reserved reserved;
@@ -12920,6 +13316,7 @@ namespace UniWebLib
 		};
 
 	/*课外使用统计*/
+	
 	public struct USERSTAT
 	{
 		private Reserved reserved;
@@ -12938,6 +13335,7 @@ namespace UniWebLib
 		};
 
 	/*实验室使用率统计*/
+	
 	public struct LABSTAT
 	{
 		private Reserved reserved;
@@ -12960,6 +13358,7 @@ namespace UniWebLib
 		};
 
 	/*实验室(房间)使用率统计*/
+	
 	public struct ROOMSTAT
 	{
 		private Reserved reserved;
@@ -12986,6 +13385,7 @@ namespace UniWebLib
 		};
 
 	/*设备类型使用率统计*/
+	
 	public struct DEVKINDSTAT
 	{
 		private Reserved reserved;
@@ -13010,6 +13410,7 @@ namespace UniWebLib
 		};
 
 	/*设备类别使用率统计*/
+	
 	public struct DEVCLASSSTAT
 	{
 		private Reserved reserved;
@@ -13032,6 +13433,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用率统计*/
+	
 	public struct DEVSTAT
 	{
 		private Reserved reserved;
@@ -13080,6 +13482,7 @@ namespace UniWebLib
 		};
 
 	/*学院使用统计*/
+	
 	public struct DEPTSTAT
 	{
 		private Reserved reserved;
@@ -13100,6 +13503,7 @@ namespace UniWebLib
 		};
 
 	/*查询身份统计的 请求*/
+	
 	public struct IDENTSTATREQ
 	{
 		private Reserved reserved;
@@ -13124,6 +13528,7 @@ namespace UniWebLib
 		};
 
 	/*身份使用统计*/
+	
 	public struct IDENTSTAT
 	{
 		private Reserved reserved;
@@ -13140,6 +13545,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目表*/
+	
 	public struct TESTITEMSTATREQ
 	{
 		private Reserved reserved;
@@ -13158,6 +13564,7 @@ namespace UniWebLib
 		};
 
 	/*实验项目表*/
+	
 	public struct TESTITEMSTAT
 	{
 		private Reserved reserved;
@@ -13212,6 +13619,7 @@ namespace UniWebLib
 		};
 
 	/*获取教学预约记录*/
+	
 	public struct TEACHINGRESVRECREQ
 	{
 		private Reserved reserved;
@@ -13236,6 +13644,7 @@ namespace UniWebLib
 		};
 
 	/*每分钟实到人数*/
+	
 	public struct USERSPERMINUTE
 	{
 		private Reserved reserved;
@@ -13244,6 +13653,7 @@ namespace UniWebLib
 		};
 
 	/*教学预约记录*/
+	
 	public struct TEACHINGRESVREC
 	{
 		private Reserved reserved;
@@ -13314,6 +13724,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备使用率请求*/
+	
 	public struct DEVUSINGRATEREQ
 	{
 		private Reserved reserved;
@@ -13357,6 +13768,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用率数据表*/
+	
 	public struct DEVUSINGTABLE
 	{
 		private Reserved reserved;
@@ -13367,6 +13779,7 @@ namespace UniWebLib
 		};
 
 	/*设备使用率统计表*/
+	
 	public struct DEVUSINGRATE
 	{
 		private Reserved reserved;
@@ -13379,6 +13792,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备周使用率请求*/
+	
 	public struct DEVWEEKUSINGRATEREQ
 	{
 		private Reserved reserved;
@@ -13422,6 +13836,7 @@ namespace UniWebLib
 		};
 
 	/*设备周使用率统计表*/
+	
 	public struct DEVWEEKUSINGRATE
 	{
 		private Reserved reserved;
@@ -13434,6 +13849,7 @@ namespace UniWebLib
 		};
 
 	/*场馆活动类型统计 请求*/
+	
 	public struct YARDACTIVITYSTATREQ
 	{
 		private Reserved reserved;
@@ -13458,6 +13874,7 @@ namespace UniWebLib
 		};
 
 	/*场馆活动类型统计*/
+	
 	public struct YARDACTIVITYSTAT
 	{
 		private Reserved reserved;
@@ -13474,6 +13891,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备月使用统计*/
+	
 	public struct DEVMONTHSTATREQ
 	{
 		private Reserved reserved;
@@ -13486,6 +13904,7 @@ namespace UniWebLib
 		};
 
 	/*设备月使用统计*/
+	
 	public struct DEVMONTHSTAT
 	{
 		private Reserved reserved;
@@ -13502,6 +13921,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备科研实验统计请求*/
+	
 	public struct RTUSESTATREQ
 	{
 		private Reserved reserved;
@@ -13553,6 +13973,7 @@ namespace UniWebLib
 		};
 
 	/*设备科研实验统计*/
+	
 	public struct RTUSESTAT
 	{
 		private Reserved reserved;
@@ -13591,6 +14012,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备科研实验明细请求*/
+	
 	public struct RTUSEDETAILREQ
 	{
 		private Reserved reserved;
@@ -13605,6 +14027,7 @@ namespace UniWebLib
 		};
 
 	/*设备科研实验明细*/
+	
 	public struct RTUSEDETAIL
 	{
 		private Reserved reserved;
@@ -13663,6 +14086,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备科研实验经费分配统计请求*/
+	
 	public struct RTFASTATREQ
 	{
 		private Reserved reserved;
@@ -13677,6 +14101,7 @@ namespace UniWebLib
 		};
 
 	/*设备科研实验经费分配统计*/
+	
 	public struct RTFASTAT
 	{
 		private Reserved reserved;
@@ -13707,6 +14132,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备科研实验经费分配明细请求*/
+	
 	public struct RTFADETAILREQ
 	{
 		private Reserved reserved;
@@ -13721,6 +14147,7 @@ namespace UniWebLib
 		};
 
 	/*设备科研实验经费分配明细*/
+	
 	public struct RTFADETAIL
 	{
 		private Reserved reserved;
@@ -13771,6 +14198,7 @@ namespace UniWebLib
 		};
 
 	/*查询违约统计的请求*/
+	
 	public struct DEFAULTSTATREQ
 	{
 		private Reserved reserved;
@@ -13791,6 +14219,7 @@ namespace UniWebLib
 		};
 
 	/*违约统计*/
+	
 	public struct DEFAULTSTAT
 	{
 		private Reserved reserved;
@@ -13805,6 +14234,7 @@ namespace UniWebLib
 		};
 
 	/*教学科研仪器设备表*/
+	
 	public struct DEVLISTREQ
 	{
 		private Reserved reserved;
@@ -13819,6 +14249,7 @@ namespace UniWebLib
 		};
 
 	/*教学科研仪器设备清单*/
+	
 	public struct DEVLIST
 	{
 		private Reserved reserved;
@@ -13881,6 +14312,7 @@ namespace UniWebLib
 		};
 
 	/*教学科研仪器设备增减变动情况表*/
+	
 	public struct DEVCHGREQ
 	{
 		private Reserved reserved;
@@ -13897,6 +14329,7 @@ namespace UniWebLib
 		};
 
 	/*教学科研仪器设备增减变动情况表*/
+	
 	public struct DEVCHG
 	{
 		private Reserved reserved;
@@ -13939,6 +14372,7 @@ namespace UniWebLib
 		};
 
 	/*贵重仪器设备表*/
+	
 	public struct BIGDEVREQ
 	{
 		private Reserved reserved;
@@ -13957,6 +14391,7 @@ namespace UniWebLib
 		};
 
 	/*贵重仪器设备表*/
+	
 	public struct BIGDEV
 	{
 		private Reserved reserved;
@@ -14017,6 +14452,7 @@ namespace UniWebLib
 		};
 
 	/*获取实验项目表*/
+	
 	public struct TESTITEMREPORTREQ
 	{
 		private Reserved reserved;
@@ -14035,6 +14471,7 @@ namespace UniWebLib
 		};
 
 	/*实验项目表*/
+	
 	public struct TESTITEMREPORT
 	{
 		private Reserved reserved;
@@ -14073,6 +14510,7 @@ namespace UniWebLib
 		};
 
 	/*专任实验室人员表*/
+	
 	public struct STAFFINFOREQ
 	{
 		private Reserved reserved;
@@ -14091,6 +14529,7 @@ namespace UniWebLib
 		};
 
 	/*专任实验室人员表*/
+	
 	public struct STAFFINFO
 	{
 		private Reserved reserved;
@@ -14186,6 +14625,7 @@ namespace UniWebLib
 		};
 
 	/*实验室基本情况表*/
+	
 	public struct LABINFOREQ
 	{
 		private Reserved reserved;
@@ -14204,6 +14644,7 @@ namespace UniWebLib
 		};
 
 	/*实验室基本情况表*/
+	
 	public struct LABINFO
 	{
 		private Reserved reserved;
@@ -14290,6 +14731,7 @@ namespace UniWebLib
 		};
 
 	/*实验室经费情况表*/
+	
 	public struct LABALLCOSTREQ
 	{
 		private Reserved reserved;
@@ -14304,6 +14746,7 @@ namespace UniWebLib
 		};
 
 	/*实验室经费情况表*/
+	
 	public struct LABALLCOST
 	{
 		private Reserved reserved;
@@ -14338,6 +14781,7 @@ namespace UniWebLib
 		};
 
 	/*高等学校实验室综合信息表*/
+	
 	public struct LABSUMMARYREQ
 	{
 		private Reserved reserved;
@@ -14354,6 +14798,7 @@ namespace UniWebLib
 		};
 
 	/*高等学校实验室综合信息表*/
+	
 	public struct LABSUMMARY
 	{
 		private Reserved reserved;
@@ -14408,6 +14853,7 @@ namespace UniWebLib
 		};
 
 	/*高等学校实验室综合信息表2*/
+	
 	public struct LABSUMMARY2REQ
 	{
 		private Reserved reserved;
@@ -14424,6 +14870,7 @@ namespace UniWebLib
 		};
 
 	/*高等学校实验室综合信息表2*/
+	
 	public struct LABSUMMARY2
 	{
 		private Reserved reserved;
@@ -14450,6 +14897,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取配置项请求包*/
+	
 	public struct CFGREQ
 	{
 		private Reserved reserved;
@@ -14470,6 +14918,7 @@ namespace UniWebLib
 		};
 
 	/*配置项内容*/
+	
 	public struct CFGINFO
 	{
 		private Reserved reserved;
@@ -14625,6 +15074,7 @@ namespace UniWebLib
 		};
 
 	/*获取信用类别*/
+	
 	public struct CREDITTYPEREQ
 	{
 		private Reserved reserved;
@@ -14635,6 +15085,7 @@ namespace UniWebLib
 		};
 
 	/*独立的信用类别*/
+	
 	public struct CREDITTYPE
 	{
 		private Reserved reserved;
@@ -14685,6 +15136,7 @@ namespace UniWebLib
 		};
 
 	/*信用类型*/
+	
 	public struct CREDITKIND
 	{
 		private Reserved reserved;
@@ -14773,6 +15225,7 @@ namespace UniWebLib
 		};
 
 	/*获取信用计分表*/
+	
 	public struct CREDITSCOREREQ
 	{
 		private Reserved reserved;
@@ -14789,6 +15242,7 @@ namespace UniWebLib
 		};
 
 	/*信用计分表*/
+	
 	public struct CREDITSCORE
 	{
 		private Reserved reserved;
@@ -14857,6 +15311,7 @@ namespace UniWebLib
 		};
 
 	/*获取我的信用积分*/
+	
 	public struct MYCREDITSCOREREQ
 	{
 		private Reserved reserved;
@@ -14867,6 +15322,7 @@ namespace UniWebLib
 		};
 
 	/*我的信用积分*/
+	
 	public struct MYCREDITSCORE
 	{
 		private Reserved reserved;
@@ -14901,6 +15357,7 @@ namespace UniWebLib
 		};
 
 	/*人工信用管理*/
+	
 	public struct ADMINCREDIT
 	{
 		private Reserved reserved;
@@ -14927,6 +15384,7 @@ namespace UniWebLib
 		};
 
 	/*信用记录请求*/
+	
 	public struct CREDITRECREQ
 	{
 		private Reserved reserved;
@@ -14947,6 +15405,7 @@ namespace UniWebLib
 		};
 
 	/*信用记录*/
+	
 	public struct CREDITREC
 	{
 		private Reserved reserved;
@@ -15031,6 +15490,7 @@ namespace UniWebLib
 		};
 
 	/*获取系统功能请求*/
+	
 	public struct SYSFUNCREQ
 	{
 		private Reserved reserved;
@@ -15039,6 +15499,7 @@ namespace UniWebLib
 		};
 
 	/*系统功能定义*/
+	
 	public struct SYSFUNC
 	{
 		private Reserved reserved;
@@ -15053,6 +15514,7 @@ namespace UniWebLib
 		};
 
 	/*获取资格类别*/
+	
 	public struct SYSFUNCRULEREQ
 	{
 		private Reserved reserved;
@@ -15071,6 +15533,7 @@ namespace UniWebLib
 		};
 
 	/*系统功能使用规则*/
+	
 	public struct SYSFUNCRULE
 	{
 		private Reserved reserved;
@@ -15158,6 +15621,7 @@ namespace UniWebLib
 		};
 
 	/*获取用户系统功能资格表*/
+	
 	public struct SFROLEINFOREQ
 	{
 		private Reserved reserved;
@@ -15186,6 +15650,7 @@ namespace UniWebLib
 		};
 
 	/*用户系统功能资格表*/
+	
 	public struct SFROLEINFO
 	{
 		private Reserved reserved;
@@ -15294,6 +15759,7 @@ namespace UniWebLib
 		};
 
 	/*获取编码信息的请求包*/
+	
 	public struct CODINGTABLEREQ
 	{
 		private Reserved reserved;
@@ -15308,6 +15774,7 @@ namespace UniWebLib
 		};
 
 	/*编码信息表*/
+	
 	public struct CODINGTABLE
 	{
 		private Reserved reserved;
@@ -15358,6 +15825,7 @@ namespace UniWebLib
 		};
 
 	/*获取多语言包的请求包*/
+	
 	public struct MULTILANLIBREQ
 	{
 		private Reserved reserved;
@@ -15370,6 +15838,7 @@ namespace UniWebLib
 		};
 
 	/*多语言包*/
+	
 	public struct UNIMULTILANLIB
 	{
 		private Reserved reserved;
@@ -15431,6 +15900,7 @@ namespace UniWebLib
 		};
 
 	/*系统刷新请求*/
+	
 	public struct SYSREFRESHREQ
 	{
 		private Reserved reserved;
@@ -15443,6 +15913,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取资产列表*/
+	
 	public struct ASSERTREQ
 	{
 		private Reserved reserved;
@@ -15503,6 +15974,7 @@ namespace UniWebLib
 		};
 
 	/*资产房间变更*/
+	
 	public struct ROOMCHG
 	{
 		private Reserved reserved;
@@ -15521,6 +15993,7 @@ namespace UniWebLib
 		};
 
 	/*资产责任人变更*/
+	
 	public struct KEEPERCHG
 	{
 		private Reserved reserved;
@@ -15539,6 +16012,7 @@ namespace UniWebLib
 		};
 
 	/*资产信息*/
+	
 	public struct UNIASSERT
 	{
 		private Reserved reserved;
@@ -15633,6 +16107,7 @@ namespace UniWebLib
 		};
 
 	/*资产发卡*/
+	
 	public struct RFIDBIND
 	{
 		private Reserved reserved;
@@ -15647,6 +16122,7 @@ namespace UniWebLib
 		};
 
 	/*获取资产盘点表*/
+	
 	public struct STOCKTAKINGREQ
 	{
 		private Reserved reserved;
@@ -15663,6 +16139,7 @@ namespace UniWebLib
 		};
 
 	/*资产盘点表*/
+	
 	public struct STOCKTAKING
 	{
 		private Reserved reserved;
@@ -15722,6 +16199,7 @@ namespace UniWebLib
 		};
 
 	/*获取盘点资产明细表*/
+	
 	public struct STDETAILREQ
 	{
 		private Reserved reserved;
@@ -15732,6 +16210,7 @@ namespace UniWebLib
 		};
 
 	/*资产盘点详细信息*/
+	
 	public struct STDETAIL
 	{
 		private Reserved reserved;
@@ -15836,6 +16315,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备报废记录表*/
+	
 	public struct OUTOFSERVICEREQ
 	{
 		private Reserved reserved;
@@ -15854,6 +16334,7 @@ namespace UniWebLib
 		};
 
 	/*报废设备*/
+	
 	public struct OOSDEV
 	{
 		private Reserved reserved;
@@ -15882,6 +16363,7 @@ namespace UniWebLib
 		};
 
 	/*设备报废记录表*/
+	
 	public struct OUTOFSERVICE
 	{
 		private Reserved reserved;
@@ -15928,6 +16410,7 @@ namespace UniWebLib
 		};
 
 	/*获取报废设备明细表*/
+	
 	public struct OOSDETAILREQ
 	{
 		private Reserved reserved;
@@ -15946,6 +16429,7 @@ namespace UniWebLib
 		};
 
 	/*报废设备明细*/
+	
 	public struct OOSDETAIL
 	{
 		private Reserved reserved;
@@ -16038,6 +16522,7 @@ namespace UniWebLib
 		};
 
 	/*设备保修申请*/
+	
 	public struct REPAIRAPPLY
 	{
 		private Reserved reserved;
@@ -16064,6 +16549,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct REPAIROVER
 	{
 		private Reserved reserved;
@@ -16102,6 +16588,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct REPAIRCANCEL
 	{
 		private Reserved reserved;
@@ -16122,6 +16609,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct COMPANYREQ
 	{
 		private Reserved reserved;
@@ -16140,6 +16628,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct UNICOMPANY
 	{
 		private Reserved reserved;
@@ -16190,6 +16679,7 @@ namespace UniWebLib
 		};
 
 	/*获取设备历史档案明细表*/
+	
 	public struct ASSERTLOGREQ
 	{
 		private Reserved reserved;
@@ -16210,6 +16700,7 @@ namespace UniWebLib
 		};
 
 	/*设备历史档案*/
+	
 	public struct ASSERTLOG
 	{
 		private Reserved reserved;
@@ -16281,6 +16772,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*考勤房间*/
+	
 	public struct ATTENDROOM
 	{
 		private Reserved reserved;
@@ -16303,6 +16795,7 @@ namespace UniWebLib
 		};
 
 	/*获取考勤规则的请求包*/
+	
 	public struct ATTENDRULEREQ
 	{
 		private Reserved reserved;
@@ -16319,6 +16812,7 @@ namespace UniWebLib
 		};
 
 	/*考勤规则*/
+	
 	public struct ATTENDRULE
 	{
 		private Reserved reserved;
@@ -16353,6 +16847,7 @@ namespace UniWebLib
 		};
 
 	/*获取考勤记录的请求包*/
+	
 	public struct ATTENDRECREQ
 	{
 		private Reserved reserved;
@@ -16377,6 +16872,7 @@ namespace UniWebLib
 		};
 
 	/*考勤记录*/
+	
 	public struct ATTENDREC
 	{
 		private Reserved reserved;
@@ -16419,6 +16915,7 @@ namespace UniWebLib
 		};
 
 	/*考勤信息*/
+	
 	public struct ATTENDINFO
 	{
 		private Reserved reserved;
@@ -16474,6 +16971,7 @@ namespace UniWebLib
 		};
 
 	/*获取考勤统计的请求包*/
+	
 	public struct ATTENDSTATREQ
 	{
 		private Reserved reserved;
@@ -16490,6 +16988,7 @@ namespace UniWebLib
 		};
 
 	/*考勤统计*/
+	
 	public struct ATTENDSTAT
 	{
 		private Reserved reserved;
@@ -16530,6 +17029,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*子系统信息*/
+	
 	public struct SUBSYS
 	{
 		private Reserved reserved;
@@ -16561,6 +17061,7 @@ namespace UniWebLib
 		};
 
 	/*子系统登录请求*/
+	
 	public struct SUBSYSLOGINREQ
 	{
 		private Reserved reserved;
@@ -16581,6 +17082,7 @@ namespace UniWebLib
 		};
 
 	/*子系统登录应答*/
+	
 	public struct SUBSYSLOGINRES
 	{
 		private Reserved reserved;
@@ -16593,6 +17095,7 @@ namespace UniWebLib
 		};
 
 	/*子系统退出请求*/
+	
 	public struct SUBSYSLOGOUTREQ
 	{
 		private Reserved reserved;
@@ -16603,6 +17106,7 @@ namespace UniWebLib
 		};
 
 	/*IC空间使用记录上传*/
+	
 	public struct ICUSERECUP
 	{
 		private Reserved reserved;
@@ -16645,6 +17149,7 @@ namespace UniWebLib
 		};
 
 	/*打印复印扫描记录上传*/
+	
 	public struct PRINTRECUP
 	{
 		private Reserved reserved;
@@ -16687,6 +17192,7 @@ namespace UniWebLib
 		};
 
 	/*图书超期缴费记录上传*/
+	
 	public struct BOOKOVERDUERECUP
 	{
 		private Reserved reserved;
@@ -16715,6 +17221,7 @@ namespace UniWebLib
 		};
 
 	/*违约记录上传*/
+	
 	public struct BREACHRECUP
 	{
 		private Reserved reserved;
@@ -16773,6 +17280,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取研修间当前状态请求*/
+	
 	public struct STUDYROOMSTATREQ
 	{
 		private Reserved reserved;
@@ -16783,6 +17291,7 @@ namespace UniWebLib
 		};
 
 	/*研修间当前状态*/
+	
 	public struct STUDYROOMSTAT
 	{
 		private Reserved reserved;
@@ -16814,6 +17323,7 @@ namespace UniWebLib
 		};
 
 	/*获取座位当前状态请求*/
+	
 	public struct SEATSTATREQ
 	{
 		private Reserved reserved;
@@ -16824,6 +17334,7 @@ namespace UniWebLib
 		};
 
 	/*座位当前状态*/
+	
 	public struct SEATSTAT
 	{
 		private Reserved reserved;
@@ -16842,6 +17353,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取科研实验数据请求*/
+	
 	public struct RTDATAREQ
 	{
 		private Reserved reserved;
@@ -16854,6 +17366,7 @@ namespace UniWebLib
 		};
 
 	/*获取科研实验数据*/
+	
 	public struct RTDATA
 	{
 		private Reserved reserved;
@@ -16914,6 +17427,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/**/
+	
 	public struct STALOGINREQ
 	{
 		private Reserved reserved;
@@ -16932,6 +17446,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct STALOGINRES
 	{
 		private Reserved reserved;
@@ -16946,6 +17461,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct STALOGOUTREQ
 	{
 		private Reserved reserved;
@@ -16956,6 +17472,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct HANDSHAKEREQ
 	{
 		private Reserved reserved;
@@ -16964,6 +17481,7 @@ namespace UniWebLib
 		};
 
 	/**/
+	
 	public struct HANDSHAKERES
 	{
 		private Reserved reserved;
@@ -16990,6 +17508,7 @@ namespace UniWebLib
 		};
 
 	/*模块监控信息上传*/
+	
 	public struct MODMONIUP
 	{
 		private Reserved reserved;
@@ -17008,6 +17527,7 @@ namespace UniWebLib
 		};
 
 	/*监控指标上传*/
+	
 	public struct MONINDEXUP
 	{
 		private Reserved reserved;
@@ -17038,6 +17558,7 @@ namespace UniWebLib
 		};
 
 	/*监控记录上传*/
+	
 	public struct MONIRECUP
 	{
 		private Reserved reserved;
@@ -17072,6 +17593,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*获取监控信息缺省值*/
+	
 	public struct MONIREQ
 	{
 		private Reserved reserved;
@@ -17100,6 +17622,7 @@ namespace UniWebLib
 		};
 
 	/*监控指标编号*/
+	
 	public struct MONINDEX
 	{
 		private Reserved reserved;
@@ -17269,6 +17792,7 @@ namespace UniWebLib
 		};
 
 	/*模块监控信息*/
+	
 	public struct MODMONI
 	{
 		private Reserved reserved;
@@ -17308,6 +17832,7 @@ namespace UniWebLib
 		};
 
 	/*获取监控信息缺省值*/
+	
 	public struct MONIRECREQ
 	{
 		private Reserved reserved;
@@ -17330,6 +17855,7 @@ namespace UniWebLib
 		};
 
 	/*监控记录*/
+	
 	public struct MONIREC
 	{
 		private Reserved reserved;
@@ -17362,6 +17888,7 @@ namespace UniWebLib
 		};
 
 	/*错误处理*/
+	
 	public struct MONIDEALERR
 	{
 		private Reserved reserved;
@@ -17382,6 +17909,7 @@ namespace UniWebLib
 	/*开始数据结构*/
 
 	/*联创服务与节点通信参数*/
+	
 	public struct UNISTAPARAM
 	{
 		private Reserved reserved;
@@ -17396,6 +17924,7 @@ namespace UniWebLib
 		};
 
 	/*许可功能模块信息*/
+	
 	public struct LICMOD
 	{
 		private Reserved reserved;
@@ -17463,6 +17992,7 @@ namespace UniWebLib
 		};
 
 	/*许可信息*/
+	
 	public struct UNILICENSE
 	{
 		private Reserved reserved;
@@ -17522,6 +18052,7 @@ namespace UniWebLib
 		};
 
 	/*获取请求扩张信息*/
+	
 	public struct REQEXTINFO
 	{
 		private Reserved reserved;

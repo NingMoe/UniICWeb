@@ -41,6 +41,7 @@ namespace UniWebLib]]>
 
 <xsl:template match="UniStruct">
 	/*<xsl:value-of select="Description"/>*/
+	
 	public struct <xsl:value-of select="@Name"/>
 	{
 		private Reserved reserved;

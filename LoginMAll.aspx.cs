@@ -32,7 +32,12 @@ public partial class LoginAll : UniPage
     string szoutUrl = "http://210.46.82.146/LoginMAll.aspx";
     protected string szVersion = ((uint)ADMINLOGINREQ.SZVERSION.INTVER_MAIN).ToString() + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_RELEASE).ToString("00") + "." + ((uint)ADMINLOGINREQ.SZVERSION.INTVER_INTERNAL).ToString();
 
+<<<<<<< HEAD
+	
+    //汇文对接参数配置--沈航，
+=======
 
+>>>>>>> 482f7e7000615610e8e21c1e3cf0fcee2eede590
     /*
     string weixinApiKey = "90GDLKG41677636828F9BK8CGD8F685CDJD1A3JE128H30C";
     string appid = "wxbe525cd6a6a0cab7";

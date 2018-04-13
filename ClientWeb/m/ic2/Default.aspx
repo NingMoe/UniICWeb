@@ -171,10 +171,10 @@
                                         <i class="icon icon-location"></i>
                                         <div class="name uni_trans"><%=Translate("签到使用") %></div>
                                     </a>
-                                    <a href="#" class="act_item act_back" style="display: none;">
+                                  <%--  <a href="#" class="act_item act_back" style="display: none;">
                                         <i class="icon icon-repeal"></i>
                                         <div class="name uni_trans"><%=Translate("返回使用") %></div>
-                                    </a>
+                                    </a>--%>
                                     <%--                                    <a href="#" class="act_item act_extend" style="display: none;">
                                         <i class="icon icon-countdown"></i>
                                         <div class="name uni_trans">延长预约</div>

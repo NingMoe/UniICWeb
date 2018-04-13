@@ -55,6 +55,7 @@
     <form action='WxSeatSign.aspx' method="post">
         <div class="text">
             <p><%=m_szMsg %></p>
+            <p><%=m_szResvMsg%></p>
             <input type="hidden" name="DoUserIn" value="true"/>
             <p>
                 <label>预计使用时长：</label>
@@ -76,6 +77,7 @@
     <div class="info">
         <p><%=m_szMsg %></p>
     </div>
+
     <div class="btn-group" style="margin-bottom: 0;">
         <button onclick="location.href='WxSeatSign.aspx?DoUserOut=1';">暂时离开</button>
     </div>
@@ -124,6 +126,7 @@
     </div>
     <div class="info">
         <p><%=m_szMsg %></p>
+<%--        <p><%=m_szResvMsg%></p>--%>
     </div>
     <%if (status==1){ %>
            <div class="btn-group">

@@ -780,8 +780,16 @@ function startAPP() {
             }
             //提交
             var fm = $("#resvsub_form");
-            $("#sub_resvsub_form").touchend(function () {
-                if (fm.mustItem()) {
+                  $("#sub_resvsub_form").touchend(function () {//单独判断主题是否全空格
+                   if (fm.mustItem()) {//检测是否有未填项
+                    //如果必填主题
+                    if($("#MainTitle").hasClass("must")){
+                              var titlevalue=$("#MainTitle").val().trim()
+                             if(titlevalue==""||titlevalue==null){
+                                pro.msgBox("主题不能为空或空格!");
+                                 return false;
+                        }
+                     }
                     var data = app.formToJSON(fm[0]);
                     var dev_name = $(".apply_info", container).html();
                     pro.confirm("<div class='bold'>" + uni.translate("确认预约") + " \"" + dev_name + "\"？</div>" + uni.translate("开始")
@@ -886,6 +894,7 @@ function startAPP() {
                 //if ($("#time_fix").val()) obj.fix = eval("({" + $("#time_fix").val() + "})");
                 //预约时间规则
                 container.find(".resv_info_time").html(pro.htm.getResvRule(obj));
+
                 //后续操作
                 if (container.hasClass("inited")) {//更新
                     pro.md.timeselector(app, obj, container);

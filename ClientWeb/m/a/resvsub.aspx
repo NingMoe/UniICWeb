@@ -34,6 +34,10 @@
                                 <div class="text-center apply_info font-bigger text-ellipsis"></div>
                             </div>
                         </div>
+                        <ul style="margin:0;padding-left:0">
+                            <li style=" background: #fcf8e3; font-size: 12px;color: #8e8e93;width:100%;float:left;list-style-type:none;" class="list-group-title">&nbsp&nbsp
+                                灰色-时间已过，白色-可预约，蓝色-已被人预约</li>
+                                 </ul>
                         <div class="card-content">
                             <div class="card-content-inner obj_resv_stat"></div>
                         </div>
@@ -52,8 +56,7 @@
                                 <div class="item-inner">
                                     <div class="item-title label name_theme">主题</div>
                                     <div class="item-input">
-
-                                <input type="text" placeholder="..." name="test_name" class="con_theme <%=ToUInt(GetConfig("resvTheme")) == 2 ? "must" : "" %>" data-msg="<%=Translate("必填内容不允许为空") %>" maxlength="32" />
+                                <input type="text" placeholder="..." name="test_name" id="MainTitle" class="con_theme <%=ToUInt(GetConfig("resvTheme")) == 2 ? "must" : "" %>" data-msg="<%=Translate("必填内容不允许为空") %>" maxlength="32" />
                               
                                          </div>
                                 </div>

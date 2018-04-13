@@ -10,6 +10,8 @@ public partial class checkTimeout : UniWebLib.UniPage
     protected void Page_Load(object sender, EventArgs e)
     {
         Response.CacheControl = "no-cache";
+        Response.Write("OK");
+        return;
         try
         {
             ADMINLOGINRES adminAcc = (ADMINLOGINRES)Session["LoginResult"];

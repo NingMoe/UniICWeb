@@ -14,6 +14,7 @@ public partial class _Default : UniPage
 {
     public string m_szMsg = "";
     public string m_szMsg2 = "";
+    public string m_szResvMsg = "";
     public string m_szTitle = "";
     public string m_szColorBg = "#fff";
     public string m_szColor = "#000";
@@ -33,10 +34,11 @@ public partial class _Default : UniPage
 		m_szTitle = Server.UrlDecode(Request["title"]);
 		m_szMsg = Server.UrlDecode(Request["msg"]);
 		m_szMsg2 = Server.UrlDecode(Request["msg2"]);
+        m_szResvMsg= Server.UrlDecode(Request["ResvMsg"]);
 
         m_szMsg = m_szMsg.Replace("\n", "<br/>");
         m_szMsg2 = m_szMsg2.Replace("\n", "<br/>");
-
+       // m_szResvMsg= m_szResvMsg.Replace("\n", "<br/>");
         m_dwMinUseMin = ToUint(Request["dwMinUseMin"]);
         m_dwMaxUseMin = ToUint(Request["dwMaxUseMin"]);
         m_szTrueName = Server.UrlDecode(Request["szTrueName"]);

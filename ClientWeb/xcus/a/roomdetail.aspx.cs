@@ -27,7 +27,7 @@ public partial class ClientWeb_xcus_all_roomdetail : UniClientPage
     }
 
     private void InitCld()
-    {
+   {
         Cld.SrcType = "rm";
         Cld.Disable = "true";
         if (Request["disable"] == "true")

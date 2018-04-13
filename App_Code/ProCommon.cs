@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 
+[Serializable]
 public class LoginUseInfo
 {
     public string szLogoName;

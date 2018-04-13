@@ -144,6 +144,7 @@
             var calendar;
             //载入状态控件
             function loadCld(filter) {
+                debugger
                 var kvp = uni.getObj(purl);
                 if (filter && typeof (filter) == "object") $.extend(true, kvp, filter);
                 //不需要传的值
@@ -163,6 +164,7 @@
                 }
                 
                 if (kvp.display == "fp") {//平面图
+                   
                     calendar = panel.uniFloorPlan({
                         width: width,
                         img: purl.img,
@@ -203,20 +205,20 @@
                         evFinish: function (fp) {
                             var search = $(fp).find(".fp-user-search");
                             $(fp).find(".fp-date").attr("readonly", "true").datepicker({ minDate: 0 });
-                            $(fp).find(".fp-time-start,.fp-time-end").attr("readonly", "true").timepicker({
-                                controlType: 'select',
-                                timeFormat: "HH:mm",
-                                onClose: function () { search.trigger("click"); },
-                                stepHour: 1,
-                                stepMinute: 10,
-                                hourMin: 6,
-                                hourMax: 23
-                            });
-                        }
+                                $(fp).find(".fp-time-start,.fp-time-end").attr("readonly", "true").timepicker({
+                                    controlType: 'select',
+                                    timeFormat: "HH:mm",
+                                    onClose: function () { search.trigger("click"); },
+                                    stepHour: 1,
+                                    stepMinute: 10,
+                                    hourMin: 6,
+                                    hourMax: 23
+                                });
+                            }
                     });
                 }
                 else {//状态列表
-                    calendar = panel.uniCalendar({
+                    calendar = panel.uniCalendar({               
                         mode: kvp.md,
                         modes: kvp.md,
                         style: kvp.style || "dft",

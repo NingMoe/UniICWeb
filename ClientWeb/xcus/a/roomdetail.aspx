@@ -38,6 +38,12 @@
                     <div class="title"><%=Translate("硬件配置") %></div>
                     <div class="caret"></div>
                 </li>
+                <%if (1 == 1) {%>
+                   <li>
+                    <div class="title"><%=Translate("座位查询") %></div>
+                    <div class="caret"></div>
+                </li>
+                   <% } %>
             </ul>
             <div class="tab_con">
                 <div class="cld-obj-detail">
@@ -60,10 +66,31 @@
                    <div>
                     <%=infoHard %>
                 </div>
+                   <div class="content">
+            <div style="width:99%;margin-top:15px">
+                <div>
+                   <table id="tbSearch" style="margin:0 auto;border:0px solid #d1c1c1;width:90%"> 
+                       <tbody style="padding:0px;">
+                       <tr>
+                        <td style="width:50px">座位名</td>
+                    <td>
+                             <input type="text" placeholder="请输入座位名" id="DevName"/>
+                        </td>
+                           <td>
+                            <input type="button" value="查询" runat="server" id="Selectbtn"/>
+                           </td>
+                           </tr>
+                           </tbody>        </table>
+                </div>
+            <div style="margin-top:10px;text-align:center; MARGIN-RIGHT: auto;height:350px; overflow-y:hidden;" id="divResvStatue">
+                  <iframe id="iframe" style="width:100%;border:0px;height:99%">
+                </iframe>
+                </div>
+                </div>
+        </div>
                 <script>
                     $(".rm_album").album();
                 </script>
-            </div>
         </div>
         <script>
                 $(".info_unitab").unitab();
@@ -277,6 +304,18 @@
             uni.dlg(dlg, "设备预约", 760, 402);
             //dlg.modal({show:true});
         }
+
+        $("#Selectbtn").click(function () {
+            if ($("#DevName").val().trim() != "") {
+                var path;
+                var i = location.href.toLowerCase().indexOf("/clientweb/");
+                if (i < 0) path = location.origin;
+                else path = location.href.substring(0, i);
+                var Devname = $("#DevName").val();
+                var url = path + "/ClientWeb/xcus/a/selectdev.aspx?Devname=" + Devname + "&classKind=8&kindId=" + "";
+                $("#iframe").attr("src",url);
+            }
+        })
     </script>
     </div>
 </body>
