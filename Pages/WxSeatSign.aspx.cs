@@ -471,11 +471,14 @@ public partial class _Default : UniPage
             return;
         }
         WebClient client = new WebClient();
-
-        StreamReader Reader = new StreamReader(client.OpenRead(validateUrl));
-        string resp = Reader.ReadToEnd();
-        client.Dispose();
-        Logger.trace("resp:" + resp);
+        try {
+            StreamReader Reader = new StreamReader(client.OpenRead(validateUrl));
+            string resp = Reader.ReadToEnd();
+            client.Dispose();
+            Logger.trace("resp:" + resp);
+        }
+        catch{
+        }
 
     }
     //返回00:00格式时间
