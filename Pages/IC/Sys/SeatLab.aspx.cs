@@ -18,21 +18,23 @@ public partial class Sub_Room : UniPage
     protected void Page_Load(object sender, EventArgs e)
     {
 
-        LABREQ vrParameter = new LABREQ();
+        FULLLABREQ vrParameter = new FULLLABREQ();
         vrParameter.dwLabClass = (uint)UNIDEVCLS.DWKIND.CLSKIND_SEAT;
-        UNILAB[] vrResult;      
+        FULLLAB[] vrResult;      
         if (Request["delID"] != null)
         {
             DelRoom(Request["delID"]);
         }
         GetPageCtrlValue(out vrParameter.szReqExtInfo);
-        if (m_Request.Device.LabGet(vrParameter, out vrResult) == REQUESTCODE.EXECUTE_SUCCESS)
+        if (m_Request.Device.FullLabGet(vrParameter, out vrResult) == REQUESTCODE.EXECUTE_SUCCESS)
         {
             for (int i = 0; i < vrResult.Length; i++)
             {
                 m_szOut += "<tr>";
                 m_szOut += "<td class=\"1\" data-id=" + vrResult[i].dwLabID.ToString()+">" + vrResult[i].szLabSN + "</td>";
                 m_szOut += "<td>" + vrResult[i].szLabName + "</td>";
+                m_szOut += "<td>" + vrResult[i].dwIdleDevNum + "</td>";
+                m_szOut += "<td>" + vrResult[i].dwUsableDevNum + "</td>";
                 m_szOut += "<td>" + vrResult[i].szMemo + "</td>";                                
                 m_szOut += "<td><div class='OPTD class2'></div></td>";
                 m_szOut += "</tr>";

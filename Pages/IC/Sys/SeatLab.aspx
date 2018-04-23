@@ -40,7 +40,8 @@
                     <tr>
                         <th name="szLabSN"><%=ConfigConst.GCLabName %>编号</th>           
                         <th name="szLabName"><%=ConfigConst.GCLabName %>名称</th>
-                    
+                    <th>空闲数</th>     
+                          <th>总数</th>     
                         <th name="szMemo">备注</th>                                                
                         <th width="25px"></th>
                     </tr>

@@ -18,14 +18,29 @@
     </div>
          
         </div> 
-            <div>
-            <div class="tb_infoInLine" style="margin:0 auto;text-align:center">
-                    <table style="margin:5px;width:70%">                       
+        
+           <div style="margin-top:10px;width:99%;">
+            <div style="text-align:center">
+            <table id="tbSearch" style="margin:0 auto;border:1px solid #d1c1c1;width:90%;" cellpadding="10"  cellspacing="10">                        
                        <tr>
+                           <td><%=ConfigConst.GCSysKindRoom %>:</td>
+                           <td>
+                               <select id="roomnos" name="roomnos">
+                                   <%=m_szRooms %>
+                               </select>
+                           </td>
                     <td style="text-align:right"><%=ConfigConst.GCSysKindSeat %>名称</td>
                     <td style="text-align:left"><input type="text" name="szDevName" id="szDevName" style="margin-left:5px" />
+                        </td>
+                           <td style="text-align:right">使用者学号</td>
+                    <td style="text-align:left"><input type="text" name="szlogonName" id="szlogonName" style="margin:5px" />
+                        </td>
+                           </tr>
+                           <tr>
+                               <td colspan="6" style="margin:10px">
                         <input type="submit" value="查询" id="btnOK" />
                            <input type="button" value="暂时离开" id="btnLeavl" />
+                          <input type="button" value="强制下线" id="btnstop" />
                     </td> </tr>
                     </table>
              
@@ -37,7 +52,8 @@
                     <tr>
                         <th>刷卡号</th>
                         <th>刷卡人姓名</th>                        
-                        <th>座位名称</th>                      
+                        <th>座位名称</th> 
+                        <th>所属<%=ConfigConst.GCRoomName %></th>                      
                         <th>所属<%=ConfigConst.GCLabName %></th>
                         <th>状态</th>
                         <th name="dwOccurTime">刷卡时间</th>
@@ -54,7 +70,7 @@
         <script type="text/javascript">
 
             $(function () {
-                $("#btnOK,#btnLeavl").button();
+                $("#btnOK,#btnLeavl,#btnstop    ").button();
                 var tabl = $(".UniTab").UniTab();              
                 AutoDevice($("#szDevName"), 1, $("#szGetKey"),8, null, null, null);
                 $(".OPTD").html('<div class="OPTDBtn">\
@@ -74,6 +90,7 @@
                         });
                         TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&op=stopLeavl&stopAllID=" + dwResvID);
                     }, '提示', 1, function () { });
+                    return false;
                 });
                 $(".OPTD1").click(function () {
                     var dwResvID = $(this).parents("tr").children().first().attr("data-id");
@@ -92,7 +109,24 @@
                     ConfirmBox("强制刷卡离座?", function () {
                         ShowWait();
                         TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&ID=" + dwLabID);
-                }, '提示', 1, function () { });
+                    }, '提示', 1, function () { });
+                    return false;
+                });
+                $("#btnstop").click(function () {
+                    var szLabSN = $(this).parents("tr").children().first().text();
+                    var dwLabID = $(this).parents("tr").children().first().attr("data-id");
+                    var dwResvID = "";
+                    $("input[name^='tblSelect']").each(function () {
+                        if ($(this).prop("checked") == true) {
+                            dwResvID = dwResvID + $(this).parent().attr("data-id") + ',';
+                        }
+                    });
+
+                    ConfirmBox("强制刷卡离座?", function () {
+                        ShowWait();
+                        TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&ID=" + dwResvID);
+                    }, '提示', 1, function () { });
+                    return false;
                 });
                 $("input[name='dwCheckStat']").click(function () {
                    // pForm.data("UniTab_tab1", "reserve.aspx?dwCheckStat=" + $("input[name='dwCheckStat']").val());
@@ -132,8 +166,14 @@
                 }
             td input
             {
-                margin-left:20px;
+                margin-left:10px;
             }
+           #tbSearch td{
+                  margin:10px;
+              }
+             #tbSearch tr{
+                  margin:10px;
+              }
 
         </style>
     </form>

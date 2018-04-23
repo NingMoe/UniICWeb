@@ -101,6 +101,7 @@
                 });
             });
             $("#btndoDisList").click(function () {
+                debugger;
                 var vDISID = "";
                 $("input[name^='tblSelect']").each(function () {
                     if ($(this).prop("checked") == true) {
@@ -116,7 +117,7 @@
                     ShowWait();
                     TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&delID=" + vDISID);
                 }, 'ÌבÊ¾', 1, function () { });
-
+                return false;
             });
             
                 $(".ListTbl").UniTable({ ShowCheck: true, HeaderIndex: false });

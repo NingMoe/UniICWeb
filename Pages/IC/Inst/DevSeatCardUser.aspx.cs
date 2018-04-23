@@ -13,14 +13,41 @@ using UniWebLib;
 public partial class Sub_Lab : UniPage
 {
     protected string m_szOpts = "";
+    protected string m_szRooms = "";
     protected MyString m_szOut = new MyString();
     
     protected void Page_Load(object sender, EventArgs e)
     {
+        UNIROOM[] roomList = GetRoomByClassKind((uint)UNIDEVCLS.DWKIND.CLSKIND_SEAT);
+        if (roomList != null && roomList.Length > 0)
+        {
+            m_szRooms += GetInputItemHtml(CONSTHTML.option, "", "全部","0");
+            for (int i = 0; i < roomList.Length; i++)
+            {
+                m_szRooms += GetInputItemHtml(CONSTHTML.option, "", roomList[i].szRoomName, roomList[i].szRoomNo.ToString());
+            }
+        }
+
         RESVREQ vrParameter = new RESVREQ();
         string szCheckStat = Request["dwCheckStat"];
         string szKey = Request["szGetKey"];        
         vrParameter.dwClassKind = (uint)UNIDEVCLS.DWKIND.CLSKIND_SEAT;
+        string szroomnos = Request["roomnos"];
+        if (szroomnos != null && szroomnos != ""&& szroomnos!="0")
+        {
+            vrParameter.szRoomNos = szroomnos;
+        }
+        string szlogonName = Request["szlogonName"];
+        if (szlogonName != null && szlogonName != "")
+        {
+            UNIACCOUNT acc = new UNIACCOUNT();
+            if (GetAccByLogonName(szlogonName, out acc))
+            {
+                vrParameter.dwAccNo = acc.dwAccNo;
+            }
+
+        }
+
         UNIRESERVE[] vrResult;
         string szID = Request["ID"];
         if (szID != null && szID != "")
@@ -56,10 +83,11 @@ public partial class Sub_Lab : UniPage
                 UNIACCOUNT account;
                 if (vrResult[i].dwOwner != null&&GetAccByAccno(vrResult[i].dwOwner.ToString(),out account))
                 {
-                    szTrueName = (account.szTrueName);
+                    szTrueName = (account.szTrueName)+ account.szLogonName;
                 }
-                m_szOut += "<td class='lnkAccount' data-id='" + vrResult[i].dwOwner.ToString() + "' title='查看个人信息'><a href=\"#\">" + szTrueName + "</a></td>";                
-                m_szOut += "<td>" + vrResult[i].ResvDev[0].szDevName+ "</td>";                
+                m_szOut += "<td class='lnkAccount' data-id='" + vrResult[i].dwOwner.ToString() + "' title='查看个人信息'><a href=\"#\">" + szTrueName+ "</a></td>";                
+                m_szOut += "<td>" + vrResult[i].ResvDev[0].szDevName+ "</td>";
+                m_szOut += "<td>" + vrResult[i].ResvDev[0].szRoomName + "</td>";
                 m_szOut += "<td>" + vrResult[i].szLabName.ToString() + "</td>";
                 m_szOut += "<td>" + GetJustName((vrResult[i].dwStatus), "Reserve_Status") + "</td>";
                 m_szOut += "<td>" + Get1970Date((uint)vrResult[i].dwOccurTime, "MM-dd HH:mm") + "</td>";
@@ -74,13 +102,18 @@ public partial class Sub_Lab : UniPage
     }
     protected void Del(string szID)
     {
-        UNIRESERVE setResv = new UNIRESERVE();
-        if (GetResvByID(szID, out setResv))
+        string[] szResvList = szID.Split(',');
+        for (int i = 0; i < szResvList.Length; i++)
         {
-            DateTime dt=DateTime.Now.AddSeconds(30);
-            setResv.dwEndTime=Get1970Seconds(dt.ToString("yyyy-MM-dd HH:mm"));
-            //m_Request.Reserve.Set(setResv, out setResv);
-            m_Request.Reserve.ResvEarlyEnd(setResv);
+            string szIDTemp = szResvList[i];
+            UNIRESERVE setResv = new UNIRESERVE();
+            if (GetResvByID(szIDTemp, out setResv))
+            {
+                DateTime dt = DateTime.Now.AddSeconds(30);
+                setResv.dwEndTime = Get1970Seconds(dt.ToString("yyyy-MM-dd HH:mm"));
+                //m_Request.Reserve.Set(setResv, out setResv);
+                m_Request.Reserve.ResvEarlyEnd(setResv);
+            }
         }
     }
     protected void Stop(string szResvID)

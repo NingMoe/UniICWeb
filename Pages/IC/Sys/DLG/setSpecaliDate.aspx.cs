@@ -73,6 +73,7 @@ public partial class _Default : UniPage
             }
             DEVOPENRULEREQ vrGet = new DEVOPENRULEREQ();
             vrGet.dwRuleSN = Parse(Request["dwID"]);
+            ArrayList delList = new ArrayList();
             DEVOPENRULE[] vtRes;
             if (m_Request.Device.DevOpenRuleGet(vrGet, out vtRes) == REQUESTCODE.EXECUTE_SUCCESS && vtRes != null && vtRes.Length > 0)
             {
@@ -92,9 +93,11 @@ public partial class _Default : UniPage
                           {
                               PERIODOPENRULE peroidTemp = new PERIODOPENRULE();
                               peroidTemp = periodlist[j];
-                              alist.Add(isExist(peroidTemp, alist));
-                          }
+                                //alist.Add(isExist(peroidTemp, alist));
+                                delList.Add(peroidTemp);
+                            }
                       }
+                      
                       openrule[i].PeriodOpenRule=new PERIODOPENRULE[alist.Count];
                       for (int k = 0; k < alist.Count; k++)
                       {
@@ -107,11 +110,24 @@ public partial class _Default : UniPage
                           openrule[i].szGroup.dwGroupID = 0;
                       }
                       vtRes[0].GroupOpenRule=openrule;
+                    
                    }
                   
                }
-                DEVOPENRULE setValue=new DEVOPENRULE();
-                setValue=vtRes[0];
+               
+                for (int k = 0; k < delList.Count; k++)
+                {
+                    PERIODOPENRULE temp = (PERIODOPENRULE)delList[k];
+                    CHANGEPERIODOPENRULE change = new CHANGEPERIODOPENRULE();
+                    change.dwRuleSN = vtRes[0].dwRuleSN;
+                    change.dwGroupID = 0;
+                    change.dwOldStartDay = temp.dwStartDay;
+                    change.DayOpenRule = temp.DayOpenRule;
+                    m_Request.Device.PeriodOpenRuleDel(change);
+                }
+
+                DEVOPENRULE setValue = new DEVOPENRULE();
+                setValue = vtRes[0];
                 if (m_Request.Device.DevOpenRuleSet(setValue, out setValue) == REQUESTCODE.EXECUTE_SUCCESS)
                 {
                     MessageBox("修改成功", "提示", MSGBOX.SUCCESS, MSGBOX_ACTION.OK);
@@ -131,7 +147,7 @@ public partial class _Default : UniPage
         if (Request["op"] == "set")
         {
             bSet = true;
-
+            //Session["listSession"] = null;
             DEVOPENRULEREQ vrGet = new DEVOPENRULEREQ();
             vrGet.dwRuleSN = Parse(Request["dwID"]);
             DEVOPENRULE[] vtRes;
@@ -154,11 +170,12 @@ public partial class _Default : UniPage
                         if (periooplist != null && periooplist.Length > 0)
                         {
                             int count = 1;
+                            ArrayList listSession = new ArrayList();
                             for (int i = 0; i < periooplist.Length; i++)
                             {
-                                if (periooplist[i].dwStartDay > 20100101)
+                                
+                                if (periooplist[i].dwStartDay > 20100101&& periooplist[i].dwStartDay!=20990101)
                                 {
-                                      
                                     uint uDayOpenTimeLen = 0;
                                     if (periooplist[i].DayOpenRule != null)
                                     {
@@ -179,12 +196,12 @@ public partial class _Default : UniPage
                                         PutMemberValue("endh" + count.ToString() + m.ToString(), (uEndTime / 100).ToString("00"));
                                         PutMemberValue("endm" + count.ToString() + m.ToString(), (uEndTime % 100).ToString("00"));
                                         count = count + 1;
+                                        
                                     }
-                                   
-
+                                    listSession.Add(periooplist[i]);
                                 }
-                               
                             }
+                           // Session["listSession"] = listSession;
                         }
                     }
                 }
