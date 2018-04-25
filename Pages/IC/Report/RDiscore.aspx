@@ -51,8 +51,8 @@
                 <thead>
                     <tr>
                          <th>违约类型</th>    
-                        <th>预约条数</th>    
-                        <th>违约条数</th>    
+                        <th name="dwResvTimes">预约条数</th>    
+                        <th name="dwDefaultTimes">违约条数</th>    
                         <th title="违约条数除以预约条数">违约率</th>    
                 </thead>
                 <tbody id="ListTbl">
@@ -63,7 +63,7 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                //$(".ListTbl").UniTable();
+                $(".ListTbl").UniTable();
                 $("#<%=dwStartDate.ClientID%>,#<%=dwEndDate.ClientID%>").datepicker({
             });
         });

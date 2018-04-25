@@ -4,65 +4,72 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="Content" runat="Server">
     <form id="formAdvOpts" runat="server">
-        <h2 style="margin-top: 10px; margin-bottom: 20px; font-weight: bold">个人使用率排行榜</h2>        
+        <h2 style="margin-top: 10px; margin-bottom: 20px; font-weight: bold">个人使用率排行榜</h2>
         <input type="hidden" value="none" name="type" id="type" />
         <div class="toolbar" style="background: #e5f1f4">
             <div class="tb_info">
                 <div style="margin-left: 100px; margin-bottom: 30px">
-                   <table style="width: 750px">
-                         <%if(ConfigConst.GCICTypeMode==1) { %>
-                         <tr>
+                    <table style="width: 750px">
+                        <%if (ConfigConst.GCICTypeMode == 1)
+                            { %>
+                        <tr>
                             <th class="thHead"></th>
-                           <td class="tdHead" colspan="3" style="text-align:center;height:35px">
-                            <select id="dwYearTerm" name="dwYearTerm">
-                                <%=m_TermList %>
-                            </select>    
+                            <td class="tdHead" colspan="3" style="text-align: center; height: 35px">
+                                <select id="dwYearTerm" name="dwYearTerm">
+                                    <%=m_TermList %>
+                                </select>
                             </td>
-                            
-                           
+
+
                         </tr>
 
-                     
-                        <%} else {%>
-                           <tr>
+
+                        <%}
+                        else
+                        {%>
+                        <tr>
                             <th class="thHead">开始日期:</th>
                             <td class="tdHead">
                                 <input type="text" name="dwStartDate" id="dwStartDate" runat="server" /></td>
                             <th class="thHead">结束日期:</th>
                             <td class="tdHead">
                                 <input type="text" name="dwEndDate" id="dwEndDate" runat="server" /></td>
-                            
+
                         </tr>
                         <%} %>
-                       <tr>
-                           <th class="thHead">子系统:</th>
-                          <td  class="tdHead">
-                              <select id="dwClassKind" name="dwClassKind">
-                                    <option value="0">全部</option>
-                                 <%if ((ConfigConst.GCSysKind & 1) > 0)
-                                    { %>
-                                <option value="1">研修间</option>
-                                <%} if((ConfigConst.GCSysKind & 8) > 0) {%>
-                                <option value="8">座位</option>
-                                 <%} if((ConfigConst.GCSysKind & 2) > 0) {%>
-                                <option value="2">电子阅览室</option>
-                                <%} %>
-                              </select>
-                          </td>
-                            <th class="thHead">排序方式:</th>
-                               <td  class="tdHead">
-                                   <select id="orderkey" name="orderkey">
-                                       <option value="dwUseTime">使用总时间</option>
-                                        <option value="dwUseTimes">使用次数</option>
-                                       </select>
-                               </td>
-                           
-                       </tr>
                         <tr>
-                             <td class="tdHead" colspan="6" style="text-align:center">
+                            <th class="thHead">子系统:</th>
+                            <td class="tdHead">
+                                <select id="dwClassKind" name="dwClassKind">
+                                    <option value="0">全部</option>
+                                    <%if ((ConfigConst.GCSysKind & 1) > 0)
+                                        { %>
+                                    <option value="1">研修间</option>
+                                    <%}
+                                    if ((ConfigConst.GCSysKind & 8) > 0)
+                                    {%>
+                                    <option value="8">座位</option>
+                                    <%}
+                                    if ((ConfigConst.GCSysKind & 2) > 0)
+                                    {%>
+                                    <option value="2">电子阅览室</option>
+                                    <%} %>
+                                </select>
+                            </td>
+                            <th class="thHead">排序方式:</th>
+                            <td class="tdHead">
+                                <select id="orderkey" name="orderkey">
+                                    <option value="dwUseTime">使用总时间</option>
+                                    <option value="dwUseTimes">使用次数</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td class="tdHead" colspan="6" style="text-align: center">
                                 <input type="submit" id="btnOK" value="查询" />
                                 <input type="button" id="btnExport" value="导出" />
-                                
+
                             </td>
                         </tr>
                     </table>
@@ -71,17 +78,16 @@
 
         </div>
         <div class="content">
-            <div style="float:left">
-                
-                </div>
+            <div style="float: left">
+            </div>
             <table class="ListTbl">
                 <thead>
-                    
+
                     <tr>
                         <th width="100px">学工号</th>
                         <th>姓名</th>
                         <th>班级</th>
-                         <th>学院</th>
+                        <th>学院</th>
                         <th name="dwUseTimes">使用次数</th>
                         <th name="dwUseTime">使用总时间</th>
                     </tr>
@@ -95,7 +101,7 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                //$(".ListTbl").UniTable();
+                $(".ListTbl").UniTable();
                 $("#<%=dwStartDate.ClientID%>,#<%=dwEndDate.ClientID%>").datepicker({
                 });
                 $("#btnOK,#btnExport").button();

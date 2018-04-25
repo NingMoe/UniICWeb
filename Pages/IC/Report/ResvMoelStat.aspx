@@ -69,7 +69,7 @@
         </div>
         <script type="text/javascript">
             $(function () {
-                //$(".ListTbl").UniTable();
+                $(".ListTbl").UniTable();
                 $("#<%=dwStartDate.ClientID%>,#<%=dwEndDate.ClientID%>").datepicker({
                 });
                 $("#btnOK,#btnExport").button();

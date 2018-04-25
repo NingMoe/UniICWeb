@@ -62,8 +62,8 @@
                     
                     <tr>
                         <th>预约类型</th>
-                        <th>预约次数</th>
-                         <th>预约总时间</th>
+                        <th name="dwResvTimes">预约次数</th>
+                         <th name="dwResvMinutes">预约总时间</th>
                     </tr>
                 </thead>
                 <tbody id="ListTbl">
@@ -76,6 +76,7 @@
         <script type="text/javascript">
             $(function () {
                 $(".UniTab").UniTab();
+                $(".ListTbl").UniTable();
                 $("#<%=dwStartDate.ClientID%>,#<%=dwEndDate.ClientID%>").datepicker({
                 });
                 $("#btnOK,#btnExport").button();

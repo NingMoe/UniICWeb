@@ -20,6 +20,7 @@ public partial class Sub_Lab : UniPage
         CREDITRECREQ vrParameter = new CREDITRECREQ();        
         string szKey = Request["szGetKey"];
         string szID = Request["delID"];
+        string szOp = Request["op"];
         if (szKey != null && szKey != "")
         {
            //vrParameter.dwGetType = (uint)DISCIRECREQ.DWGETTYPE.DISCIRECGET_BYACCNO;
@@ -32,6 +33,10 @@ public partial class Sub_Lab : UniPage
         else
         {
            // vrParameter.dwGetType = (uint)PUNISHRECREQ.DWGETTYPE.PUNISHRECGET_BYALL;
+        }
+        if (szOp == "all")
+        {
+            DelAll();
         }
         if (!IsPostBack)
         {
@@ -105,6 +110,30 @@ public partial class Sub_Lab : UniPage
                 setvale.szReason = "取消违约";
                 uResponse = m_Request.System.AdminCreditDo(setvale);
             }
+        }
+    }
+    protected void DelAll()
+    {
+        CREDITRECREQ vrParameter = new CREDITRECREQ();
+        vrParameter.dwStartDate = DateToUint(dwStartDate.Value);
+        vrParameter.dwEndDate = DateToUint(dwEndDate.Value);
+        CREDITREC[] vrResult;
+        vrParameter.szReqExtInfo.dwNeedLines = 10000;
+        vrParameter.szReqExtInfo.dwStartLine = 0;
+        if (m_Request.System.CreditRecGet(vrParameter, out vrResult) == REQUESTCODE.EXECUTE_SUCCESS)
+        {
+            for (int i = 0; i < vrResult.Length; i++)
+            {
+                ADMINCREDIT setvale = new ADMINCREDIT();
+                setvale.dwAccNo = vrResult[i].dwAccNo;
+                setvale.szTrueName = vrResult[i].szTrueName;
+                setvale.dwCTSN = vrResult[i].dwCTSN;
+                setvale.dwCreditSN = (uint)CREDITKIND.DWCREDITSN.CREDIT_CORRECTERR;
+                setvale.dwSubjectID = vrResult[i].dwSID;
+                setvale.szReason = "取消违约";
+                 m_Request.System.AdminCreditDo(setvale);
+            }
+
         }
     }
 }

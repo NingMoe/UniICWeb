@@ -32,8 +32,8 @@
                         </tr>                        
                         <tr>
                             <th colspan="4"><input type="submit" id="btnOK" value="查询" style="height:25px" />
-
                                 <input type="submit" id="btndoDisList" value="批量取消违约" style="height:25px" />
+                                <input type="submit" id="btndoDisListAll" value="清理符合条件所有违约" style="height:25px" />
                             </th>
                         </tr>
                     </table>
@@ -64,7 +64,7 @@
         <script type="text/javascript">
 
             $(function () {
-                $("#btnOK,#btndoDisList").button();
+                $("#btnOK,#btndoDisList,#btndoDisListAll").button();
                 $("#<%=dwStartDate.ClientID%>,#<%=dwEndDate.ClientID%>").datepicker({
                 });
                 var tabl = $(".UniTab").UniTab();
@@ -101,7 +101,7 @@
                 });
             });
             $("#btndoDisList").click(function () {
-                debugger;
+                
                 var vDISID = "";
                 $("input[name^='tblSelect']").each(function () {
                     if ($(this).prop("checked") == true) {
@@ -116,6 +116,15 @@
                 ConfirmBox("确定取消违约?", function () {
                     ShowWait();
                     TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&delID=" + vDISID);
+                }, '提示', 1, function () { });
+                return false;
+            });
+                
+                $("#btndoDisListAll").click(function () {
+               
+                ConfirmBox("确定取消【所有】违约?", function () {
+                    ShowWait();
+                    TabReload($("#<%=formAdvOpts.ClientID%>").serialize() + "&op=all");
                 }, '提示', 1, function () { });
                 return false;
             });

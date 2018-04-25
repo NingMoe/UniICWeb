@@ -16,9 +16,11 @@ public partial class Sub_Course : UniPage
     protected MyString m_szOut = new MyString();
     protected string m_TermList = "";
     protected string szDept = "";
+    protected string szDevList = "";
     protected void Page_Load(object sender, EventArgs e)
     {
         {
+            string szDevID = Request["devID"];
             IDENTSTATREQ vrParameter = new IDENTSTATREQ();
             IDENTSTAT[] vrResult;
             GetPageCtrlValue(out vrParameter.szReqExtInfo);
@@ -52,6 +54,17 @@ public partial class Sub_Course : UniPage
                         uYeartermNow = (uint)termList[i].dwYearTerm;
                     }
                 }
+            }
+            UNIDEVKIND[] devList = GetDevKindByKind((uint)UNIDEVCLS.DWKIND.CLSKIND_COMMONS);
+            szDevList += GetInputItemHtml(CONSTHTML.option, "", "全部", "0");
+            for (int i = 0; i < devList.Length; i++)
+            {
+                szDevList += GetInputItemHtml(CONSTHTML.option, "", devList[i].szKindName, devList[i].dwKindID.ToString());
+            }
+            if (szDevID != null && szDevID != "0")
+            {
+                //vrParameter.dwGetType = (uint)REPORTREQ.DWGETTYPE.USERECGET_BYDEVID;
+                vrParameter.dwDevKind = Parse(szDevID);
             }
             vrParameter.dwStartDate = DateToUint(dwStartDate.Value);
             vrParameter.dwEndDate = DateToUint(dwEndDate.Value);
