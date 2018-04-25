@@ -75,10 +75,20 @@ public partial class LoginAll : UniPage
             huiwen();
             return;
         }
-          
 
-        //北科大对接方式
-        string szSN = Request["sn"];
+
+        string verify = Request["verify"];
+        string Name = Request["Name"];
+        string Datetime = Request["Datetime"];
+        string jsName = Request["jsName"];
+        if (!string.IsNullOrEmpty(verify) && !string.IsNullOrEmpty(Name) && !string.IsNullOrEmpty(Datetime) && !string.IsNullOrEmpty(jsName))
+        {
+            //西北师范正元智慧对接
+            getZhenyun(verify, Name, Datetime,jsName);
+        }
+
+            //北科大对接方式
+            string szSN = Request["sn"];
         if (szSN != null)
         {
             Logger.trace("szsn=" + szSN);
@@ -126,6 +136,40 @@ public partial class LoginAll : UniPage
                 GetTocekID(out szIDINFO);
                 GetUserInfo();
             }
+        }
+    }
+    public bool getZhenyun(string verify, string name,string datetime,string jsName)
+    {
+        //string szKey = "G(Z@L*!IA";
+
+        //华东科大的Key
+        string szKey = "nwnu_zwyy";
+
+        string szDate = DateTime.Now.ToString("yyyyMMdd");
+
+        string ma5 = name + datetime+ jsName+ szKey;
+      
+
+        string EnPswdStr = System.Web.Security.FormsAuthentication.HashPasswordForStoringInConfigFile(ma5, "md5");
+        if (verify.ToLower() == EnPswdStr.ToLower())
+        {
+            LoginUseInfo info = new LoginUseInfo();
+            info.szPassword = szPasswd;
+            info.szLogoName = name;
+            Session["LoginUseInfo"] = info;
+
+            Logger.trace(name + "微信跳转登录成功");
+            Logger.trace("登录账户：" + name);
+            // Response.Write(uid+"__"+szPasswd);
+            // return true;
+            Response.Redirect("clientweb/m/ic2/default.aspx?version=" + szVersion);
+
+            return true;
+        }
+        else
+        {
+            Logger.trace(name + "微信跳转登录失败；本地加密:" + EnPswdStr + ";传入加密值:" + verify);
+            return false;
         }
     }
     public void weixin()
