@@ -543,6 +543,15 @@ public partial class UniPage : UniWebLib.UniPage
         vrParameter.szKindIDs = uKindID.ToString();
         m_Request.Device.Get(vrParameter, out vrResult);
         return vrResult;
+
+    }
+    public UNIDEVICE[] GetDevByCLSKind(uint? uClsKind)
+    {
+        DEVREQ vrParameter = new DEVREQ();
+        UNIDEVICE[] vrResult;
+        vrParameter.dwClassKind = uClsKind;
+        m_Request.Device.Get(vrParameter, out vrResult);
+        return vrResult;
     }
     public bool GetAllDev(out UNIDEVICE[] vtRes)
     {
